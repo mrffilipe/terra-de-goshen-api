@@ -1,0 +1,6 @@
+@TerraDeGoshenAPI_HostAddress = http://localhost:5053
+
+GET {{TerraDeGoshenAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
