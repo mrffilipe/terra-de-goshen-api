@@ -4,7 +4,8 @@ public class Product : IEntity
 {
     public string Name { get; private set; }
     public string Description { get; private set; }
-    public decimal Price { get; private set; }
+    public double Price { get; private set; }
+    public IList<ImageRef> Images { get; private set; }
     public IList<ColorRef> Colors { get; private set; }
     public IList<SizeRef> Sizes { get; private set; }
     public CategoryRef Category { get; private set; }
@@ -13,7 +14,8 @@ public class Product : IEntity
     public Product(
         string name,
         string description,
-        decimal price,
+        double price,
+        IList<ImageRef> images,
         IList<ColorRef> colors,
         IList<SizeRef> sizes,
         CategoryRef category,
@@ -23,10 +25,30 @@ public class Product : IEntity
         UpdateName(name);
         UpdateDescription(description);
         UpdatePrice(price);
+        UpdateImages(images);
         Colors = colors;
         Sizes = sizes;
         Category = category;
         UpdateQuantity(quantityInStock);
+    }
+
+    public Product(
+        Guid id,
+        string name,
+        string description,
+        double price,
+        IList<ImageRef> images,
+        IList<ColorRef> colors,
+        IList<SizeRef> sizes,
+        CategoryRef category,
+        int quantityInStock,
+        DateTime createdAt,
+        DateTime updatedAt
+        ) : this(name, description, price, images, colors, sizes, category, quantityInStock)
+    {
+        Id = id;
+        CreatedAt = createdAt;
+        UpdatedAt = updatedAt;
     }
 
     public void UpdateName(string name)
@@ -53,11 +75,23 @@ public class Product : IEntity
         }
     }
 
-    public void UpdatePrice(decimal value)
+    public void UpdatePrice(double value)
     {
         if (value > 0)
         {
             Price = value;
+        }
+        else
+        {
+            // erro
+        }
+    }
+
+    public void UpdateImages(IList<ImageRef> images)
+    {
+        if (images != null) // lógica
+        {
+            Images = images;
         }
         else
         {

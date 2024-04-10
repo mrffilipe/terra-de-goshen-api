@@ -11,4 +11,9 @@
     <ProjectReference Include="..\TerraDeGoshenAPI.Infrastructure\TerraDeGoshenAPI.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+    <Folder Include="Adapters\" />
+  </ItemGroup>
+
 </Project>

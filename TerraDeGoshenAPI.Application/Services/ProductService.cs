@@ -4,19 +4,57 @@ namespace TerraDeGoshenAPI.Application;
 
 public class ProductService : IProductService
 {
+    private readonly IProductRepository _productRepository;
+
+    public ProductService(IProductRepository productRepository)
+    {
+        _productRepository = productRepository;
+    }
+
     public async Task<Product> AddProduct(Product product)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await _productRepository.AddProduct(product);
+        }
+        catch (Exception ex)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public async Task<Product> GetProductById(Guid id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var product = await _productRepository.GetProductById(id);
+
+            if (product != null)
+            {
+                return product;
+            }
+            else
+            {
+                // ...
+                throw new NotImplementedException();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public async Task<IList<Product>> GetAllProducts()
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await _productRepository.GetAllProducts();
+        }
+        catch (Exception ex)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public async Task<Product> UpdateProductName(Guid id, string name)
