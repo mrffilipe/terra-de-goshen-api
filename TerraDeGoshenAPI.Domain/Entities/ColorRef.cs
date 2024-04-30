@@ -7,6 +7,7 @@ public class ColorRef : IEntity
 
     public ColorRef(ColorVO color)
     {
+        Id = Guid.NewGuid();
         Color = color;
     }
 

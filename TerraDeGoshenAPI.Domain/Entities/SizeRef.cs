@@ -6,6 +6,7 @@ public class SizeRef : IEntity
 
     public SizeRef(SizeVO size)
     {
+        Id = Guid.NewGuid();
         Size = size;
     }
 }

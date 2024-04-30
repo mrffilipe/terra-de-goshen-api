@@ -15,9 +15,9 @@ public class ProductController : BaseController
         _products = new List<Product>()
         {
             new Product(
-                new Guid(),
+                Guid.NewGuid(),
                 "Camiseta feminina Zatom bicicleta Preta",
-                "",
+                "Essa é a descrição do produto que foi recuperado do back-end",
                 29.9,
                 new List<ImageRef>()
                 {
@@ -25,11 +25,22 @@ public class ProductController : BaseController
                 },
                 new List<ColorRef>()
                 {
-                    new ColorRef(new ColorVO("#fff"))
+                    new ColorRef(new ColorVO("#000")),
+                    new ColorRef(new ColorVO("#FFA500")),
+                    new ColorRef(new ColorVO("#FFFF00")),
+                    new ColorRef(new ColorVO("#FF0000")),
+                    new ColorRef(new ColorVO("#008000")),
+                    new ColorRef(new ColorVO("#A020F0")),
+                    new ColorRef(new ColorVO("#0000FF"))
                 },
                 new List<SizeRef>()
                 {
-                    new SizeRef(new SizeVO("p"))
+                    new SizeRef(new SizeVO("p")),
+                    new SizeRef(new SizeVO("m")),
+                    new SizeRef(new SizeVO("g")),
+                    new SizeRef(new SizeVO("gg")),
+                    new SizeRef(new SizeVO("xg")),
+                    new SizeRef(new SizeVO("xxg"))
                 },
                 new CategoryRef(new CategoryVO("Camisetas")),
                 10,
@@ -37,9 +48,9 @@ public class ProductController : BaseController
                 DateTime.UtcNow
                 ),
             new Product(
-                new Guid(),
+                Guid.NewGuid(),
                 "Camiseta fem havaianas leblon",
-                "",
+                "Essa é a descrição do produto que foi recuperado do back-end",
                 129.9,
                 new List<ImageRef>()
                 {
@@ -59,9 +70,9 @@ public class ProductController : BaseController
                 DateTime.UtcNow
                 ),
             new Product(
-                new Guid(),
+                Guid.NewGuid(),
                 "CAMISETA FEMININA BRANCA BEST WINES",
-                "",
+                "Essa é a descrição do produto que foi recuperado do back-end",
                 189.9,
                 new List<ImageRef>()
                 {
@@ -81,9 +92,9 @@ public class ProductController : BaseController
                 DateTime.UtcNow
                 ),
             new Product(
-                new Guid(),
+                Guid.NewGuid(),
                 "T-shirt Blusa Camiseta Feminina do Brasil Escudo Coração",
-                "",
+                "Essa é a descrição do produto que foi recuperado do back-end",
                 26.29,
                 new List<ImageRef>()
                 {
@@ -103,9 +114,9 @@ public class ProductController : BaseController
                 DateTime.UtcNow
                 ),
             new Product(
-                new Guid(),
+                Guid.NewGuid(),
                 "Camiseta taca coração preto",
-                "",
+                "Essa é a descrição do produto que foi recuperado do back-end",
                 129.9,
                 new List<ImageRef>()
                 {
@@ -125,9 +136,9 @@ public class ProductController : BaseController
                 DateTime.UtcNow
                 ),
             new Product(
-                new Guid(),
+                Guid.NewGuid(),
                 "Camiseta fem havaianas aloha vibes",
-                "",
+                "Essa é a descrição do produto que foi recuperado do back-end",
                 129.9,
                 new List<ImageRef>()
                 {
@@ -147,9 +158,9 @@ public class ProductController : BaseController
                 DateTime.UtcNow
                 ),
             new Product(
-                new Guid(),
+                Guid.NewGuid(),
                 "CAMISETA FEMININA VERDE SILK ROSA",
-                "",
+                "Essa é a descrição do produto que foi recuperado do back-end",
                 99.8,
                 new List<ImageRef>()
                 {
@@ -169,9 +180,9 @@ public class ProductController : BaseController
                 DateTime.UtcNow
                 ),
             new Product(
-                new Guid(),
+                Guid.NewGuid(),
                 "Camiseta com letra de música",
-                "",
+                "Essa é a descrição do produto que foi recuperado do back-end",
                 129.9,
                 new List<ImageRef>()
                 {
