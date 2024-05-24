@@ -18,47 +18,69 @@ namespace TerraDeGoshenAPI.Application
         {
             try
             {
+                var mappedProduct = _mapper.Map<Product>(product);
 
+                mappedProduct = await _productService.AddProduct(mappedProduct);
+
+                return _mapper.Map<ProductResponseDTO>(mappedProduct);
             }
             catch (Exception ex)
             {
                 // erro
+                throw new Exception();
             }
         }
 
-        public Task<ProductResponseDTO> GetProductById(Guid id)
+        public async Task<ProductResponseDTO> GetProductById(Guid id)
         {
             try
             {
+                var product = await _productService.GetProductById(id);
 
+                if (product == null)
+                {
+                    throw new Exception();
+                }
+
+                return _mapper.Map<ProductResponseDTO>(product);
             }
             catch (Exception ex)
             {
                 // erro
+                throw new Exception();
             }
         }
 
-        public Task<IList<MinimumProductResponseDTO>> GetAllProducts()
+        public async Task<IList<MinimumProductResponseDTO>> GetAllProducts()
         {
             try
             {
+                var products = await _productService.GetAllProducts();
 
+                if (products == null)
+                {
+                    throw new Exception();
+                }
+
+                return _mapper.Map<IList<MinimumProductResponseDTO>>(products);
             }
             catch (Exception ex)
             {
                 // erro
+                throw new Exception();
             }
         }
 
-        public Task<ProductResponseDTO> UpdateProduct(ProductUpdateDTO product)
+        public async Task<ProductResponseDTO> UpdateProduct(ProductUpdateDTO product)
         {
             try
             {
-
+                throw new NotImplementedException();
             }
             catch (Exception ex)
             {
                 // erro
+                throw new Exception();
             }
         }
     }
