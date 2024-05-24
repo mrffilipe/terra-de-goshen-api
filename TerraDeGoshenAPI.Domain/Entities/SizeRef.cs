@@ -2,11 +2,11 @@
 
 public class SizeRef : IEntity
 {
-    public SizeVO Size { get; private set; }
+    public SizeVO Details { get; private set; }
 
-    public SizeRef(SizeVO size)
+    public SizeRef(SizeVO details)
     {
         Id = Guid.NewGuid();
-        Size = size;
+        Details = details;
     }
 }

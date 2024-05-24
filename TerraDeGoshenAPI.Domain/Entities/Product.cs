@@ -5,9 +5,9 @@ public class Product : IEntity
     public string Name { get; private set; }
     public string Description { get; private set; }
     public double Price { get; private set; }
-    public IList<ImageRef> Images { get; private set; }
-    public IList<ColorRef> Colors { get; private set; }
-    public IList<SizeRef> Sizes { get; private set; }
+    public IList<ImageRef>? Images { get; private set; }
+    public IList<ColorRef>? Colors { get; private set; }
+    public IList<SizeRef>? Sizes { get; private set; }
     public CategoryRef Category { get; private set; }
     public int QuantityInStock { get; private set; }
 

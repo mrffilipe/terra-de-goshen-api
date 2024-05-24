@@ -2,13 +2,13 @@
 
 public class ColorRef : IEntity
 {
-    public ColorVO Color { get; private set; }
+    public ColorVO Details { get; private set; }
     public Guid? ImageId { get; private set; } = null;
 
-    public ColorRef(ColorVO color)
+    public ColorRef(ColorVO details)
     {
         Id = Guid.NewGuid();
-        Color = color;
+        Details = details;
     }
 
     public ColorRef(ColorVO color, Guid? imageId) : this(color)

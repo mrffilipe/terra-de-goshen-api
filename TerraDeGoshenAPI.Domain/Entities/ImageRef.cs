@@ -2,10 +2,10 @@
 
 public class ImageRef : IEntity
 {
-    public ImageVO Image { get; private set; }
+    public ImageVO Details { get; private set; }
 
-    public ImageRef(ImageVO image)
+    public ImageRef(ImageVO details)
     {
-        Image = image;
+        Details = details;
     }
 }

@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TerraDeGoshenAPI", "TerraDeGoshenAPI\TerraDeGoshenAPI.csproj", "{26089663-1EDB-4CCC-9281-1F98C26D004E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BEF152D5-38AD-4238-8424-5648BB5EFC12} = {BEF152D5-38AD-4238-8424-5648BB5EFC12}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TerraDeGoshenAPI.Domain", "TerraDeGoshenAPI.Domain\TerraDeGoshenAPI.Domain.csproj", "{20BCD17B-A9C8-464B-B236-18A53DED0618}"
 EndProject

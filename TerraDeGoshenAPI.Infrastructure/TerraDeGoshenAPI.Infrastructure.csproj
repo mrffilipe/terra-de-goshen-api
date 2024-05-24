@@ -10,4 +10,12 @@
     <ProjectReference Include="..\TerraDeGoshenAPI.Domain\TerraDeGoshenAPI.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+  </ItemGroup>
+
 </Project>

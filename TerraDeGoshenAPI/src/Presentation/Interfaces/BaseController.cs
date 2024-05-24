@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace TerraDeGoshenAPI.src.Presentation;
-
-[ApiController]
-[Route("api/[controller]")]
-public abstract class BaseController : ControllerBase
+namespace TerraDeGoshenAPI.src.Presentation
 {
-    public BaseController()
+    [ApiController]
+    [Route("api/[controller]")]
+    public abstract class BaseController : ControllerBase
     {
+        public BaseController()
+        {
 
+        }
     }
 }
