@@ -7,6 +7,11 @@ namespace TerraDeGoshenAPI.Application
     {
         public CategoryProfile()
         {
+            CreateMap<CategoryCreateDTO, CategoryRef>()
+                .ConstructUsing(s => new CategoryRef(
+                    new CategoryVO(s.Name)
+                    ));
+
             CreateMap<CategoryRef, CategoryResponseDTO>()
                 .ConstructUsing(s => new CategoryResponseDTO(
                     s.Id,

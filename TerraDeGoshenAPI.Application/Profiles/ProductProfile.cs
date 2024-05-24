@@ -11,6 +11,18 @@ namespace TerraDeGoshenAPI.Application
         {
             _mapper = mapper;
 
+            CreateMap<ProductCreateDTO, Product>()
+                .ConstructUsing(s => new Product(
+                    s.Name,
+                    s.Description,
+                    s.Price,
+                    null,
+                    _mapper.Map<IList<ColorRef>>(s.Colors),
+                    _mapper.Map<IList<SizeRef>>(s.Sizes),
+                    _mapper.Map<CategoryRef>(s.Category),
+                    s.QuantityInStock
+                    ));
+
             CreateMap<Product, MinimumProductResponseDTO>()
                 .ConstructUsing(s => new MinimumProductResponseDTO(
                     s.Id,

@@ -7,6 +7,11 @@ namespace TerraDeGoshenAPI.Application
     {
         public ColorProfile()
         {
+            CreateMap<ColorCreateDTO, ColorRef>()
+                .ConstructUsing(s => new ColorRef(
+                    new ColorVO(s.Value)
+                    ));
+
             CreateMap<ColorRef, ColorResponseDTO>()
                 .ConstructUsing(s => new ColorResponseDTO(
                     s.Id,

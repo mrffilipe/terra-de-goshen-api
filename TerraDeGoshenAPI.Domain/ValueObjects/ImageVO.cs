@@ -1,5 +1,6 @@
 ﻿namespace TerraDeGoshenAPI.Domain;
 
 public record ImageVO(
-    string Url
+    string Url,
+    bool IsCover
     );
