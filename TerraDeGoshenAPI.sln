@@ -13,6 +13,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TerraDeGoshenAPI.Application", "TerraDeGoshenAPI.Application\TerraDeGoshenAPI.Application.csproj", "{7BB0866C-16A0-46E2-A5F6-726A544C9851}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TerraDeGoshenAPI.Infrastructure", "TerraDeGoshenAPI.Infrastructure\TerraDeGoshenAPI.Infrastructure.csproj", "{BEF152D5-38AD-4238-8424-5648BB5EFC12}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7BB0866C-16A0-46E2-A5F6-726A544C9851} = {7BB0866C-16A0-46E2-A5F6-726A544C9851}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

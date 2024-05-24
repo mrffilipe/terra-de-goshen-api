@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TerraDeGoshenAPI.Application;
 
 namespace TerraDeGoshenAPI.Infrastructure
 {
@@ -6,7 +7,7 @@ namespace TerraDeGoshenAPI.Infrastructure
     {
         public static IServiceCollection AddAdapters(this IServiceCollection services)
         {
-            //services.AddScoped<IProductAdapter, ProductAdapter>();
+            services.AddScoped<IProductAdapter, ProductAdapter>();
 
             return services;
         }
