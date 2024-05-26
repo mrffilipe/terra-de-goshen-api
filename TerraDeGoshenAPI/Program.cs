@@ -4,6 +4,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+var configurationBuilder = new ConfigurationBuilder();
+SecretManagerConfig.AddSecretManager(configurationBuilder, "716049441732");
+builder.Configuration.AddConfiguration(configurationBuilder.Build());
+
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddCors(options =>
@@ -22,7 +26,7 @@ builder.Services.AddSwaggerGen();
 builder.Services
     .AddAdapters()
     .AddServices()
-    .AddRepositories();
+    .AddRepositories(builder.Configuration);
 
 var app = builder.Build();
 

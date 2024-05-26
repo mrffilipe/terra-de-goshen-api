@@ -12,10 +12,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Configurations\" />
-	</ItemGroup>
-
-	<ItemGroup>
+		<PackageReference Include="Google.Cloud.Firestore" Version="3.7.0" />
+		<PackageReference Include="Google.Cloud.SecretManager.V1" Version="2.5.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
 	</ItemGroup>
 
