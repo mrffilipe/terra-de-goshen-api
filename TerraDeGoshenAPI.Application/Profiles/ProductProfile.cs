@@ -5,47 +5,44 @@ namespace TerraDeGoshenAPI.Application
 {
     public class ProductProfile : Profile
     {
-        private readonly IMapper _mapper;
-
-        public ProductProfile(IMapper mapper)
+        public ProductProfile()
         {
-            _mapper = mapper;
-
             CreateMap<ProductCreateDTO, Product>()
-                .ConstructUsing(s => new Product(
-                    s.Name,
-                    s.Description,
-                    s.Price,
-                    null,
-                    _mapper.Map<IList<ColorRef>>(s.Colors),
-                    _mapper.Map<IList<SizeRef>>(s.Sizes),
-                    _mapper.Map<CategoryRef>(s.Category),
-                    s.QuantityInStock
+                .ForMember(dest => dest.Images, opt => opt.Ignore())
+                .ConstructUsing((src, context) => new Product(
+                    src.Name,
+                    src.Description,
+                    src.Price,
+                    new List<ImageRef>(),
+                    context.Mapper.Map<IList<ColorRef>>(src.Colors),
+                    context.Mapper.Map<IList<SizeRef>>(src.Sizes),
+                    context.Mapper.Map<CategoryRef>(src.Category),
+                    src.QuantityInStock
                     ));
 
             CreateMap<Product, MinimumProductResponseDTO>()
-                .ConstructUsing(s => new MinimumProductResponseDTO(
-                    s.Id,
-                    s.Name,
-                    s.Price,
-                    _mapper.Map<IList<ImageResponseDTO>>(s.Images),
-                    s.CreatedAt,
-                    s.UpdatedAt
+                .ConstructUsing((src, context) => new MinimumProductResponseDTO(
+                    src.Id,
+                    src.Name,
+                    src.Price,
+                    context.Mapper.Map<IList<ImageResponseDTO>>(src.Images),
+                    src.CreatedAt,
+                    src.UpdatedAt
                     ));
 
             CreateMap<Product, ProductResponseDTO>()
-                .ConstructUsing(s => new ProductResponseDTO(
-                    s.Id,
-                    s.Name,
-                    s.Description,
-                    s.Price,
-                    _mapper.Map<IList<ImageResponseDTO>>(s.Images),
-                    _mapper.Map<IList<ColorResponseDTO>>(s.Colors),
-                    _mapper.Map<IList<SizeResponseDTO>>(s.Sizes),
-                    _mapper.Map<CategoryResponseDTO>(s.Category),
-                    s.QuantityInStock,
-                    s.CreatedAt,
-                    s.UpdatedAt
+                .ConstructUsing((src, context) => new ProductResponseDTO(
+                    src.Id,
+                    src.Name,
+                    src.Description,
+                    src.Price,
+                    context.Mapper.Map<IList<ImageResponseDTO>>(src.Images),
+                    context.Mapper.Map<IList<ColorResponseDTO>>(src.Colors),
+                    context.Mapper.Map<IList<SizeResponseDTO>>(src.Sizes),
+                    context.Mapper.Map<CategoryResponseDTO>(src.Category),
+                    src.QuantityInStock,
+                    src.CreatedAt,
+                    src.UpdatedAt
                     ));
         }
     }

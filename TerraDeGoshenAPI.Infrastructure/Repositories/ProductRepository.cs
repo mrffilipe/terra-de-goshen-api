@@ -13,8 +13,7 @@ namespace TerraDeGoshenAPI.Infrastructure
         }
 
         public async Task<Product> AddProduct(Product product)
-        {
-            FirestoreDb.Create();
+        {            
             throw new NotImplementedException();
         }
 

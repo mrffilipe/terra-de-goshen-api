@@ -26,8 +26,10 @@ namespace TerraDeGoshenAPI.Application
             }
             catch (Exception ex)
             {
-                // erro
-                throw new Exception();
+                // Logar a exceção real
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                throw; // Re-throw a exceção original para manter o stack trace
             }
         }
 

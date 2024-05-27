@@ -1,3 +1,4 @@
+using System.Reflection;
 using TerraDeGoshenAPI.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,6 @@ SecretManagerConfig.AddSecretManager(configurationBuilder, "716049441732");
 builder.Configuration.AddConfiguration(configurationBuilder.Build());
 
 builder.Services.AddControllers();
-builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
@@ -24,6 +24,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services
+    .AddAutoMapperConfig()
     .AddAdapters()
     .AddServices()
     .AddRepositories(builder.Configuration);

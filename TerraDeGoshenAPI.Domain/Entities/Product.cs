@@ -15,7 +15,7 @@ public class Product : IEntity
         string name,
         string description,
         double price,
-        IList<ImageRef> images,
+        IList<ImageRef>? images,
         IList<ColorRef> colors,
         IList<SizeRef> sizes,
         CategoryRef category,
