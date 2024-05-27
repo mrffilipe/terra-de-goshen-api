@@ -6,11 +6,13 @@ namespace TerraDeGoshenAPI.Application
     public class ProductAdapter : IProductAdapter
     {
         private readonly IProductService _productService;
+        private readonly IImageService _imageService;
         private readonly IMapper _mapper;
 
-        public ProductAdapter(IProductService productService, IMapper mapper)
+        public ProductAdapter(IProductService productService, IImageService imageService, IMapper mapper)
         {
             _productService = productService;
+            _imageService = imageService;
             _mapper = mapper;
         }
 
@@ -19,6 +21,15 @@ namespace TerraDeGoshenAPI.Application
             try
             {
                 var mappedProduct = _mapper.Map<Product>(product);
+
+                foreach (var img in product.Images)
+                {
+                    var imageResult = await _imageService.UploadImageAsync(img.File, img.IsCover);
+
+                    var imageRef = new ImageRef(imageResult);
+
+                    mappedProduct.Images.Add(imageRef);
+                }
 
                 mappedProduct = await _productService.AddProduct(mappedProduct);
 

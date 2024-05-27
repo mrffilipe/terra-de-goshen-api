@@ -9,6 +9,7 @@ namespace TerraDeGoshenAPI.Infrastructure
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IImageService, ImageService>();
 
             return services;
         }

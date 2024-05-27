@@ -2,5 +2,5 @@
 
 public record ImageVO(
     string Url,
-    bool IsCover
+    bool? IsCover = false
     );
