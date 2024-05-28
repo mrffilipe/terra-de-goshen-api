@@ -3,6 +3,6 @@
     public interface IImageRepository
     {
         Task<string> UploadImageAsync(IFormFile file);
-        Task DeleteImage(string imageUrl);
+        Task DeleteImageAsync(string imageUrl);
     }
 }

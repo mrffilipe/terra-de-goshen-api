@@ -16,7 +16,7 @@ namespace TerraDeGoshenAPI.src.Application
             _mapper = mapper;
         }
 
-        public async Task<ProductResponseDTO> AddProduct(ProductCreateDTO product)
+        public async Task<ProductResponseDTO> AddProductAsync(ProductCreateDTO product)
         {
             try
             {
@@ -31,24 +31,22 @@ namespace TerraDeGoshenAPI.src.Application
                     mappedProduct.Images.Add(imageRef);
                 }
 
-                mappedProduct = await _productService.AddProduct(mappedProduct);
+                mappedProduct = await _productService.AddProductAsync(mappedProduct);
 
                 return _mapper.Map<ProductResponseDTO>(mappedProduct);
             }
             catch (Exception ex)
             {
-                // Logar a exceção real
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-                throw; // Re-throw a exceção original para manter o stack trace
+                // erro
+                throw new Exception();
             }
         }
 
-        public async Task<ProductResponseDTO> GetProductById(Guid id)
+        public async Task<ProductResponseDTO> GetProductByIdAsync(Guid id)
         {
             try
             {
-                var product = await _productService.GetProductById(id);
+                var product = await _productService.GetProductByIdAsync(id);
 
                 if (product == null)
                 {
@@ -64,11 +62,11 @@ namespace TerraDeGoshenAPI.src.Application
             }
         }
 
-        public async Task<IList<MinimumProductResponseDTO>> GetAllProducts()
+        public async Task<IList<MinimumProductResponseDTO>> GetAllProductsAsync()
         {
             try
             {
-                var products = await _productService.GetAllProducts();
+                var products = await _productService.GetAllProductsAsync();
 
                 if (products == null)
                 {
@@ -84,7 +82,7 @@ namespace TerraDeGoshenAPI.src.Application
             }
         }
 
-        public async Task<ProductResponseDTO> UpdateProduct(ProductUpdateDTO product)
+        public async Task<ProductResponseDTO> UpdateProductAsync(ProductUpdateDTO product)
         {
             try
             {

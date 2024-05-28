@@ -40,7 +40,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             }
         }
 
-        public async Task DeleteImage(string imageUrl)
+        public async Task DeleteImageAsync(string imageUrl)
         {
             try
             {

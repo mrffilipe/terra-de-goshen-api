@@ -2,9 +2,9 @@
 {
     public interface IProductAdapter
     {
-        Task<ProductResponseDTO> AddProduct(ProductCreateDTO product);
-        Task<ProductResponseDTO> GetProductById(Guid id);
-        Task<IList<MinimumProductResponseDTO>> GetAllProducts();
-        Task<ProductResponseDTO> UpdateProduct(ProductUpdateDTO product);
+        Task<ProductResponseDTO> AddProductAsync(ProductCreateDTO product);
+        Task<ProductResponseDTO> GetProductByIdAsync(Guid id);
+        Task<IList<MinimumProductResponseDTO>> GetAllProductsAsync();
+        Task<ProductResponseDTO> UpdateProductAsync(ProductUpdateDTO product);
     }
 }

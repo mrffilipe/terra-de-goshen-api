@@ -19,7 +19,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         {
             try
             {
-                return Ok(await _productAdapter.AddProduct(product));
+                return Ok(await _productAdapter.AddProductAsync(product));
             }
             catch (Exception ex)
             {
@@ -34,7 +34,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         {
             try
             {
-                return Ok(await _productAdapter.GetProductById(id));
+                return Ok(await _productAdapter.GetProductByIdAsync(id));
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         {
             try
             {
-                return Ok(await _productAdapter.GetAllProducts());
+                return Ok(await _productAdapter.GetAllProductsAsync());
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         {
             try
             {
-                return Ok(await _productAdapter.UpdateProduct(product));
+                return Ok(await _productAdapter.UpdateProductAsync(product));
             }
             catch (Exception ex)
             {

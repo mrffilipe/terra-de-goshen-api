@@ -11,11 +11,11 @@ namespace TerraDeGoshenAPI.src.Application
             _productRepository = productRepository;
         }
 
-        public async Task<Product> AddProduct(Product product)
+        public async Task<Product> AddProductAsync(Product product)
         {
             try
             {
-                return await _productRepository.AddProduct(product);
+                return await _productRepository.AddProductAsync(product);
             }
             catch (Exception ex)
             {
@@ -23,11 +23,11 @@ namespace TerraDeGoshenAPI.src.Application
             }
         }
 
-        public async Task<Product> GetProductById(Guid id)
+        public async Task<Product> GetProductByIdAsync(Guid id)
         {
             try
             {
-                var product = await _productRepository.GetProductById(id);
+                var product = await _productRepository.GetProductByIdAsync(id);
 
                 if (product != null)
                 {
@@ -45,11 +45,11 @@ namespace TerraDeGoshenAPI.src.Application
             }
         }
 
-        public async Task<IList<Product>> GetAllProducts()
+        public async Task<IList<Product>> GetAllProductsAsync()
         {
             try
             {
-                return await _productRepository.GetAllProducts();
+                return await _productRepository.GetAllProductsAsync();
             }
             catch (Exception ex)
             {
@@ -57,39 +57,16 @@ namespace TerraDeGoshenAPI.src.Application
             }
         }
 
-        public async Task<Product> UpdateProductName(Guid id, string name)
+        public async Task<Product> UpdateProductAsync(Product product)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Product> UpdateProductDescription(Guid id, string description)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Product> UpdateProductPrice(Guid id, decimal value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Product> UpdateProductColors(Guid id, ColorRef colors)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Product> UpdateProductSizes(Guid id, SizeRef sizes)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Product> UpdateProductCategory(Guid id, CategoryRef category)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Product> UpdateProductQuantity(Guid id, int value)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                return await _productRepository.UpdateProductAsync(product);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

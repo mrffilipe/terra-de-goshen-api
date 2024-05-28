@@ -9,7 +9,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             
         }
 
-        public async Task<Product> AddProduct(Product product)
+        public async Task<Product> AddProductAsync(Product product)
         {
             try
             {
@@ -22,7 +22,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             }
         }
 
-        public async Task<Product> GetProductById(Guid id)
+        public async Task<Product> GetProductByIdAsync(Guid id)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             }
         }
 
-        public async Task<IList<Product>> GetAllProducts()
+        public async Task<IList<Product>> GetAllProductsAsync()
         {
             try
             {
@@ -48,7 +48,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             }
         }
 
-        public async Task<Product> UpdateProduct(Product product)
+        public async Task<Product> UpdateProductAsync(Product product)
         {
             try
             {

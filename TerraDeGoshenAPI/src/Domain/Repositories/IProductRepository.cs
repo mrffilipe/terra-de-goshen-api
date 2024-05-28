@@ -2,9 +2,9 @@
 {
     public interface IProductRepository
     {
-        Task<Product> AddProduct(Product product);
-        Task<Product> GetProductById(Guid id);
-        Task<IList<Product>> GetAllProducts();
-        Task<Product> UpdateProduct(Product product);
+        Task<Product> AddProductAsync(Product product);
+        Task<Product> GetProductByIdAsync(Guid id);
+        Task<IList<Product>> GetAllProductsAsync();
+        Task<Product> UpdateProductAsync(Product product);
     }
 }
