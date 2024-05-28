@@ -1,30 +1,14 @@
-using System.Reflection;
-using TerraDeGoshenAPI.Infrastructure;
+using TerraDeGoshenAPI.src.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-var configurationBuilder = new ConfigurationBuilder();
-SecretManagerConfig.AddSecretManager(configurationBuilder, "716049441732");
-builder.Configuration.AddConfiguration(configurationBuilder.Build());
-
 builder.Services.AddControllers();
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", builder =>
-    {
-        builder
-        .AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader();
-    });
-});
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services
-    .AddAutoMapperConfig()
+    .AddGoogleCloudConfig(builder.Configuration)
+    .AddCorsConfig()
+    .AddSwaggerConfig()
+    .AddAutoMapper(typeof(Program).Assembly)
     .AddAdapters()
     .AddServices()
     .AddRepositories(builder.Configuration);
