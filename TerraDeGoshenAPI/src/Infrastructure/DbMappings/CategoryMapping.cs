@@ -10,6 +10,8 @@ namespace TerraDeGoshenAPI.src.Infrastructure
         {
             base.Configure(builder);
 
+            builder.ToTable("categories");
+
             builder.ComplexProperty(e => e.Details).Property(e => e.Name)
                 .HasColumnName("name")
                 .IsRequired();

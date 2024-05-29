@@ -21,5 +21,39 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(Program).Assembly);
         }
+
+        public override int SaveChanges()
+        {
+            SetTimestamps();
+
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            SetTimestamps();
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void SetTimestamps()
+        {
+            var entries = ChangeTracker.Entries<IEntity>();
+
+            foreach (var entry in entries)
+            {
+                DateTime dateTime = DateTime.UtcNow;
+
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = dateTime;
+                }
+
+                if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
+                {
+                    entry.Entity.UpdatedAt = dateTime;
+                }
+            }
+        }
     }
 }

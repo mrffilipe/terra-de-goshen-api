@@ -10,6 +10,8 @@ namespace TerraDeGoshenAPI.src.Infrastructure
         {
             base.Configure(builder);
 
+            builder.ToTable("products");
+
             builder.Property(x => x.Name)
                 .HasColumnName("name")
                 .IsRequired();

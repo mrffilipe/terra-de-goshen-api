@@ -15,7 +15,7 @@ namespace TerraDeGoshenAPI.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "products",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -30,12 +30,12 @@ namespace TerraDeGoshenAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.id);
+                    table.PrimaryKey("PK_products", x => x.id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "categories",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -46,18 +46,18 @@ namespace TerraDeGoshenAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.id);
+                    table.PrimaryKey("PK_categories", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Categories_Products_product_id",
+                        name: "FK_categories_products_product_id",
                         column: x => x.product_id,
-                        principalTable: "Products",
+                        principalTable: "products",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Colors",
+                name: "colors",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -69,18 +69,18 @@ namespace TerraDeGoshenAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Colors", x => x.id);
+                    table.PrimaryKey("PK_colors", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Colors_Products_product_id",
+                        name: "FK_colors_products_product_id",
                         column: x => x.product_id,
-                        principalTable: "Products",
+                        principalTable: "products",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Images",
+                name: "images",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -92,18 +92,18 @@ namespace TerraDeGoshenAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Images", x => x.id);
+                    table.PrimaryKey("PK_images", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Images_Products_product_id",
+                        name: "FK_images_products_product_id",
                         column: x => x.product_id,
-                        principalTable: "Products",
+                        principalTable: "products",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Sizes",
+                name: "sizes",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -114,35 +114,35 @@ namespace TerraDeGoshenAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sizes", x => x.id);
+                    table.PrimaryKey("PK_sizes", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Sizes_Products_product_id",
+                        name: "FK_sizes_products_product_id",
                         column: x => x.product_id,
-                        principalTable: "Products",
+                        principalTable: "products",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_product_id",
-                table: "Categories",
+                name: "IX_categories_product_id",
+                table: "categories",
                 column: "product_id",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Colors_product_id",
-                table: "Colors",
+                name: "IX_colors_product_id",
+                table: "colors",
                 column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Images_product_id",
-                table: "Images",
+                name: "IX_images_product_id",
+                table: "images",
                 column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sizes_product_id",
-                table: "Sizes",
+                name: "IX_sizes_product_id",
+                table: "sizes",
                 column: "product_id");
         }
 
@@ -150,19 +150,19 @@ namespace TerraDeGoshenAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "categories");
 
             migrationBuilder.DropTable(
-                name: "Colors");
+                name: "colors");
 
             migrationBuilder.DropTable(
-                name: "Images");
+                name: "images");
 
             migrationBuilder.DropTable(
-                name: "Sizes");
+                name: "sizes");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "products");
         }
     }
 }

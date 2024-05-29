@@ -10,6 +10,8 @@ namespace TerraDeGoshenAPI.src.Infrastructure
         {
             base.Configure(builder);
 
+            builder.ToTable("images");
+
             builder.ComplexProperty(e => e.Details).Property(e => e.Url)
                 .HasColumnName("url")
                 .IsRequired();

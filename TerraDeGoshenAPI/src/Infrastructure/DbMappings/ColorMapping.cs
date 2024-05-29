@@ -10,6 +10,8 @@ namespace TerraDeGoshenAPI.src.Infrastructure
         {
             base.Configure(builder);
 
+            builder.ToTable("colors");
+
             builder.ComplexProperty(e => e.Details).Property(e => e.Value)
                 .HasColumnName("value")
                 .IsRequired();

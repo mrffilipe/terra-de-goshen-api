@@ -13,7 +13,7 @@ using TerraDeGoshenAPI.src.Infrastructure;
 namespace TerraDeGoshenAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240529030031_FirstMigration")]
+    [Migration("20240529035535_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -60,7 +60,7 @@ namespace TerraDeGoshenAPI.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("Categories");
+                    b.ToTable("categories", (string)null);
                 });
 
             modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.ColorRef", b =>
@@ -100,7 +100,7 @@ namespace TerraDeGoshenAPI.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Colors");
+                    b.ToTable("colors", (string)null);
                 });
 
             modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.ImageRef", b =>
@@ -140,7 +140,7 @@ namespace TerraDeGoshenAPI.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Images");
+                    b.ToTable("images", (string)null);
                 });
 
             modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.Product", b =>
@@ -178,7 +178,7 @@ namespace TerraDeGoshenAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("products", (string)null);
                 });
 
             modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.SizeRef", b =>
@@ -214,7 +214,7 @@ namespace TerraDeGoshenAPI.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Sizes");
+                    b.ToTable("sizes", (string)null);
                 });
 
             modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.CategoryRef", b =>
