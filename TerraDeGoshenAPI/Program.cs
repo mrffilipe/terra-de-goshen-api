@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services
     .AddGoogleCloudConfig(builder.Configuration)
+    .AddDbContextConfig(builder.Configuration)
     .AddCorsConfig()
     .AddSwaggerConfig()
     .AddAutoMapper(typeof(Program).Assembly)

@@ -11,6 +11,10 @@
         public CategoryRef Category { get; private set; }
         public int QuantityInStock { get; private set; }
 
+        protected Product()
+        {
+        }
+
         public Product(
             string name,
             string description,

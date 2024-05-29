@@ -1,19 +1,26 @@
-﻿using TerraDeGoshenAPI.src.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using TerraDeGoshenAPI.src.Domain;
 
 namespace TerraDeGoshenAPI.src.Infrastructure
 {
     public class ProductRepository : IProductRepository
     {
-        public ProductRepository()
+        private readonly ApplicationDbContext _context;
+
+        public ProductRepository(ApplicationDbContext context)
         {
-            
+            _context = context;
         }
 
         public async Task<Product> AddProductAsync(Product product)
         {
             try
             {
-                throw new Exception();
+                _context.Products.Add(product);
+
+                await _context.SaveChangesAsync();
+
+                return product;
             }
             catch (Exception ex)
             {
@@ -26,7 +33,14 @@ namespace TerraDeGoshenAPI.src.Infrastructure
         {
             try
             {
-                throw new Exception();
+                var result = await _context.Products
+                    .Include(x => x.Images)
+                    .Include(x => x.Colors)
+                    .Include(x => x.Sizes)
+                    .Include(x => x.Category)
+                    .SingleAsync(x => x.Id.Equals(id));
+
+                return result;
             }
             catch (Exception ex)
             {
@@ -39,7 +53,14 @@ namespace TerraDeGoshenAPI.src.Infrastructure
         {
             try
             {
-                throw new Exception();
+                var result = await _context.Products
+                    .Include(x => x.Images)
+                    .Include(x => x.Colors)
+                    .Include(x => x.Sizes)
+                    .Include(x => x.Category)
+                    .ToListAsync();
+
+                return result;
             }
             catch (Exception ex)
             {
