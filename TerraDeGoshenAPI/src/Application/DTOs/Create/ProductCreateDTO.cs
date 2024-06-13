@@ -2,15 +2,18 @@
 {
     public record ProductCreateDTO
     {
-        public string Name { get; } = string.Empty;
-        public string Description { get; } = string.Empty;
-        public double Price { get; } = 0;
-        public string BackgroundText { get; } = string.Empty;
-        public IList<ImageCreateDTO> Images { get; } = [];
-        public IList<ColorCreateDTO> Colors { get; } = [];
-        public IList<SizeCreateDTO> Sizes { get; } = [];
-        public CategoryCreateDTO Category { get; } = new CategoryCreateDTO();
-        public int QuantityInStock { get; } = 0;
+        public string Name { get; init; } = string.Empty;
+        public string Description { get; init; } = string.Empty;
+        public double Price { get; init; } = 0;
+        public string BackgroundText { get; init; } = string.Empty;
+        public IList<ImageCreateDTO> Images { get; init; } = [];
+        public IList<SimpleColorCreateDTO> Colors { get; init; } = [];
+        public IList<SimpleSizeCreateDTO> Sizes { get; init; } = [];
+        public Guid CategoryId { get; init; } = Guid.Empty;
+        public int QuantityInStock { get; init; } = 0;
+
+        public ProductCreateDTO()
+        { }
 
         public ProductCreateDTO(
             string name,
@@ -18,9 +21,9 @@
             double price,
             string backgroundText,
             IList<ImageCreateDTO> images,
-            IList<ColorCreateDTO> colors,
-            IList<SizeCreateDTO> sizes,
-            CategoryCreateDTO category,
+            IList<SimpleColorCreateDTO> colors,
+            IList<SimpleSizeCreateDTO> sizes,
+            Guid categoryId,
             int quantityInStock
             )
         {
@@ -31,7 +34,7 @@
             Images = images;
             Colors = colors;
             Sizes = sizes;
-            Category = category;
+            CategoryId = categoryId;
             QuantityInStock = quantityInStock;
         }
     }

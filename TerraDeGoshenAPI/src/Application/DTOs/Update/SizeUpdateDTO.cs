@@ -3,16 +3,14 @@
     public record SizeUpdateDTO
     {
         public Guid Id { get; } = Guid.Empty;
-        public string Value { get; } = string.Empty;
         public bool IsDeleted { get; } = false;
 
         public SizeUpdateDTO()
         { }
 
-        public SizeUpdateDTO(Guid id, string value, bool isDeleted)
+        public SizeUpdateDTO(Guid id, bool isDeleted)
         {
             Id = id;
-            Value = value;
             IsDeleted = isDeleted;
         }
     }

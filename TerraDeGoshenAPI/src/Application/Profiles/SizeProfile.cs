@@ -8,9 +8,12 @@ namespace TerraDeGoshenAPI.src.Application
         public SizeProfile()
         {
             CreateMap<SizeCreateDTO, SizeRef>()
-            .ConstructUsing(s => new SizeRef(
+                .ConstructUsing(s => new SizeRef(
                 new SizeVO(s.Value)
                 ));
+
+            CreateMap<SimpleSizeCreateDTO, SizeRef>()
+                .ConstructUsing(s => new SizeRef(s.Id));
 
             CreateMap<SizeRef, SizeResponseDTO>()
                 .ConstructUsing(s => new SizeResponseDTO(
@@ -19,6 +22,9 @@ namespace TerraDeGoshenAPI.src.Application
                     s.CreatedAt,
                     s.UpdatedAt
                     ));
+
+            CreateMap<SizeUpdateDTO, SizeRef>()
+                .ConstructUsing(s => new SizeRef(s.Id));
         }
     }
 }

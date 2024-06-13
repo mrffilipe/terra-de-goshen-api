@@ -3,19 +3,24 @@
     public record ImageUpdateDTO
     {
         public Guid Id { get; } = Guid.Empty;
-        public string Url { get; } = string.Empty;
-        public IFormFile? File { get; }
+        public IFormFile File { get; }
+        public bool IsCover { get; } = false;
         public bool IsDeleted { get; } = false;
 
         public ImageUpdateDTO()
         { }
 
-        public ImageUpdateDTO(Guid id, string url, IFormFile? file, bool isDeleted)
+        public ImageUpdateDTO(IFormFile file, bool isCover, bool isDeleted)
+        {
+            File = file;
+            IsCover = isCover;
+            IsDeleted = isDeleted;
+        }
+
+        public ImageUpdateDTO(Guid id, IFormFile file, bool isCover, bool isDeleted)
+            : this(file, isCover, isDeleted)
         {
             Id = id;
-            Url = url;
-            File = file;
-            IsDeleted = isDeleted;
         }
     }
 }

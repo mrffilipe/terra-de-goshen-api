@@ -17,7 +17,7 @@ namespace TerraDeGoshenAPI.src.Application
                     new List<ImageRef>(),
                     context.Mapper.Map<IList<ColorRef>>(src.Colors),
                     context.Mapper.Map<IList<SizeRef>>(src.Sizes),
-                    context.Mapper.Map<CategoryRef>(src.Category),
+                    src.CategoryId,
                     src.QuantityInStock
                     ));
 
@@ -45,6 +45,20 @@ namespace TerraDeGoshenAPI.src.Application
                     src.QuantityInStock,
                     src.CreatedAt,
                     src.UpdatedAt
+                    ));
+
+            CreateMap<ProductUpdateDTO, Product>()
+                .ForMember(dest => dest.Images, opt => opt.Ignore())
+                .ConstructUsing((src, context) => new Product(
+                    src.Name,
+                    src.Description,
+                    src.Price,
+                    src.BackgroundText,
+                    [],
+                    context.Mapper.Map<IList<ColorRef>>(src.Colors),
+                    context.Mapper.Map<IList<SizeRef>>(src.Sizes),
+                    context.Mapper.Map<CategoryRef>(src.Category),
+                    src.QuantityInStock
                     ));
         }
     }

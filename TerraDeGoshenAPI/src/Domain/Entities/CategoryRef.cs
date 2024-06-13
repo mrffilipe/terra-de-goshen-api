@@ -3,10 +3,15 @@
     public class CategoryRef : IEntity
     {
         public CategoryVO Details { get; } = new CategoryVO();
-        public Product Product { get; } = new Product();
+        public IList<Product> Product { get; } = null!;
 
         public CategoryRef()
         { }
+
+        public CategoryRef(Guid id)
+        {
+            Id = id;
+        }
 
         public CategoryRef(CategoryVO details)
         {

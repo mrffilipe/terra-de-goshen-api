@@ -33,7 +33,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                 .IsRequired();
 
             builder.Property(x => x.CategoryId)
-                .HasColumnName("product_id")
+                .HasColumnName("category_id")
                 .IsRequired();
 
             builder.HasMany(e => e.Images)
@@ -48,8 +48,8 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                 .WithMany(e => e.Products);
 
             builder.HasOne(e => e.Category)
-                .WithOne(e => e.Product)
-                .HasForeignKey<Product>(e => e.CategoryId)
+                .WithMany(e => e.Product)
+                .HasForeignKey(e => e.CategoryId)
                 .IsRequired();
         }
     }

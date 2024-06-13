@@ -2,8 +2,8 @@
 {
     public record ColorCreateDTO
     {
-        public string Value { get; } = string.Empty;
-        public Guid? ImageId { get; } = Guid.Empty;
+        public string Value { get; init; } = string.Empty;
+        public Guid? ImageId { get; init; } = Guid.Empty;
 
         public ColorCreateDTO()
         { }

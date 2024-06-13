@@ -8,6 +8,11 @@
         public SizeRef()
         { }
 
+        public SizeRef(Guid id)
+        {
+            Id = id;
+        }
+
         public SizeRef(SizeVO details)
         {
             Details = details;

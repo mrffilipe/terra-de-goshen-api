@@ -9,6 +9,11 @@
         public ImageRef()
         { }
 
+        public ImageRef(Guid id)
+        {
+            Id = id;
+        }
+
         public ImageRef(ImageVO details)
         {
             Details = details;

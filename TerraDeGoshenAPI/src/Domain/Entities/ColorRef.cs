@@ -9,6 +9,11 @@
         public ColorRef()
         { }
 
+        public ColorRef(Guid id)
+        {
+            Id = id;
+        }
+
         public ColorRef(ColorVO details)
         {
             Details = details;

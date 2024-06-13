@@ -2,8 +2,8 @@
 {
     public record ImageCreateDTO
     {
-        public IFormFile File { get; }
-        public bool IsCover { get; } = false;
+        public IFormFile File { get; init; }
+        public bool IsCover { get; init; } = false;
 
         public ImageCreateDTO()
         { }

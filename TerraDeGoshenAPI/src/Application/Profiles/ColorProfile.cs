@@ -12,6 +12,9 @@ namespace TerraDeGoshenAPI.src.Application
                     new ColorVO(s.Value)
                     ));
 
+            CreateMap<SimpleColorCreateDTO, ColorRef>()
+                .ConstructUsing(s => new ColorRef(s.Id));
+
             CreateMap<ColorRef, ColorResponseDTO>()
                 .ConstructUsing(s => new ColorResponseDTO(
                     s.Id,
@@ -20,6 +23,9 @@ namespace TerraDeGoshenAPI.src.Application
                     s.CreatedAt,
                     s.UpdatedAt
                     ));
+
+            CreateMap<ColorUpdateDTO, ColorRef>()
+                .ConstructUsing(s => new ColorRef(s.Id));
         }
     }
 }

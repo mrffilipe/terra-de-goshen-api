@@ -12,6 +12,9 @@ namespace TerraDeGoshenAPI.src.Application
                     new CategoryVO(s.Name)
                     ));
 
+            CreateMap<SimpleCategoryCreateDTO, CategoryRef>()
+                .ConstructUsing(s => new CategoryRef(s.Id));
+
             CreateMap<CategoryRef, CategoryResponseDTO>()
                 .ConstructUsing(s => new CategoryResponseDTO(
                     s.Id,
@@ -19,6 +22,9 @@ namespace TerraDeGoshenAPI.src.Application
                     s.CreatedAt,
                     s.UpdatedAt
                     ));
+
+            CreateMap<CategoryUpdateDTO, CategoryRef>()
+                .ConstructUsing(s => new CategoryRef(s.Id));
         }
     }
 }
