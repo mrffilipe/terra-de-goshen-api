@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TerraDeGoshenAPI.src.Application;
+using TerraDeGoshenAPI.src.Domain;
 
 namespace TerraDeGoshenAPI.src.Presentation
 {
@@ -15,7 +16,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         [HttpPost]
         [Route("add-product")]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> AddProduct([FromForm] ProductCreateDTO product)
+        public async Task<ActionResult<ProductResponseDTO>> AddProduct([FromForm] ProductCreateDTO product)
         {
             try
             {
@@ -30,7 +31,7 @@ namespace TerraDeGoshenAPI.src.Presentation
 
         [HttpGet]
         [Route("get-product-by-id")]
-        public async Task<IActionResult> GetProductById([FromQuery] Guid id)
+        public async Task<ActionResult<ProductResponseDTO>> GetProductById([FromQuery] Guid id)
         {
             try
             {
@@ -45,7 +46,7 @@ namespace TerraDeGoshenAPI.src.Presentation
 
         [HttpGet]
         [Route("get-all-products")]
-        public async Task<IActionResult> GetAllProducts()
+        public async Task<ActionResult<MinimumProductResponseDTO>> GetAllProducts()
         {
             try
             {
@@ -58,14 +59,74 @@ namespace TerraDeGoshenAPI.src.Presentation
             }
         }
 
+        [HttpGet]
+        [Route("get-products-by-parameters")]
+        public async Task<ActionResult<MinimumProductResponseDTO>> GetProductsByParameters(SearchParameters parameters)
+        {
+            try
+            {
+                return Ok(await _productAdapter.GetProductsByParametersAsync(parameters));
+            }
+            catch (Exception ex)
+            {
+                // ...
+                throw new Exception();
+            }
+        }
+
         [HttpPut]
         [Route("update-product")]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> UpdateProduct([FromForm] ProductUpdateDTO product)
+        public async Task<ActionResult<ProductResponseDTO>> UpdateProduct([FromForm] ProductUpdateDTO product)
         {
             try
             {
                 return Ok(await _productAdapter.UpdateProductAsync(product));
+            }
+            catch (Exception ex)
+            {
+                // ...
+                throw new Exception();
+            }
+        }
+
+        [HttpGet]
+        [Route("get-all-categories")]
+        public async Task<ActionResult<IList<CategoryResponseDTO>>> GetAllCategories()
+        {
+            try
+            {
+                return Ok(await _productAdapter.GetAllCategoriesAsync());
+            }
+            catch (Exception ex)
+            {
+                // ...
+                throw new Exception();
+            }
+        }
+
+        [HttpGet]
+        [Route("get-all-colors")]
+        public async Task<ActionResult<IList<ColorResponseDTO>>> GetAllColors()
+        {
+            try
+            {
+                return Ok(await _productAdapter.GetAllColorsAsync());
+            }
+            catch (Exception ex)
+            {
+                // ...
+                throw new Exception();
+            }
+        }
+
+        [HttpGet]
+        [Route("get-all-sizes")]
+        public async Task<ActionResult<IList<SizeResponseDTO>>> GetAllSizes()
+        {
+            try
+            {
+                return Ok(await _productAdapter.GetAllSizesAsync());
             }
             catch (Exception ex)
             {

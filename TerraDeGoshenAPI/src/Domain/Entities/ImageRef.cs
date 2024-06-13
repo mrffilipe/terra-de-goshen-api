@@ -2,13 +2,12 @@
 {
     public class ImageRef : IEntity
     {
-        public ImageVO Details { get; private set; }
-        public Guid ProductId { get; set; }
-        public Product Product { get; set; } = null!;
+        public ImageVO Details { get; } = new ImageVO();
+        public Guid ProductId { get; } = Guid.Empty;
+        public Product Product { get; } = new Product();
 
-        protected ImageRef()
-        {
-        }
+        public ImageRef()
+        { }
 
         public ImageRef(ImageVO details)
         {

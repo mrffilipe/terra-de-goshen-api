@@ -7,8 +7,6 @@ namespace TerraDeGoshenAPI.src.Presentation
     public abstract class BaseController : ControllerBase
     {
         public BaseController()
-        {
-
-        }
+        { }
     }
 }

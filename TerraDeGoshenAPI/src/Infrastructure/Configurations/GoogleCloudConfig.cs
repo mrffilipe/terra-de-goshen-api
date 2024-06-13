@@ -19,7 +19,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             var cloudStorageBuilder = new StorageClientBuilder().Build();
 
             services.AddSingleton(cloudStorageBuilder);
-            services.AddSingleton(new CloudStorageOptionsVO { BucketName = bucketName });
+            services.AddSingleton(new CloudStorageOptionsVO(bucketName));
 
             return services;
         }

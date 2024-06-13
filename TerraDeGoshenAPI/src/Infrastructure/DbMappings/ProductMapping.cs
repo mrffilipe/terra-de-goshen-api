@@ -24,8 +24,16 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                 .HasColumnName("price")
                 .IsRequired();
 
+            builder.Property(x => x.BackgroundText)
+                .HasColumnName("background_text")
+                .IsRequired();
+
             builder.Property(x => x.QuantityInStock)
                 .HasColumnName("quantity_in_stock")
+                .IsRequired();
+
+            builder.Property(x => x.CategoryId)
+                .HasColumnName("product_id")
                 .IsRequired();
 
             builder.HasMany(e => e.Images)
@@ -34,18 +42,14 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                 .IsRequired();
 
             builder.HasMany(e => e.Colors)
-                .WithOne(e => e.Product)
-                .HasForeignKey(e => e.ProductId)
-                .IsRequired();
+                .WithMany(e => e.Products);
 
             builder.HasMany(e => e.Sizes)
-                .WithOne(e => e.Product)
-                .HasForeignKey(e => e.ProductId)
-                .IsRequired();
+                .WithMany(e => e.Products);
 
             builder.HasOne(e => e.Category)
                 .WithOne(e => e.Product)
-                .HasForeignKey<CategoryRef>(e => e.ProductId)
+                .HasForeignKey<Product>(e => e.CategoryId)
                 .IsRequired();
         }
     }

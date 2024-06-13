@@ -2,6 +2,14 @@
 {
     public record CloudStorageOptionsVO
     {
-        public string BucketName { get; set; } = "";
+        public string BucketName { get; } = string.Empty;
+
+        public CloudStorageOptionsVO()
+        { }
+
+        public CloudStorageOptionsVO(string bucketName)
+        {
+            BucketName = bucketName;
+        }
     }
 }

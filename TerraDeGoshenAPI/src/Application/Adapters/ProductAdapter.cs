@@ -82,11 +82,76 @@ namespace TerraDeGoshenAPI.src.Application
             }
         }
 
+        public async Task<IList<MinimumProductResponseDTO>> GetProductsByParametersAsync(SearchParameters parameters)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ProductResponseDTO> UpdateProductAsync(ProductUpdateDTO product)
         {
             try
             {
                 throw new NotImplementedException();
+            }
+            catch (Exception ex)
+            {
+                // erro
+                throw new Exception();
+            }
+        }
+
+        public async Task<IList<CategoryResponseDTO>> GetAllCategoriesAsync()
+        {
+            try
+            {
+                var categories = await _productService.GetAllCategoriesAsync();
+
+                if (categories != null)
+                {
+                    return _mapper.Map<IList<CategoryResponseDTO>>(categories);
+                }
+
+                throw new Exception();
+            }
+            catch (Exception ex)
+            {
+                // erro
+                throw new Exception();
+            }
+        }
+
+        public async Task<IList<ColorResponseDTO>> GetAllColorsAsync()
+        {
+            try
+            {
+                var colors = await _productService.GetAllColorsAsync();
+
+                if (colors != null)
+                {
+                    return _mapper.Map<IList<ColorResponseDTO>>(colors);
+                }
+
+                throw new Exception();
+            }
+            catch (Exception ex)
+            {
+                // erro
+                throw new Exception();
+            }
+        }
+
+        public async Task<IList<SizeResponseDTO>> GetAllSizesAsync()
+        {
+            try
+            {
+                var sizes = await _productService.GetAllSizesAsync();
+
+                if (sizes != null)
+                {
+                    return _mapper.Map<IList<SizeResponseDTO>>(sizes);
+                }
+
+                throw new Exception();
             }
             catch (Exception ex)
             {

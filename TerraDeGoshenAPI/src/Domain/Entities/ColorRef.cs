@@ -2,18 +2,15 @@
 {
     public class ColorRef : IEntity
     {
-        public ColorVO Details { get; private set; }
-        public Guid? ImageId { get; private set; } = null;
-        public Guid ProductId { get; set; }
-        public Product Product { get; set; } = null!;
+        public ColorVO Details { get; } = new ColorVO();
+        public Guid? ImageId { get; } = Guid.Empty;
+        public IList<Product> Products { get; } = [];
 
-        protected ColorRef()
-        {
-        }
+        public ColorRef()
+        { }
 
         public ColorRef(ColorVO details)
         {
-            Id = Guid.NewGuid();
             Details = details;
         }
 

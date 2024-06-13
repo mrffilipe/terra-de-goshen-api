@@ -20,9 +20,13 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                 .HasColumnName("image_id")
                 .IsRequired(false);
 
-            builder.Property(x => x.ProductId)
-                .HasColumnName("product_id")
-                .IsRequired();
+            //builder.HasData(
+            //    new ColorRef(new ColorVO("Black")),
+            //    new ColorRef(new ColorVO("White")),
+            //    new ColorRef(new ColorVO("Red")),
+            //    new ColorRef(new ColorVO("Green")),
+            //    new ColorRef(new ColorVO("Blue"))
+            //    );
         }
     }
 }

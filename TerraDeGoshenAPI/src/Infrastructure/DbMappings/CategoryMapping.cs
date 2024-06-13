@@ -16,9 +16,12 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                 .HasColumnName("name")
                 .IsRequired();
 
-            builder.Property(x => x.ProductId)
-                .HasColumnName("product_id")
-                .IsRequired();
+            //builder.HasData(
+            //    new CategoryRef(new CategoryVO("Camisetas")),
+            //    new CategoryRef(new CategoryVO("Vestidos")),
+            //    new CategoryRef(new CategoryVO("Calças")),
+            //    new CategoryRef(new CategoryVO("Calçados"))
+            //    );
         }
     }
 }

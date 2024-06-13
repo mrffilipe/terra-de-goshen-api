@@ -23,6 +23,36 @@ namespace TerraDeGoshenAPI.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("ColorRefProduct", b =>
+                {
+                    b.Property<Guid>("ColorsId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ProductsId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("ColorsId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("ColorRefProduct");
+                });
+
+            modelBuilder.Entity("ProductSizeRef", b =>
+                {
+                    b.Property<Guid>("ProductsId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("SizesId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("ProductsId", "SizesId");
+
+                    b.HasIndex("SizesId");
+
+                    b.ToTable("ProductSizeRef");
+                });
+
             modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.CategoryRef", b =>
                 {
                     b.Property<Guid>("Id")
@@ -33,10 +63,6 @@ namespace TerraDeGoshenAPI.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("product_id");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)")
@@ -53,9 +79,6 @@ namespace TerraDeGoshenAPI.Migrations
                         });
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
 
                     b.ToTable("categories", (string)null);
                 });
@@ -75,10 +98,6 @@ namespace TerraDeGoshenAPI.Migrations
                         .HasColumnType("char(36)")
                         .HasColumnName("image_id");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("product_id");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
@@ -94,8 +113,6 @@ namespace TerraDeGoshenAPI.Migrations
                         });
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("colors", (string)null);
                 });
@@ -147,6 +164,15 @@ namespace TerraDeGoshenAPI.Migrations
                         .HasColumnType("char(36)")
                         .HasColumnName("id");
 
+                    b.Property<string>("BackgroundText")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("background_text");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("product_id");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
@@ -175,6 +201,9 @@ namespace TerraDeGoshenAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId")
+                        .IsUnique();
+
                     b.ToTable("products", (string)null);
                 });
 
@@ -188,10 +217,6 @@ namespace TerraDeGoshenAPI.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("product_id");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)")
@@ -209,31 +234,37 @@ namespace TerraDeGoshenAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("sizes", (string)null);
                 });
 
-            modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.CategoryRef", b =>
+            modelBuilder.Entity("ColorRefProduct", b =>
                 {
-                    b.HasOne("TerraDeGoshenAPI.src.Domain.Product", "Product")
-                        .WithOne("Category")
-                        .HasForeignKey("TerraDeGoshenAPI.src.Domain.CategoryRef", "ProductId")
+                    b.HasOne("TerraDeGoshenAPI.src.Domain.ColorRef", null)
+                        .WithMany()
+                        .HasForeignKey("ColorsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.HasOne("TerraDeGoshenAPI.src.Domain.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.ColorRef", b =>
+            modelBuilder.Entity("ProductSizeRef", b =>
                 {
-                    b.HasOne("TerraDeGoshenAPI.src.Domain.Product", "Product")
-                        .WithMany("Colors")
-                        .HasForeignKey("ProductId")
+                    b.HasOne("TerraDeGoshenAPI.src.Domain.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.HasOne("TerraDeGoshenAPI.src.Domain.SizeRef", null)
+                        .WithMany()
+                        .HasForeignKey("SizesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.ImageRef", b =>
@@ -247,27 +278,26 @@ namespace TerraDeGoshenAPI.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.SizeRef", b =>
+            modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.Product", b =>
                 {
-                    b.HasOne("TerraDeGoshenAPI.src.Domain.Product", "Product")
-                        .WithMany("Sizes")
-                        .HasForeignKey("ProductId")
+                    b.HasOne("TerraDeGoshenAPI.src.Domain.CategoryRef", "Category")
+                        .WithOne("Product")
+                        .HasForeignKey("TerraDeGoshenAPI.src.Domain.Product", "CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.CategoryRef", b =>
+                {
+                    b.Navigation("Product")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.Product", b =>
                 {
-                    b.Navigation("Category")
-                        .IsRequired();
-
-                    b.Navigation("Colors");
-
                     b.Navigation("Images");
-
-                    b.Navigation("Sizes");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,13 +2,11 @@
 {
     public class CategoryRef : IEntity
     {
-        public CategoryVO Details { get; private set; }
-        public Guid ProductId { get; set; }
-        public Product Product { get; set; } = null!;
+        public CategoryVO Details { get; } = new CategoryVO();
+        public Product Product { get; } = new Product();
 
-        protected CategoryRef()
-        {
-        }
+        public CategoryRef()
+        { }
 
         public CategoryRef(CategoryVO details)
         {

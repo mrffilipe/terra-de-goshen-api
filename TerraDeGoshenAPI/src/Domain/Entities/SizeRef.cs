@@ -2,17 +2,14 @@
 {
     public class SizeRef : IEntity
     {
-        public SizeVO Details { get; private set; }
-        public Guid ProductId { get; set; }
-        public Product Product { get; set; } = null!;
+        public SizeVO Details { get; } = new SizeVO();
+        public IList<Product> Products { get; } = [];
 
-        protected SizeRef()
-        {
-        }
+        public SizeRef()
+        { }
 
         public SizeRef(SizeVO details)
         {
-            Id = Guid.NewGuid();
             Details = details;
         }
     }

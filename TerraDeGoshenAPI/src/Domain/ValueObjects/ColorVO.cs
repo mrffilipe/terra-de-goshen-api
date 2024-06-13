@@ -1,6 +1,15 @@
 ﻿namespace TerraDeGoshenAPI.src.Domain
 {
-    public record ColorVO(
-        string Value
-        );
+    public record ColorVO
+    {
+        public string Value { get; } = string.Empty;
+
+        public ColorVO()
+        { }
+
+        public ColorVO(string value)
+        {
+            Value = value;
+        }
+    }
 }

@@ -57,11 +57,52 @@ namespace TerraDeGoshenAPI.src.Application
             }
         }
 
+        public async Task<IList<Product>> GetProductsByParametersAsync(SearchParameters parameters)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Product> UpdateProductAsync(Product product)
         {
             try
             {
                 return await _productRepository.UpdateProductAsync(product);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public async Task<IList<CategoryRef>> GetAllCategoriesAsync()
+        {
+            try
+            {
+                return await _productRepository.GetAllCategoriesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public async Task<IList<ColorRef>> GetAllColorsAsync()
+        {
+            try
+            {
+                return await _productRepository.GetAllColorsAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public async Task<IList<SizeRef>> GetAllSizesAsync()
+        {
+            try
+            {
+                return await _productRepository.GetAllSizesAsync();
             }
             catch (Exception ex)
             {
