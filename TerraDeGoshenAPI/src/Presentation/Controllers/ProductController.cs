@@ -25,7 +25,7 @@ namespace TerraDeGoshenAPI.src.Presentation
             catch (Exception ex)
             {
                 // ...
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -40,7 +40,7 @@ namespace TerraDeGoshenAPI.src.Presentation
             catch (Exception ex)
             {
                 // ...
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -55,7 +55,7 @@ namespace TerraDeGoshenAPI.src.Presentation
             catch (Exception ex)
             {
                 // ...
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -70,7 +70,7 @@ namespace TerraDeGoshenAPI.src.Presentation
             catch (Exception ex)
             {
                 // ...
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -86,7 +86,7 @@ namespace TerraDeGoshenAPI.src.Presentation
             catch (Exception ex)
             {
                 // ...
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -101,7 +101,7 @@ namespace TerraDeGoshenAPI.src.Presentation
             catch (Exception ex)
             {
                 // ...
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -116,7 +116,7 @@ namespace TerraDeGoshenAPI.src.Presentation
             catch (Exception ex)
             {
                 // ...
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -131,7 +131,7 @@ namespace TerraDeGoshenAPI.src.Presentation
             catch (Exception ex)
             {
                 // ...
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
     }

@@ -3,7 +3,7 @@
     public class CategoryRef : IEntity
     {
         public CategoryVO Details { get; } = new CategoryVO();
-        public IList<Product> Product { get; } = null!;
+        public IList<Product> Product { get; } = [];
 
         public CategoryRef()
         { }

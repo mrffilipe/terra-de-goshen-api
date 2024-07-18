@@ -8,7 +8,7 @@
         public ImageVO()
         { }
 
-        public ImageVO(string url, bool? isCover = false)
+        public ImageVO(string url, bool? isCover)
         {
             Url = url;
             IsCover = isCover;

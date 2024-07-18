@@ -38,7 +38,7 @@ namespace TerraDeGoshenAPI.src.Application
             catch (Exception ex)
             {
                 // erro
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -58,7 +58,7 @@ namespace TerraDeGoshenAPI.src.Application
             catch (Exception ex)
             {
                 // erro
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -78,7 +78,7 @@ namespace TerraDeGoshenAPI.src.Application
             catch (Exception ex)
             {
                 // erro
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -96,7 +96,7 @@ namespace TerraDeGoshenAPI.src.Application
             catch (Exception ex)
             {
                 // erro
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -116,7 +116,7 @@ namespace TerraDeGoshenAPI.src.Application
             catch (Exception ex)
             {
                 // erro
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -136,7 +136,7 @@ namespace TerraDeGoshenAPI.src.Application
             catch (Exception ex)
             {
                 // erro
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -156,7 +156,7 @@ namespace TerraDeGoshenAPI.src.Application
             catch (Exception ex)
             {
                 // erro
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
     }

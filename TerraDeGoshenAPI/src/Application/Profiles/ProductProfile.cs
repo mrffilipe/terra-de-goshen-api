@@ -14,7 +14,7 @@ namespace TerraDeGoshenAPI.src.Application
                     src.Description,
                     src.Price,
                     src.BackgroundText,
-                    new List<ImageRef>(),
+                    [],
                     context.Mapper.Map<IList<ColorRef>>(src.Colors),
                     context.Mapper.Map<IList<SizeRef>>(src.Sizes),
                     src.CategoryId,

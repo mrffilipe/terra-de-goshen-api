@@ -11,7 +11,7 @@ namespace TerraDeGoshenAPI.src.Application
                 .ConstructUsing(s => new ImageResponseDTO(
                     s.Id,
                     s.Details.Url,
-                    s.Details.IsCover ?? false,
+                    s.Details.IsCover,
                     s.CreatedAt,
                     s.UpdatedAt
                     ));

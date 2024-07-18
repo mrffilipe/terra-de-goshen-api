@@ -3,7 +3,7 @@
     public record ImageUpdateDTO
     {
         public Guid Id { get; } = Guid.Empty;
-        public IFormFile File { get; }
+        public IFormFile File { get; } = null!;
         public bool IsCover { get; } = false;
         public bool IsDeleted { get; } = false;
 
