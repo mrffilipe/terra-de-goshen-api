@@ -2,8 +2,8 @@
 {
     public class CategoryRef : IEntity
     {
-        public CategoryVO Details { get; } = new CategoryVO();
-        public IList<Product> Product { get; } = [];
+        public CategoryVO Details { get; private set; } = new CategoryVO();
+        public IList<Product> Product { get; private set; } = [];
 
         public CategoryRef()
         { }

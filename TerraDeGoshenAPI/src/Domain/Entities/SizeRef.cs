@@ -2,8 +2,8 @@
 {
     public class SizeRef : IEntity
     {
-        public SizeVO Details { get; } = new SizeVO();
-        public IList<Product> Products { get; } = [];
+        public SizeVO Details { get; private set; } = new SizeVO();
+        public IList<Product> Products { get; private set; } = [];
 
         public SizeRef()
         { }

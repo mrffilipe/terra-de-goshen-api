@@ -72,7 +72,7 @@ namespace TerraDeGoshenAPI.Migrations
                     price = table.Column<double>(type: "double", nullable: false),
                     background_text = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    product_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    category_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     quantity_in_stock = table.Column<int>(type: "int", nullable: false),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false)
@@ -81,8 +81,8 @@ namespace TerraDeGoshenAPI.Migrations
                 {
                     table.PrimaryKey("PK_products", x => x.id);
                     table.ForeignKey(
-                        name: "FK_products_categories_product_id",
-                        column: x => x.product_id,
+                        name: "FK_products_categories_category_id",
+                        column: x => x.category_id,
                         principalTable: "categories",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -173,10 +173,9 @@ namespace TerraDeGoshenAPI.Migrations
                 column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_products_product_id",
+                name: "IX_products_category_id",
                 table: "products",
-                column: "product_id",
-                unique: true);
+                column: "category_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductSizeRef_SizesId",

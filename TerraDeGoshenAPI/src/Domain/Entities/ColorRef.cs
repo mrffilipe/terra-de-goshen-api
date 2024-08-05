@@ -2,9 +2,9 @@
 {
     public class ColorRef : IEntity
     {
-        public ColorVO Details { get; } = new ColorVO();
-        public Guid? ImageId { get; } = Guid.Empty;
-        public IList<Product> Products { get; } = [];
+        public ColorVO Details { get; private set; } = new ColorVO();
+        public Guid? ImageId { get; private set; } = Guid.Empty;
+        public IList<Product> Products { get; private set; } = [];
 
         public ColorRef()
         { }

@@ -13,7 +13,7 @@ using TerraDeGoshenAPI.src.Infrastructure;
 namespace TerraDeGoshenAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240613050716_FirstMigration")]
+    [Migration("20240718184823_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -174,7 +174,7 @@ namespace TerraDeGoshenAPI.Migrations
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("char(36)")
-                        .HasColumnName("product_id");
+                        .HasColumnName("category_id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)")
@@ -204,8 +204,7 @@ namespace TerraDeGoshenAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId")
-                        .IsUnique();
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("products", (string)null);
                 });
@@ -284,8 +283,8 @@ namespace TerraDeGoshenAPI.Migrations
             modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.Product", b =>
                 {
                     b.HasOne("TerraDeGoshenAPI.src.Domain.CategoryRef", "Category")
-                        .WithOne("Product")
-                        .HasForeignKey("TerraDeGoshenAPI.src.Domain.Product", "CategoryId")
+                        .WithMany("Product")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -294,8 +293,7 @@ namespace TerraDeGoshenAPI.Migrations
 
             modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.CategoryRef", b =>
                 {
-                    b.Navigation("Product")
-                        .IsRequired();
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("TerraDeGoshenAPI.src.Domain.Product", b =>

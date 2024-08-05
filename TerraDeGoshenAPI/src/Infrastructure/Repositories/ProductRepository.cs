@@ -16,7 +16,22 @@ namespace TerraDeGoshenAPI.src.Infrastructure
         {
             try
             {
-                _context.Products.Add(product);
+                IList<Guid> colorIds = product.Colors.Select(x => x.Id).ToList();
+
+                IList<ColorRef> existingColors = await _context.Colors
+                    .Where(x => colorIds.Contains(x.Id))
+                    .ToListAsync();
+
+                IList<Guid> sizeIds = product.Sizes.Select(x => x.Id).ToList();
+
+                IList<SizeRef> existingSizez = await _context.Sizes
+                    .Where(x => sizeIds.Contains(x.Id))
+                    .ToListAsync();
+
+                product.UpdateColors(existingColors);
+                product.UpdateSizes(existingSizez);
+
+                await _context.Products.AddAsync(product);
 
                 await _context.SaveChangesAsync();
 
