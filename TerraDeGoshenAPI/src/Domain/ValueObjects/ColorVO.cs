@@ -2,14 +2,11 @@
 {
     public record ColorVO
     {
-        public string Value { get; } = string.Empty;
-
-        public ColorVO()
-        { }
+        public string Value { get; }
 
         public ColorVO(string value)
         {
-            Value = value;
+            Value = value ?? throw new ArgumentNullException(nameof(value));
         }
     }
 }

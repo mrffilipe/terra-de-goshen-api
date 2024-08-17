@@ -1,67 +1,42 @@
 ﻿namespace TerraDeGoshenAPI.src.Domain
 {
-    public class Product : IEntity
+    public class Product : BaseEntity
     {
-        public string Name { get; private set; } = string.Empty;
-        public string Description { get; private set; } = string.Empty;
-        public double Price { get; private set; } = 0;
-        public string BackgroundText { get; private set; } = string.Empty;
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public MoneyVO Price { get; private set; }
+        public MoneyVO CostPrice { get; private set; }
+        public string BackgroundText { get; private set; }
         public IList<ImageRef> Images { get; private set; } = [];
         public IList<ColorRef> Colors { get; private set; } = [];
         public IList<SizeRef> Sizes { get; private set; } = [];
-        public Guid CategoryId { get; private set; } = Guid.Empty;
+        public Guid CategoryId { get; private set; }
         public CategoryRef Category { get; private set; } = null!;
-        public int QuantityInStock { get; private set; } = 0;
-
-        public Product()
-        { }
+        public StockVO Stock { get; private set; }
 
         public Product(
             string name,
             string description,
-            double price,
-            string backgroundText,
-            IList<ImageRef> images,
-            IList<ColorRef> colors,
-            IList<SizeRef> sizes,
-            CategoryRef category,
-            int quantityInStock
-            )
-        {
-            Name = name;
-            Description = description;
-            Price = price;
-            BackgroundText = backgroundText;
-            Images = images;
-            Colors = colors;
-            Sizes = sizes;
-            Category = category;
-            QuantityInStock = quantityInStock;
-        }
-
-        public Product(
-            string name,
-            string description,
-            double price,
+            MoneyVO price,
+            MoneyVO costPrice,
             string backgroundText,
             IList<ImageRef> images,
             IList<ColorRef> colors,
             IList<SizeRef> sizes,
             Guid categoryId,
-            int quantityInStock
-            ) : this(name, description, price, backgroundText, images, colors, sizes, null!, quantityInStock)
+            StockVO stock
+            )
         {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Description = description ?? throw new ArgumentNullException(nameof(description));
+            Price = price ?? throw new ArgumentNullException(nameof(price));
+            CostPrice = costPrice ?? throw new ArgumentNullException(nameof(costPrice));
+            BackgroundText = backgroundText ?? throw new ArgumentNullException(nameof(backgroundText));
+            Images = images ?? throw new ArgumentNullException(nameof(images));
+            Colors = colors ?? throw new ArgumentNullException(nameof(colors));
+            Sizes = sizes ?? throw new ArgumentNullException(nameof(sizes));
             CategoryId = categoryId;
-        }
-
-        public void UpdateColors(IList<ColorRef> colors)
-        {
-            Colors = colors;
-        }
-
-        public void UpdateSizes(IList<SizeRef> sizes)
-        {
-            Sizes = sizes;
+            Stock = stock ?? throw new ArgumentNullException(nameof(stock));
         }
     }
 }

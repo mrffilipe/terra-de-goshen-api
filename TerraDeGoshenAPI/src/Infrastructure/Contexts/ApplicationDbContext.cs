@@ -38,7 +38,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
         private void SetTimestamps()
         {
-            var entries = ChangeTracker.Entries<IEntity>();
+            var entries = ChangeTracker.Entries<BaseEntity>();
 
             foreach (var entry in entries)
             {

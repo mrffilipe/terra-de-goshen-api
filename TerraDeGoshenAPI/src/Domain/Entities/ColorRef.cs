@@ -1,27 +1,15 @@
 ﻿namespace TerraDeGoshenAPI.src.Domain
 {
-    public class ColorRef : IEntity
+    public class ColorRef : BaseEntity
     {
-        public ColorVO Details { get; private set; } = new ColorVO();
-        public Guid? ImageId { get; private set; } = Guid.Empty;
+        public ColorVO Details { get; private set; }
+        public Guid? ImageId { get; private set; }
         public IList<Product> Products { get; private set; } = [];
 
-        public ColorRef()
-        { }
-
-        public ColorRef(Guid id)
+        public ColorRef(ColorVO details, Guid? imageId)
         {
-            Id = id;
-        }
-
-        public ColorRef(ColorVO details)
-        {
-            Details = details;
-        }
-
-        public ColorRef(ColorVO color, Guid? imageId) : this(color)
-        {
-            ImageId = imageId;
+            Details = details ?? throw new ArgumentNullException(nameof(details));
+            ImageId = imageId ?? throw new ArgumentNullException(nameof(imageId));
         }
     }
 }

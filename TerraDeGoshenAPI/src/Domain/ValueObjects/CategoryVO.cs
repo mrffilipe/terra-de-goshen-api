@@ -2,14 +2,11 @@
 {
     public record CategoryVO
     {
-        public string Name { get; } = string.Empty;
-
-        public CategoryVO()
-        { }
+        public string Name { get; }
 
         public CategoryVO(string name)
         {
-            Name = name;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
         }
     }
 }

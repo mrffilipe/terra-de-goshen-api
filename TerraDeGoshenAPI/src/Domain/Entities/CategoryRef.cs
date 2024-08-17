@@ -1,21 +1,13 @@
 ﻿namespace TerraDeGoshenAPI.src.Domain
 {
-    public class CategoryRef : IEntity
+    public class CategoryRef : BaseEntity
     {
-        public CategoryVO Details { get; private set; } = new CategoryVO();
+        public CategoryVO Details { get; private set; }
         public IList<Product> Product { get; private set; } = [];
-
-        public CategoryRef()
-        { }
-
-        public CategoryRef(Guid id)
-        {
-            Id = id;
-        }
 
         public CategoryRef(CategoryVO details)
         {
-            Details = details;
+            Details = details ?? throw new ArgumentNullException(nameof(details));
         }
     }
 }

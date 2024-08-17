@@ -2,16 +2,13 @@
 {
     public record ImageVO
     {
-        public string Url { get; } = string.Empty;
-        public bool? IsCover { get; } = false;
-
-        public ImageVO()
-        { }
+        public string Url { get; }
+        public bool? IsCover { get; }
 
         public ImageVO(string url, bool? isCover)
         {
-            Url = url;
-            IsCover = isCover;
+            Url = url ?? throw new ArgumentNullException(nameof(url));
+            IsCover = isCover ?? throw new ArgumentNullException(nameof(isCover));
         }
     }
 }

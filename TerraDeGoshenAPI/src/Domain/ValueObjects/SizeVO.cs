@@ -2,14 +2,11 @@
 {
     public record SizeVO
     {
-        public string Value { get; } = string.Empty;
-
-        public SizeVO()
-        { }
+        public string Value { get; }
 
         public SizeVO(string value)
         {
-            Value = value;
+            Value = value ?? throw new ArgumentNullException(nameof(value));
         }
     }
 }
