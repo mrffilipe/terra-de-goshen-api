@@ -4,6 +4,8 @@
     {
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
+        public IList<Debt> Debts { get; private set; } = [];
+        public IList<Transaction> Transactions { get; private set; } = [];
 
         public Customer(string firstName, string lastName)
         {

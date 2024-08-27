@@ -4,9 +4,9 @@ using TerraDeGoshenAPI.src.Domain;
 
 namespace TerraDeGoshenAPI.src.Infrastructure
 {
-    public class ImageMapping : IEntityMapping<ImageRef>
+    public class ImageMapping : EntityMapping<ImageRef>
     {
-        public override void Configure(EntityTypeBuilder<ImageRef> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<ImageRef> builder)
         {
             base.Configure(builder);
 

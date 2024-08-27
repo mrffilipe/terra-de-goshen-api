@@ -4,7 +4,7 @@ using TerraDeGoshenAPI.src.Domain;
 
 namespace TerraDeGoshenAPI.src.Infrastructure
 {
-    public abstract class IEntityMapping<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : BaseEntity
+    public abstract class EntityMapping<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : BaseEntity
     {
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
@@ -21,6 +21,10 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             builder.Property(x => x.UpdatedAt)
                 .HasColumnName("updated_at")
                 .IsRequired();
+
+            ConfigureEntity(builder);
         }
+
+        protected abstract void ConfigureEntity(EntityTypeBuilder<TEntity> builder);
     }
 }

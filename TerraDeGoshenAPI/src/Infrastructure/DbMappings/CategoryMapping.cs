@@ -4,9 +4,9 @@ using TerraDeGoshenAPI.src.Domain;
 
 namespace TerraDeGoshenAPI.src.Infrastructure
 {
-    public class CategoryMapping : IEntityMapping<CategoryRef>
+    public class CategoryMapping : EntityMapping<CategoryRef>
     {
-        public override void Configure(EntityTypeBuilder<CategoryRef> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<CategoryRef> builder)
         {
             base.Configure(builder);
 
@@ -15,13 +15,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             builder.ComplexProperty(e => e.Details).Property(e => e.Name)
                 .HasColumnName("name")
                 .IsRequired();
-
-            //builder.HasData(
-            //    new CategoryRef(new CategoryVO("Camisetas")),
-            //    new CategoryRef(new CategoryVO("Vestidos")),
-            //    new CategoryRef(new CategoryVO("Calças")),
-            //    new CategoryRef(new CategoryVO("Calçados"))
-            //    );
         }
     }
 }

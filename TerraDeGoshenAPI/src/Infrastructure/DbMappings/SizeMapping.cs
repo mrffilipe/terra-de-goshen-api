@@ -4,9 +4,9 @@ using TerraDeGoshenAPI.src.Domain;
 
 namespace TerraDeGoshenAPI.src.Infrastructure
 {
-    public class SizeMapping : IEntityMapping<SizeRef>
+    public class SizeMapping : EntityMapping<SizeRef>
     {
-        public override void Configure(EntityTypeBuilder<SizeRef> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<SizeRef> builder)
         {
             base.Configure(builder);
 
@@ -15,15 +15,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             builder.ComplexProperty(e => e.Details).Property(e => e.Value)
                 .HasColumnName("value")
                 .IsRequired();
-
-            //builder.HasData(
-            //    new SizeRef(new SizeVO("P")),
-            //    new SizeRef(new SizeVO("M")),
-            //    new SizeRef(new SizeVO("G")),
-            //    new SizeRef(new SizeVO("GG")),
-            //    new SizeRef(new SizeVO("XG")),
-            //    new SizeRef(new SizeVO("XXG"))
-            //    );
         }
     }
 }

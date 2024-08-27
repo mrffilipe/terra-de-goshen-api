@@ -4,9 +4,9 @@ using TerraDeGoshenAPI.src.Domain;
 
 namespace TerraDeGoshenAPI.src.Infrastructure
 {
-    public class ProductMapping : IEntityMapping<Product>
+    public class ProductMapping : EntityMapping<Product>
     {
-        public override void Configure(EntityTypeBuilder<Product> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<Product> builder)
         {
             base.Configure(builder);
 
@@ -20,16 +20,20 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                 .HasColumnName("description")
                 .IsRequired();
 
-            builder.Property(x => x.Price)
+            builder.ComplexProperty(x => x.Price).Property(e => e.Amount)
                 .HasColumnName("price")
+                .IsRequired();
+
+            builder.ComplexProperty(x => x.CostPrice).Property(e => e.Amount)
+                .HasColumnName("cost_price")
                 .IsRequired();
 
             builder.Property(x => x.BackgroundText)
                 .HasColumnName("background_text")
                 .IsRequired();
 
-            builder.Property(x => x.QuantityInStock)
-                .HasColumnName("quantity_in_stock")
+            builder.ComplexProperty(x => x.Stock).Property(e => e.Amount)
+                .HasColumnName("stock")
                 .IsRequired();
 
             builder.Property(x => x.CategoryId)
@@ -48,8 +52,13 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                 .WithMany(e => e.Products);
 
             builder.HasOne(e => e.Category)
-                .WithMany(e => e.Product)
+                .WithMany(e => e.Products)
                 .HasForeignKey(e => e.CategoryId)
+                .IsRequired();
+
+            builder.HasMany(e => e.Transactions)
+                .WithOne(e => e.Product)
+                .HasForeignKey(e => e.ProductId)
                 .IsRequired();
         }
     }

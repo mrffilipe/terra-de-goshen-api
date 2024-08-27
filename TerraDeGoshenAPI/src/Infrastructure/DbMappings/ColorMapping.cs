@@ -4,9 +4,9 @@ using TerraDeGoshenAPI.src.Domain;
 
 namespace TerraDeGoshenAPI.src.Infrastructure
 {
-    public class ColorMapping : IEntityMapping<ColorRef>
+    public class ColorMapping : EntityMapping<ColorRef>
     {
-        public override void Configure(EntityTypeBuilder<ColorRef> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<ColorRef> builder)
         {
             base.Configure(builder);
 
@@ -19,14 +19,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             builder.Property(x => x.ImageId)
                 .HasColumnName("image_id")
                 .IsRequired(false);
-
-            //builder.HasData(
-            //    new ColorRef(new ColorVO("Black")),
-            //    new ColorRef(new ColorVO("White")),
-            //    new ColorRef(new ColorVO("Red")),
-            //    new ColorRef(new ColorVO("Green")),
-            //    new ColorRef(new ColorVO("Blue"))
-            //    );
         }
     }
 }

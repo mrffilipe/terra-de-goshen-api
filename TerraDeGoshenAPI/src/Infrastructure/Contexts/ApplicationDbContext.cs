@@ -5,11 +5,16 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 {
     public class ApplicationDbContext : DbContext
     {
+        public DbSet<CashRegister> CashRegisters { get; set; }
         public DbSet<CategoryRef> Categories { get; set; }
         public DbSet<ColorRef> Colors { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Debt> Debts { get; set; }
         public DbSet<ImageRef> Images { get; set; }
+        public DbSet<Installment> Installments { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<SizeRef> Sizes { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -46,12 +51,12 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Entity.CreatedAt = dateTime;
+                    entry.Entity.SetCreatedAt(dateTime);
                 }
 
                 if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
                 {
-                    entry.Entity.UpdatedAt = dateTime;
+                    entry.Entity.SetUpdatedAt(dateTime);
                 }
             }
         }

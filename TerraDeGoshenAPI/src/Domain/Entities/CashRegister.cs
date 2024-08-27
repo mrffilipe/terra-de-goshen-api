@@ -3,6 +3,7 @@
     public class CashRegister : BaseEntity
     {
         public MoneyVO CurrentBalance { get; private set; }
+        public IList<Transaction> Transactions { get; private set; } = [];
 
         public CashRegister(MoneyVO currentBalance)
         {

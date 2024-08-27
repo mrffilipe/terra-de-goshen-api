@@ -5,18 +5,21 @@
         public MoneyVO Amount { get; private set; }
         public TransactionType TransactionType { get; private set; }
         public PaymentMethod PaymentMethod { get; private set; }
+        public Guid CashRegisterId { get; private set; }
+        public CashRegister CashRegister { get; private set; } = null!;
         public Guid ProductId { get; private set; }
         public Product Product { get; private set; } = null!;
-        public Guid CustomerID { get; private set; }
+        public Guid CustomerId { get; private set; }
         public Customer Customer { get; private set; } = null!;
 
-        public Transaction(MoneyVO amount, TransactionType transactionType, PaymentMethod paymentMethod, Guid productId, Guid customerID)
+        public Transaction(MoneyVO amount, TransactionType transactionType, PaymentMethod paymentMethod, Guid cashRegisterId, Guid productId, Guid customerId)
         {
             Amount = amount ?? throw new ArgumentNullException(nameof(amount));
             TransactionType = transactionType;
             PaymentMethod = paymentMethod;
+            CashRegisterId = cashRegisterId;
             ProductId = productId;
-            CustomerID = customerID;
+            CustomerId = customerId;
         }
 
         public string GetDetails() => "";

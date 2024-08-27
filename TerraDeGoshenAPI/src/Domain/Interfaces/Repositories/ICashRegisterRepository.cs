@@ -3,6 +3,6 @@
     public interface ICashRegisterRepository
     {
         Task<CashRegister> GetByIdAsync(Guid id);
-        Task UpdateAsync(CashRegister cashRegister);
+        Task<CashRegister> UpdateAsync(CashRegister cashRegister);
     }
 }

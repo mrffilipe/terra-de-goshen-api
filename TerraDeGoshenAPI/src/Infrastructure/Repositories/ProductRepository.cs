@@ -28,8 +28,8 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                     .Where(x => sizeIds.Contains(x.Id))
                     .ToListAsync();
 
-                product.UpdateColors(existingColors);
-                product.UpdateSizes(existingSizez);
+                //product.UpdateColors(existingColors);
+                //product.UpdateSizes(existingSizez);
 
                 await _context.Products.AddAsync(product);
 

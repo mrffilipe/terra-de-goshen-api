@@ -3,7 +3,7 @@
     public class CategoryRef : BaseEntity
     {
         public CategoryVO Details { get; private set; }
-        public IList<Product> Product { get; private set; } = [];
+        public IList<Product> Products { get; private set; } = [];
 
         public CategoryRef(CategoryVO details)
         {
