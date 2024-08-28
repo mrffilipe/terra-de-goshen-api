@@ -1,6 +1,5 @@
 ﻿using Google.Cloud.SecretManager.V1;
 using Google.Cloud.Storage.V1;
-using Newtonsoft.Json;
 using TerraDeGoshenAPI.src.Domain;
 
 namespace TerraDeGoshenAPI.src.Infrastructure
