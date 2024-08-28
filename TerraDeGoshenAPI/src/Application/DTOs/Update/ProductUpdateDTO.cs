@@ -2,17 +2,18 @@
 {
     public record ProductUpdateDTO
     {
-        public Guid Id { get; } = Guid.Empty;
-        public string Name { get; } = string.Empty;
-        public string Description { get; } = string.Empty;
-        public double Price { get; } = 0;
-        public string BackgroundText { get; } = string.Empty;
-        public IList<ImageUpdateDTO> Images { get; } = [];
-        public IList<ColorUpdateDTO> Colors { get; } = [];
-        public IList<SizeUpdateDTO> Sizes { get; } = [];
-        public CategoryUpdateDTO Category { get; } = new CategoryUpdateDTO();
-        public int QuantityInStock { get; } = 0;
-        public bool IsDeleted { get; } = false;
+        public Guid Id { get; init; } = Guid.Empty;
+        public string Name { get; init; } = string.Empty;
+        public string Description { get; init; } = string.Empty;
+        public decimal Price { get; init; } = 0;
+        public decimal CostPrice { get; init; } = 0;
+        public string BackgroundText { get; init; } = string.Empty;
+        public int Stock { get; init; } = 0;
+        public IList<ImageUpdateDTO> Images { get; init; } = [];
+        public IList<SimpleColorUpdateDTO> Colors { get; init; } = [];
+        public IList<SimpleSizeUpdateDTO> Sizes { get; init; } = [];
+        public SimpleCategoryUpdateDTO Category { get; init; } = null!;
+        public bool IsDeleted { get; init; } = false;
 
         public ProductUpdateDTO()
         { }
@@ -21,13 +22,14 @@
             Guid id,
             string name,
             string description,
-            double price,
+            decimal price,
+            decimal costPrice,
             string backgroundText,
+            int stock,
             IList<ImageUpdateDTO> images,
-            IList<ColorUpdateDTO> colors,
-            IList<SizeUpdateDTO> sizes,
-            CategoryUpdateDTO category,
-            int quantityInStock,
+            IList<SimpleColorUpdateDTO> colors,
+            IList<SimpleSizeUpdateDTO> sizes,
+            SimpleCategoryUpdateDTO category,
             bool isDeleted
             )
         {
@@ -35,12 +37,13 @@
             Name = name;
             Description = description;
             Price = price;
+            CostPrice = costPrice;
             BackgroundText = backgroundText;
+            Stock = stock;
             Images = images;
             Colors = colors;
             Sizes = sizes;
             Category = category;
-            QuantityInStock = quantityInStock;
             IsDeleted = isDeleted;
         }
     }

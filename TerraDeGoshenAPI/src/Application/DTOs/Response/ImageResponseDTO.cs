@@ -5,8 +5,8 @@
         public Guid Id { get; } = Guid.Empty;
         public string Url { get; } = string.Empty;
         public bool? IsCover { get; } = false;
-        public DateTime CreatedAt { get; } = DateTime.MinValue;
-        public DateTime UpdatedAt { get; } = DateTime.MinValue;
+        public DateTime CreatedAt { get; }
+        public DateTime UpdatedAt { get; }
 
         public ImageResponseDTO()
         { }

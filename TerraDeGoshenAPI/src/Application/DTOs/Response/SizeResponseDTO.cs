@@ -4,8 +4,8 @@
     {
         public Guid Id { get; } = Guid.Empty;
         public string Value { get; } = string.Empty;
-        public DateTime CreatedAt { get; } = DateTime.MinValue;
-        public DateTime UpdatedAt { get; } = DateTime.MinValue;
+        public DateTime CreatedAt { get; }
+        public DateTime UpdatedAt { get; }
 
         public SizeResponseDTO()
         { }

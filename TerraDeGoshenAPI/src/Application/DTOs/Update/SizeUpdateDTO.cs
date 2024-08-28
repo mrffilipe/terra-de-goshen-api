@@ -2,8 +2,8 @@
 {
     public record SizeUpdateDTO
     {
-        public Guid Id { get; } = Guid.Empty;
-        public bool IsDeleted { get; } = false;
+        public Guid Id { get; init; } = Guid.Empty;
+        public bool IsDeleted { get; init; } = false;
 
         public SizeUpdateDTO()
         { }

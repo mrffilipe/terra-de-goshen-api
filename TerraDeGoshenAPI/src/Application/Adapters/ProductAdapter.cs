@@ -18,68 +18,44 @@ namespace TerraDeGoshenAPI.src.Application
 
         public async Task<ProductResponseDTO> AddProductAsync(ProductCreateDTO product)
         {
-            try
+            var mappedProduct = _mapper.Map<Product>(product);
+
+            foreach (var img in product.Images)
             {
-                var mappedProduct = _mapper.Map<Product>(product);
+                var imageResult = await _imageService.UploadImageAsync(img.File, img.IsCover);
 
-                foreach (var img in product.Images)
-                {
-                    var imageResult = await _imageService.UploadImageAsync(img.File, img.IsCover);
+                var imageRef = new ImageRef(imageResult);
 
-                    var imageRef = new ImageRef(imageResult);
-
-                    mappedProduct.Images.Add(imageRef);
-                }
-
-                mappedProduct = await _productService.AddProductAsync(mappedProduct);
-
-                return _mapper.Map<ProductResponseDTO>(mappedProduct);
+                mappedProduct.Images.Add(imageRef);
             }
-            catch (Exception ex)
-            {
-                // erro
-                throw new Exception(ex.Message);
-            }
+
+            mappedProduct = await _productService.AddProductAsync(mappedProduct);
+
+            return _mapper.Map<ProductResponseDTO>(mappedProduct);
         }
 
         public async Task<ProductResponseDTO> GetProductByIdAsync(Guid id)
         {
-            try
-            {
-                var product = await _productService.GetProductByIdAsync(id);
+            var product = await _productService.GetProductByIdAsync(id);
 
-                if (product == null)
-                {
-                    throw new Exception();
-                }
-
-                return _mapper.Map<ProductResponseDTO>(product);
-            }
-            catch (Exception ex)
+            if (product == null)
             {
-                // erro
-                throw new Exception(ex.Message);
+                throw new Exception();
             }
+
+            return _mapper.Map<ProductResponseDTO>(product);
         }
 
         public async Task<IList<MinimumProductResponseDTO>> GetAllProductsAsync()
         {
-            try
-            {
-                var products = await _productService.GetAllProductsAsync();
+            var products = await _productService.GetAllProductsAsync();
 
-                if (products == null)
-                {
-                    throw new Exception();
-                }
-
-                return _mapper.Map<IList<MinimumProductResponseDTO>>(products);
-            }
-            catch (Exception ex)
+            if (products == null)
             {
-                // erro
-                throw new Exception(ex.Message);
+                throw new Exception();
             }
+
+            return _mapper.Map<IList<MinimumProductResponseDTO>>(products);
         }
 
         public async Task<IList<MinimumProductResponseDTO>> GetProductsByParametersAsync(SearchParameters parameters)
@@ -89,75 +65,43 @@ namespace TerraDeGoshenAPI.src.Application
 
         public async Task<ProductResponseDTO> UpdateProductAsync(ProductUpdateDTO product)
         {
-            try
-            {
-                throw new NotImplementedException();
-            }
-            catch (Exception ex)
-            {
-                // erro
-                throw new Exception(ex.Message);
-            }
+            throw new NotImplementedException();
         }
 
         public async Task<IList<CategoryResponseDTO>> GetAllCategoriesAsync()
         {
-            try
-            {
-                var categories = await _productService.GetAllCategoriesAsync();
+            var categories = await _productService.GetAllCategoriesAsync();
 
-                if (categories != null)
-                {
-                    return _mapper.Map<IList<CategoryResponseDTO>>(categories);
-                }
-
-                throw new Exception();
-            }
-            catch (Exception ex)
+            if (categories != null)
             {
-                // erro
-                throw new Exception(ex.Message);
+                return _mapper.Map<IList<CategoryResponseDTO>>(categories);
             }
+
+            throw new Exception();
         }
 
         public async Task<IList<ColorResponseDTO>> GetAllColorsAsync()
         {
-            try
-            {
-                var colors = await _productService.GetAllColorsAsync();
+            var colors = await _productService.GetAllColorsAsync();
 
-                if (colors != null)
-                {
-                    return _mapper.Map<IList<ColorResponseDTO>>(colors);
-                }
-
-                throw new Exception();
-            }
-            catch (Exception ex)
+            if (colors != null)
             {
-                // erro
-                throw new Exception(ex.Message);
+                return _mapper.Map<IList<ColorResponseDTO>>(colors);
             }
+
+            throw new Exception();
         }
 
         public async Task<IList<SizeResponseDTO>> GetAllSizesAsync()
         {
-            try
-            {
-                var sizes = await _productService.GetAllSizesAsync();
+            var sizes = await _productService.GetAllSizesAsync();
 
-                if (sizes != null)
-                {
-                    return _mapper.Map<IList<SizeResponseDTO>>(sizes);
-                }
-
-                throw new Exception();
-            }
-            catch (Exception ex)
+            if (sizes != null)
             {
-                // erro
-                throw new Exception(ex.Message);
+                return _mapper.Map<IList<SizeResponseDTO>>(sizes);
             }
+
+            throw new Exception();
         }
     }
 }

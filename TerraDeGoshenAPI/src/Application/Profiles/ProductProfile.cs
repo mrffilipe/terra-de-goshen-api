@@ -9,57 +9,50 @@ namespace TerraDeGoshenAPI.src.Application
         {
             CreateMap<ProductCreateDTO, Product>()
                 .ForMember(dest => dest.Images, opt => opt.Ignore())
-                .ConstructUsing((src, context) => new Product(
-                    src.Name,
-                    src.Description,
-                    src.Price,
-                    src.BackgroundText,
-                    [],
-                    context.Mapper.Map<IList<ColorRef>>(src.Colors),
-                    context.Mapper.Map<IList<SizeRef>>(src.Sizes),
-                    src.CategoryId,
-                    src.QuantityInStock
-                    ));
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Price.Amount, opt => opt.MapFrom(src => src.Price))
+                .ForMember(dest => dest.CostPrice.Amount, opt => opt.MapFrom(src => src.CostPrice))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Stock.Amount, opt => opt.MapFrom(src => src.Stock))
+                .ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors))
+                .ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes))
+                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Category.Id));
 
             CreateMap<Product, MinimumProductResponseDTO>()
-                .ConstructUsing((src, context) => new MinimumProductResponseDTO(
-                    src.Id,
-                    src.Name,
-                    src.Price,
-                    context.Mapper.Map<IList<ImageResponseDTO>>(src.Images),
-                    src.CreatedAt,
-                    src.UpdatedAt
-                    ));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price.Amount))
+                .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images))
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
+                .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => src.UpdatedAt));
 
             CreateMap<Product, ProductResponseDTO>()
-                .ConstructUsing((src, context) => new ProductResponseDTO(
-                    src.Id,
-                    src.Name,
-                    src.Description,
-                    src.Price,
-                    src.BackgroundText,
-                    context.Mapper.Map<IList<ImageResponseDTO>>(src.Images),
-                    context.Mapper.Map<IList<ColorResponseDTO>>(src.Colors),
-                    context.Mapper.Map<IList<SizeResponseDTO>>(src.Sizes),
-                    context.Mapper.Map<CategoryResponseDTO>(src.Category),
-                    src.QuantityInStock,
-                    src.CreatedAt,
-                    src.UpdatedAt
-                    ));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price.Amount))
+                .ForMember(dest => dest.CostPrice, opt => opt.MapFrom(src => src.CostPrice.Amount))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Stock, opt => opt.MapFrom(src => src.Stock.Amount))
+                .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images))
+                .ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors))
+                .ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes))
+                .ForMember(dest => dest.Category.Id, opt => opt.MapFrom(src => src.CategoryId))
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
+                .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => src.UpdatedAt));
 
             CreateMap<ProductUpdateDTO, Product>()
                 .ForMember(dest => dest.Images, opt => opt.Ignore())
-                .ConstructUsing((src, context) => new Product(
-                    src.Name,
-                    src.Description,
-                    src.Price,
-                    src.BackgroundText,
-                    [],
-                    context.Mapper.Map<IList<ColorRef>>(src.Colors),
-                    context.Mapper.Map<IList<SizeRef>>(src.Sizes),
-                    context.Mapper.Map<CategoryRef>(src.Category),
-                    src.QuantityInStock
-                    ));
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Price.Amount, opt => opt.MapFrom(src => src.Price))
+                .ForMember(dest => dest.CostPrice.Amount, opt => opt.MapFrom(src => src.CostPrice))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Stock.Amount, opt => opt.MapFrom(src => src.Stock))
+                .ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors))
+                .ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes))
+                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Category.Id));
         }
     }
 }

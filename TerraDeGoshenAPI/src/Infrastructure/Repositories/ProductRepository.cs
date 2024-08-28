@@ -37,10 +37,9 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
                 return product;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // erro
-                throw new Exception(ex.Message);
+                throw;
             }
         }
 
@@ -57,10 +56,9 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // erro
-                throw new Exception(ex.Message);
+                throw;
             }
         }
 
@@ -77,10 +75,9 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // erro
-                throw new Exception(ex.Message);
+                throw;
             }
         }
 
@@ -95,10 +92,9 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             {
                 throw new Exception();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // erro
-                throw new Exception(ex.Message);
+                throw;
             }
         }
 
@@ -110,10 +106,9 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // erro
-                throw new Exception(ex.Message);
+                throw;
             }
         }
 
@@ -125,10 +120,9 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // erro
-                throw new Exception(ex.Message);
+                throw;
             }
         }
 
@@ -140,10 +134,9 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // erro
-                throw new Exception(ex.Message);
+                throw;
             }
         }
     }

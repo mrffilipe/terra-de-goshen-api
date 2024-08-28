@@ -8,23 +8,19 @@ namespace TerraDeGoshenAPI.src.Application
         public CategoryProfile()
         {
             CreateMap<CategoryCreateDTO, CategoryRef>()
-                .ConstructUsing(s => new CategoryRef(
-                    new CategoryVO(s.Name)
-                    ));
+                .ForMember(dest => dest.Details.Name, opt => opt.MapFrom(src => src.Name));
 
             CreateMap<SimpleCategoryCreateDTO, CategoryRef>()
-                .ConstructUsing(s => new CategoryRef(s.Id));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
 
             CreateMap<CategoryRef, CategoryResponseDTO>()
-                .ConstructUsing(s => new CategoryResponseDTO(
-                    s.Id,
-                    s.Details.Name,
-                    s.CreatedAt,
-                    s.UpdatedAt
-                    ));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Details.Name))
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
+                .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => src.UpdatedAt));
 
             CreateMap<CategoryUpdateDTO, CategoryRef>()
-                .ConstructUsing(s => new CategoryRef(s.Id));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

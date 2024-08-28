@@ -13,32 +13,16 @@ namespace TerraDeGoshenAPI.src.Application
 
         public async Task<ImageVO> UploadImageAsync(IFormFile file, bool? isCover = false)
         {
-            try
-            {
-                var imageUrl = await _imageRepository.UploadImageAsync(file);
+            var imageUrl = await _imageRepository.UploadImageAsync(file);
 
-                var image = new ImageVO(imageUrl, isCover);
+            var image = new ImageVO(imageUrl, isCover);
 
-                return image;
-            }
-            catch (Exception ex)
-            {
-                // erro
-                throw new NotImplementedException();
-            }
+            return image;
         }
 
         public async Task DeleteImageAsync(string imageUrl)
         {
-            try
-            {
-                throw new NotImplementedException();
-            }
-            catch (Exception ex)
-            {
-                // erro
-                throw new NotImplementedException();
-            }
+            throw new NotImplementedException();
         }
     }
 }

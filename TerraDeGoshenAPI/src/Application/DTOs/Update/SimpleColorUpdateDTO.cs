@@ -1,19 +1,17 @@
 ﻿namespace TerraDeGoshenAPI.src.Application
 {
-    public record ColorUpdateDTO
+    public record SimpleColorUpdateDTO
     {
         public Guid Id { get; init; } = Guid.Empty;
         public Guid? ImageId { get; init; } = Guid.Empty;
-        public bool IsDeleted { get; init; } = false;
 
-        public ColorUpdateDTO()
+        public SimpleColorUpdateDTO()
         { }
 
-        public ColorUpdateDTO(Guid id, Guid? imageId, bool isDeleted)
+        public SimpleColorUpdateDTO(Guid id, Guid? imageId)
         {
             Id = id;
             ImageId = imageId;
-            IsDeleted = isDeleted;
         }
     }
 }

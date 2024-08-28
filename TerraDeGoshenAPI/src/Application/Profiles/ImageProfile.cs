@@ -8,13 +8,11 @@ namespace TerraDeGoshenAPI.src.Application
         public ImageProfile()
         {
             CreateMap<ImageRef, ImageResponseDTO>()
-                .ConstructUsing(s => new ImageResponseDTO(
-                    s.Id,
-                    s.Details.Url,
-                    s.Details.IsCover,
-                    s.CreatedAt,
-                    s.UpdatedAt
-                    ));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Url, opt => opt.MapFrom(src => src.Details.Url))
+                .ForMember(dest => dest.IsCover, opt => opt.MapFrom(src => src.Details.IsCover))
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
+                .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => src.UpdatedAt));
         }
     }
 }

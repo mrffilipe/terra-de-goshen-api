@@ -5,8 +5,8 @@
         public Guid Id { get; } = Guid.Empty;
         public string Value { get; } = string.Empty;
         public Guid? ImageId { get; } = Guid.Empty;
-        public DateTime CreatedAt { get; } = DateTime.MinValue;
-        public DateTime UpdatedAt { get; } = DateTime.MinValue;
+        public DateTime CreatedAt { get; }
+        public DateTime UpdatedAt { get; }
 
         public ColorResponseDTO()
         { }

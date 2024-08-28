@@ -2,10 +2,10 @@
 {
     public record ImageUpdateDTO
     {
-        public Guid Id { get; } = Guid.Empty;
-        public IFormFile File { get; } = null!;
-        public bool IsCover { get; } = false;
-        public bool IsDeleted { get; } = false;
+        public Guid Id { get; init; } = Guid.Empty;
+        public IFormFile File { get; init; } = null!;
+        public bool IsCover { get; init; } = false;
+        public bool IsDeleted { get; init; } = false;
 
         public ImageUpdateDTO()
         { }

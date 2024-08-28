@@ -8,24 +8,20 @@ namespace TerraDeGoshenAPI.src.Application
         public ColorProfile()
         {
             CreateMap<ColorCreateDTO, ColorRef>()
-                .ConstructUsing(s => new ColorRef(
-                    new ColorVO(s.Value)
-                    ));
+                .ForMember(dest => dest.Details.Value, opt => opt.MapFrom(src => src.Value));
 
             CreateMap<SimpleColorCreateDTO, ColorRef>()
-                .ConstructUsing(s => new ColorRef(s.Id));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
 
             CreateMap<ColorRef, ColorResponseDTO>()
-                .ConstructUsing(s => new ColorResponseDTO(
-                    s.Id,
-                    s.Details.Value,
-                    s.ImageId,
-                    s.CreatedAt,
-                    s.UpdatedAt
-                    ));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Details.Value))
+                .ForMember(dest => dest.ImageId, opt => opt.MapFrom(src => src.ImageId))
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
+                .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => src.UpdatedAt));
 
             CreateMap<ColorUpdateDTO, ColorRef>()
-                .ConstructUsing(s => new ColorRef(s.Id));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
         }
     }
 }
