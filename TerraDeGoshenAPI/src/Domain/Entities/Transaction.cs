@@ -9,8 +9,10 @@
         public CashRegister CashRegister { get; private set; } = null!;
         public Guid ProductId { get; private set; }
         public Product Product { get; private set; } = null!;
-        public Guid CustomerId { get; private set; }
-        public Customer Customer { get; private set; } = null!;
+        public Guid? CustomerId { get; private set; }
+        public Customer? Customer { get; private set; } = null!;
+
+        protected Transaction() { }
 
         public Transaction(MoneyVO amount, TransactionType transactionType, PaymentMethod paymentMethod, Guid cashRegisterId, Guid productId, Guid customerId)
         {

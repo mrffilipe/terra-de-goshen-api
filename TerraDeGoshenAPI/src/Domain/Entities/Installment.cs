@@ -9,6 +9,8 @@
         public Guid DebitId { get; private set; }
         public Debt Debt { get; private set; } = null!;
 
+        protected Installment() { }
+
         public Installment(MoneyVO amount, DateTime dueDate, MoneyVO amountPaid, bool isPaid, Guid debitId)
         {
             Amount = amount ?? throw new ArgumentNullException(nameof(amount));

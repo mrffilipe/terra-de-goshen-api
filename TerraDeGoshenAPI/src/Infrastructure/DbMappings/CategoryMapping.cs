@@ -8,8 +8,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
     {
         protected override void ConfigureEntity(EntityTypeBuilder<CategoryRef> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("categories");
 
             builder.ComplexProperty(e => e.Details).Property(e => e.Name)

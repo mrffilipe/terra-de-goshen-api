@@ -12,6 +12,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
             builder.Property(x => x.Id)
                 .HasColumnName("id")
+                .ValueGeneratedOnAdd()
                 .IsRequired();
 
             builder.Property(x => x.CreatedAt)

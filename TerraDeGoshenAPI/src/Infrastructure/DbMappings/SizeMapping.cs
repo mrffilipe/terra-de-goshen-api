@@ -8,8 +8,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
     {
         protected override void ConfigureEntity(EntityTypeBuilder<SizeRef> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("sizes");
 
             builder.ComplexProperty(e => e.Details).Property(e => e.Value)

@@ -8,8 +8,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
     {
         protected override void ConfigureEntity(EntityTypeBuilder<Transaction> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("transactions");
 
             builder.ComplexProperty(e => e.Amount).Property(e => e.Amount)
@@ -34,7 +32,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
             builder.Property(x => x.CustomerId)
                 .HasColumnName("customer_id")
-                .IsRequired();
+                .IsRequired(false);
 
             builder.HasOne(x => x.CashRegister)
                 .WithMany(x => x.Transactions)
@@ -46,7 +44,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
             builder.HasOne(x => x.Customer)
                 .WithMany(x => x.Transactions)
-                .IsRequired();
+                .IsRequired(false);
         }
     }
 }

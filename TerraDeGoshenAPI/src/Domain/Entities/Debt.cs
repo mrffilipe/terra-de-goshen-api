@@ -9,6 +9,8 @@
         public Guid CustomerId { get; private set; }
         public Customer Customer { get; private set; } = null!;
 
+        protected Debt() { }
+
         public Debt(MoneyVO totalAmount, DateTime dueDate, PaymentMethod paymentMethod, List<Installment> installments, Guid customerId)
         {
             TotalAmount = totalAmount ?? throw new ArgumentNullException(nameof(totalAmount));

@@ -8,8 +8,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
     {
         protected override void ConfigureEntity(EntityTypeBuilder<ImageRef> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("images");
 
             builder.ComplexProperty(e => e.Details).Property(e => e.Url)

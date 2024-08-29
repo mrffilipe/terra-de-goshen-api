@@ -7,6 +7,8 @@
         public IList<Debt> Debts { get; private set; } = [];
         public IList<Transaction> Transactions { get; private set; } = [];
 
+        protected Customer() { }
+
         public Customer(string firstName, string lastName)
         {
             FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));

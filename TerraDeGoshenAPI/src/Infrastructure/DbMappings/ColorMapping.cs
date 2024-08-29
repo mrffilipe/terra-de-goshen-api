@@ -8,8 +8,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
     {
         protected override void ConfigureEntity(EntityTypeBuilder<ColorRef> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("colors");
 
             builder.ComplexProperty(e => e.Details).Property(e => e.Value)

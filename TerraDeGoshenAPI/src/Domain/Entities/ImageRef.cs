@@ -6,6 +6,8 @@
         public Guid ProductId { get; private set; }
         public Product Product { get; private set; } = null!;
 
+        protected ImageRef() { }
+
         public ImageRef(ImageVO details)
         {
             Details = details ?? throw new ArgumentNullException(nameof(details));

@@ -15,6 +15,8 @@
         public CategoryRef Category { get; private set; } = null!;
         public IList<Transaction> Transactions { get; private set; } = [];
 
+        protected Product() { }
+
         public Product(
             string name,
             string description,

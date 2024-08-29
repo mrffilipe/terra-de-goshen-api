@@ -8,8 +8,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
     {
         protected override void ConfigureEntity(EntityTypeBuilder<Debt> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("debts");
 
             builder.ComplexProperty(e => e.TotalAmount).Property(e => e.Amount)

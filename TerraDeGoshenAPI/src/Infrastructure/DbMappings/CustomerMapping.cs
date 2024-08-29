@@ -8,8 +8,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
     {
         protected override void ConfigureEntity(EntityTypeBuilder<Customer> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("customers");
 
             builder.Property(x => x.FirstName)

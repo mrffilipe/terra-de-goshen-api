@@ -6,6 +6,8 @@
         public Guid? ImageId { get; private set; }
         public IList<Product> Products { get; private set; } = [];
 
+        protected ColorRef() { }
+
         public ColorRef(ColorVO details, Guid? imageId)
         {
             Details = details ?? throw new ArgumentNullException(nameof(details));
