@@ -2,10 +2,12 @@
 {
     public interface IDebtRepository
     {
-        Task<Debt> AddAsync(Debt debt);
-        Task<Debt> GetByIdAsync(Guid id);
-        Task<IList<Debt>> GetByCustomerIdAsync(Guid customerId);
-        Task AddInstallmentAsync(Guid debtId, Installment installment);
-        Task<bool> IsFullyPaidAsync(Guid debtId);
+        Task<Debt> AddDebtAsync(Debt debt);
+        Task<Debt> GetDebtByIdAsync(Guid id);
+        Task<IList<Debt>> GetDebtsByCustomerAsync(Guid customerId);
+        Task<IList<Debt>> GetAllDebtsAsync(DateTime? startDate = null, DateTime? endDate = null, bool? isPaid = null);
+        Task RegisterInstallmentPaymentAsync(Guid installmentId, MoneyVO paymentAmount, DateTime paymentDate);
+        Task AddInstallmentToDebtAsync(Guid debtId, Installment installment);
+        Task<bool> IsDebtFullyPaidAsync(Guid debtId);
     }
 }

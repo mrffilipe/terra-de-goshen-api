@@ -20,5 +20,10 @@ namespace TerraDeGoshenAPI.src.Application
         {
             throw new NotImplementedException();
         }
+
+        public async Task<IList<Transaction>> GetTransactionsAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -2,7 +2,8 @@
 {
     public interface ICashRegisterRepository
     {
-        Task<CashRegister> GetByIdAsync(Guid id);
-        Task<CashRegister> UpdateAsync(CashRegister cashRegister);
+        Task AddTransactionAsync(Guid cashRegisterId, Transaction transaction);
+        Task<MoneyVO> GetCurrentBalanceAsync(Guid cashRegisterId);
+        Task<IList<Transaction>> GetTransactionsAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null);
     }
 }

@@ -28,5 +28,40 @@ namespace TerraDeGoshenAPI.src.Infrastructure
         {
             throw new NotImplementedException();
         }
+
+        public Task<Debt> AddDebtAsync(Debt debt)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Debt> GetDebtByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<Debt>> GetDebtsByCustomerAsync(Guid customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<Debt>> GetAllDebtsAsync(DateTime? startDate = null, DateTime? endDate = null, bool? isPaid = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RegisterInstallmentPaymentAsync(Guid installmentId, MoneyVO paymentAmount, DateTime paymentDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddInstallmentToDebtAsync(Guid debtId, Installment installment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> IsDebtFullyPaidAsync(Guid debtId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

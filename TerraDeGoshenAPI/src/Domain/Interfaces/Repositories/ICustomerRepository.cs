@@ -2,9 +2,9 @@
 {
     public interface ICustomerRepository
     {
-        Task<Customer> AddAsync(Customer customer);
-        Task<Customer> GetByIdAsync(Guid id);
-        Task<IList<Customer>> GetAllAsync();
-        Task<Customer> UpdateAsync(Customer customer);
+        Task<Customer> AddCustomerAsync(Customer customer);
+        Task<Customer> GetCustomerByIdAsync(Guid id);
+        Task<IList<Customer>> GetAllCustomersAsync();
+        Task<Customer> UpdateCustomerAsync(Customer customer);
     }
 }
