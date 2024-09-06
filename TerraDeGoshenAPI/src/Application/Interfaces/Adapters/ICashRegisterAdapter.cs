@@ -1,9 +1,11 @@
-﻿namespace TerraDeGoshenAPI.src.Domain
+﻿using TerraDeGoshenAPI.src.Application;
+
+namespace TerraDeGoshenAPI.src.Domain
 {
     public interface ICashRegisterAdapter
     {
-        Task AddTransactionAsync(Guid cashRegisterId, Transaction transaction);
-        Task<MoneyVO> GetCurrentBalanceAsync(Guid cashRegisterId);
-        Task<IList<Transaction>> GetTransactionsAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null);
+        Task<TransactionResponseDTO> AddTransactionAsync(Guid cashRegisterId, TransactionCreateDTO transaction);
+        Task<decimal> GetCurrentBalanceAsync(Guid cashRegisterId);
+        Task<IList<TransactionResponseDTO>> GetTransactionsAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null);
     }
 }

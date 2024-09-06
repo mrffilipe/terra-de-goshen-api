@@ -6,12 +6,19 @@ namespace TerraDeGoshenAPI.src.Presentation
 {
     public class CustomerController : BaseController
     {
+        private readonly ICustomerAdapter _customerAdapter;
+
+        public CustomerController(ICustomerAdapter customerAdapter)
+        {
+            _customerAdapter = customerAdapter;
+        }
+
         [HttpPost]
-        public async Task<ActionResult<CustomerResponseDTO>> AddCustomer(CustomerCreateDTO customer)
+        public async Task<ActionResult<CustomerResponseDTO>> AddCustomer([FromBody] CustomerCreateDTO customer)
         {
             try
             {
-                throw new NotImplementedException();
+                return Ok(await _customerAdapter.AddCustomerAsync(customer));   
             }
             catch (Exception ex)
             {
@@ -26,7 +33,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         {
             try
             {
-                throw new NotImplementedException();
+                return Ok(await _customerAdapter.GetCustomerByIdAsync(id));
             }
             catch (Exception ex)
             {
@@ -40,7 +47,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         {
             try
             {
-                throw new NotImplementedException();
+                return Ok(await _customerAdapter.GetAllCustomersAsync());
             }
             catch (Exception ex)
             {
@@ -50,11 +57,12 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpPut]
-        public async Task<ActionResult<CustomerResponseDTO>> UpdateCustomer(CustomerUpdateDTO customer)
+        [Route("{id}")]
+        public async Task<ActionResult<CustomerResponseDTO>> UpdateCustomer(Guid id, [FromBody] CustomerUpdateDTO customer)
         {
             try
             {
-                throw new NotImplementedException();
+                return Ok(await _customerAdapter.UpdateCustomerAsync(customer));
             }
             catch (Exception ex)
             {

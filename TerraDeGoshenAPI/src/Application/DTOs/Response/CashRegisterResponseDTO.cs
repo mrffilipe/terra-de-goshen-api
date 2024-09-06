@@ -1,16 +1,14 @@
 ﻿namespace TerraDeGoshenAPI.src.Application
 {
-    public record CustomerResponseDTO(
+    public record CashRegisterResponseDTO(
         Guid Id,
-        string FirstName,
-        string LastName,
+        decimal CurrentBalance,
         DateTime CreatedAt,
         DateTime UpdatedAt
     ) : IEntityDTO
     {
         public Guid Id { get; init; } = Id;
-        public string FirstName { get; init; } = FirstName;
-        public string LastName { get; init; } = LastName;
+        public decimal CurrentBalance { get; init; } = CurrentBalance;
         public DateTime CreatedAt { get; init; } = CreatedAt;
         public DateTime UpdatedAt { get; init; } = UpdatedAt;
     }

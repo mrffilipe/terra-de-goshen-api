@@ -6,12 +6,19 @@ namespace TerraDeGoshenAPI.src.Presentation
 {
     public class DebtController : BaseController
     {
+        private readonly IDebtAdapter _debtAdapter;
+
+        public DebtController(IDebtAdapter debtAdapter)
+        {
+            _debtAdapter = debtAdapter;
+        }
+
         [HttpPost]
-        public async Task<ActionResult<DebtResponseDTO>> AddDebt(DebtCreateDTO debt)
+        public async Task<ActionResult<DebtResponseDTO>> AddDebt([FromBody] DebtCreateDTO debt)
         {
             try
             {
-                throw new NotImplementedException();
+                return Ok(await _debtAdapter.AddDebtAsync(debt));
             }
             catch (Exception ex)
             {
@@ -26,7 +33,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         {
             try
             {
-                throw new NotImplementedException();
+                return Ok(await _debtAdapter.GetDebtByIdAsync(id));
             }
             catch (Exception ex)
             {
@@ -40,7 +47,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         {
             try
             {
-                throw new NotImplementedException();
+                return Ok(await _debtAdapter.GetAllDebtsAsync());
             }
             catch (Exception ex)
             {
@@ -51,11 +58,11 @@ namespace TerraDeGoshenAPI.src.Presentation
 
         [HttpPost]
         [Route("{debtId}/installments")]
-        public async Task<ActionResult<DebtResponseDTO>> AddInstallmentToDebt(Guid debtId, InstallmentCreateDTO installment)
+        public async Task<ActionResult<DebtResponseDTO>> AddInstallmentToDebt(Guid debtId, [FromBody] InstallmentCreateDTO installment)
         {
             try
             {
-                throw new NotImplementedException();
+                return Ok(await _debtAdapter.AddInstallmentToDebtAsync(debtId, installment));
             }
             catch (Exception ex)
             {
@@ -66,11 +73,11 @@ namespace TerraDeGoshenAPI.src.Presentation
 
         [HttpPost]
         [Route("installments/{installmentId}/payment")]
-        public async Task<ActionResult<DebtResponseDTO>> RegisterInstallmentPayment(Guid installmentId, MoneyVO paymentAmount)
+        public async Task<ActionResult<DebtResponseDTO>> RegisterInstallmentPayment(Guid installmentId, [FromBody] MoneyVO paymentAmount)
         {
             try
             {
-                throw new NotImplementedException();
+                return Ok(await _debtAdapter.RegisterInstallmentPaymentAsync(installmentId, paymentAmount));
             }
             catch (Exception ex)
             {

@@ -1,39 +1,54 @@
-﻿using TerraDeGoshenAPI.src.Domain;
+﻿using AutoMapper;
+using TerraDeGoshenAPI.src.Domain;
 
 namespace TerraDeGoshenAPI.src.Application
 {
     public class TransactionAdapter : ITransactionAdapter
     {
         private readonly ITransactionService _transactionService;
+        private readonly IMapper _mapper;
 
-        public TransactionAdapter(ITransactionService transactionService)
+        public TransactionAdapter(ITransactionService transactionService, IMapper mapper)
         {
             _transactionService = transactionService;
+            _mapper = mapper;
         }
 
-        public Task<Transaction> AddTransactionAsync(Transaction transaction)
+        public async Task<TransactionResponseDTO> AddTransactionAsync(TransactionCreateDTO transaction)
         {
-            throw new NotImplementedException();
+            var mappedTransaction = _mapper.Map<Transaction>(transaction);
+
+            mappedTransaction = await _transactionService.AddTransactionAsync(mappedTransaction);
+
+            return _mapper.Map<TransactionResponseDTO>(mappedTransaction);
         }
 
-        public Task<Transaction> GetTransactionByIdAsync(Guid id)
+        public async Task<TransactionResponseDTO> GetTransactionByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var transaction = await _transactionService.GetTransactionByIdAsync(id);
+
+            return _mapper.Map<TransactionResponseDTO>(transaction);
         }
 
-        public Task<IList<Transaction>> GetTransactionsByCashRegisterAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<IList<TransactionResponseDTO>> GetTransactionsByCustomerAsync(Guid customerId)
         {
-            throw new NotImplementedException();
+            var transactions = await _transactionService.GetTransactionsByCustomerAsync(customerId);
+
+            return _mapper.Map<TransactionResponseDTO[]>(transactions);
         }
 
-        public Task<IList<Transaction>> GetTransactionsByCustomerAsync(Guid customerId)
+        public async Task<IList<TransactionResponseDTO>> GetTransactionsByProductAsync(Guid productId)
         {
-            throw new NotImplementedException();
+            var transactions = await _transactionService.GetTransactionsByProductAsync(productId);
+
+            return _mapper.Map<TransactionResponseDTO[]>(transactions);
         }
 
-        public Task<IList<Transaction>> GetTransactionsByProductAsync(Guid productId)
+        public async Task<IList<TransactionResponseDTO>> GetTransactionsByCashRegisterAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null)
         {
-            throw new NotImplementedException();
+            var transactions = await _transactionService.GetTransactionsByCashRegisterAsync(cashRegisterId, startDate, endDate);
+
+            return _mapper.Map<TransactionResponseDTO[]>(transactions);
         }
     }
 }

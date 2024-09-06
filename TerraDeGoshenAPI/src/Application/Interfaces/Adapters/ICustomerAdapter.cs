@@ -1,10 +1,12 @@
-﻿namespace TerraDeGoshenAPI.src.Domain
+﻿using TerraDeGoshenAPI.src.Application;
+
+namespace TerraDeGoshenAPI.src.Domain
 {
     public interface ICustomerAdapter
     {
-        Task<Customer> AddCustomerAsync(Customer customer);
-        Task<Customer> GetCustomerByIdAsync(Guid id);
-        Task<IList<Customer>> GetAllCustomersAsync();
-        Task<Customer> UpdateCustomerAsync(Customer customer);
+        Task<CustomerResponseDTO> AddCustomerAsync(CustomerCreateDTO customer);
+        Task<CustomerResponseDTO> GetCustomerByIdAsync(Guid id);
+        Task<IList<CustomerResponseDTO>> GetAllCustomersAsync();
+        Task<CustomerResponseDTO> UpdateCustomerAsync(CustomerUpdateDTO customer);
     }
 }

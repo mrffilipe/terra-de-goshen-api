@@ -1,34 +1,49 @@
-﻿using TerraDeGoshenAPI.src.Domain;
+﻿using AutoMapper;
+using TerraDeGoshenAPI.src.Domain;
 
 namespace TerraDeGoshenAPI.src.Application
 {
     public class CustomerAdapter : ICustomerAdapter
     {
         private readonly ICustomerService _customerService;
+        private readonly IMapper _mapper;
 
-        public CustomerAdapter(ICustomerService customerService)
+        public CustomerAdapter(ICustomerService customerService, IMapper mapper)
         {
             _customerService = customerService;
+            _mapper = mapper;
         }
 
-        public async Task<Customer> AddCustomerAsync(Customer customer)
+        public async Task<CustomerResponseDTO> AddCustomerAsync(CustomerCreateDTO customer)
         {
-            throw new NotImplementedException();
+            var mappedCustomer = _mapper.Map<Customer>(customer);
+
+            mappedCustomer = await _customerService.AddCustomerAsync(mappedCustomer);
+
+            return _mapper.Map<CustomerResponseDTO>(mappedCustomer);
         }
 
-        public async Task<Customer> GetCustomerByIdAsync(Guid id)
+        public async Task<CustomerResponseDTO> GetCustomerByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var customer = await _customerService.GetCustomerByIdAsync(id);
+
+            return _mapper.Map<CustomerResponseDTO>(customer);
         }
 
-        public async Task<IList<Customer>> GetAllCustomersAsync()
+        public async Task<IList<CustomerResponseDTO>> GetAllCustomersAsync()
         {
-            throw new NotImplementedException();
+            var customers = await _customerService.GetAllCustomersAsync();
+
+            return _mapper.Map<CustomerResponseDTO[]>(customers);
         }
 
-        public async Task<Customer> UpdateCustomerAsync(Customer customer)
+        public async Task<CustomerResponseDTO> UpdateCustomerAsync(CustomerUpdateDTO customer)
         {
-            throw new NotImplementedException();
+            var mappedCustomer = _mapper.Map<Customer>(customer);
+
+            mappedCustomer = await _customerService.UpdateCustomerAsync(mappedCustomer);
+
+            return _mapper.Map<CustomerResponseDTO>(mappedCustomer);
         }
     }
 }

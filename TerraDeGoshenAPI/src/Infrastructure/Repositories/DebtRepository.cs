@@ -49,12 +49,12 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             throw new NotImplementedException();
         }
 
-        public Task RegisterInstallmentPaymentAsync(Guid installmentId, MoneyVO paymentAmount, DateTime paymentDate)
+        public Task<Installment> RegisterInstallmentPaymentAsync(Guid installmentId, MoneyVO paymentAmount, DateTime paymentDate)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddInstallmentToDebtAsync(Guid debtId, Installment installment)
+        public Task<Installment> AddInstallmentToDebtAsync(Guid debtId, Installment installment)
         {
             throw new NotImplementedException();
         }

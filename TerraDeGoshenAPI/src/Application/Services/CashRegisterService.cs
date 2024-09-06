@@ -11,19 +11,30 @@ namespace TerraDeGoshenAPI.src.Application
             _cashRegisterRepository = cashRegisterRepository;
         }
 
-        public async Task AddTransactionAsync(Guid cashRegisterId, Transaction transaction)
+        public async Task<Transaction> AddTransactionAsync(Guid cashRegisterId, Transaction transaction)
         {
-            throw new NotImplementedException();
+            if (transaction == null)
+            {
+                throw new ArgumentNullException(nameof(transaction));
+            }
+
+            var addedTransaction = await _cashRegisterRepository.AddTransactionAsync(cashRegisterId, transaction);
+
+            return addedTransaction;
         }
 
         public async Task<MoneyVO> GetCurrentBalanceAsync(Guid cashRegisterId)
         {
-            throw new NotImplementedException();
+            var currentBalance = await _cashRegisterRepository.GetCurrentBalanceAsync(cashRegisterId);
+
+            return currentBalance;
         }
 
         public async Task<IList<Transaction>> GetTransactionsAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null)
         {
-            throw new NotImplementedException();
+            var transactions = await _cashRegisterRepository.GetTransactionsAsync(cashRegisterId, startDate, endDate);
+
+            return transactions;
         }
     }
 }

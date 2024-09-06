@@ -1,29 +1,40 @@
-﻿using TerraDeGoshenAPI.src.Domain;
+﻿using AutoMapper;
+using TerraDeGoshenAPI.src.Domain;
 
 namespace TerraDeGoshenAPI.src.Application
 {
     public class CashRegisterAdapter : ICashRegisterAdapter
     {
         private readonly ICashRegisterService _cashRegisterService;
+        private readonly IMapper _mapper;
 
-        public CashRegisterAdapter(ICashRegisterService cashRegisterService)
+        public CashRegisterAdapter(ICashRegisterService cashRegisterService, IMapper mapper)
         {
             _cashRegisterService = cashRegisterService;
+            _mapper = mapper;
         }
 
-        public async Task AddTransactionAsync(Guid cashRegisterId, Transaction transaction)
+        public async Task<TransactionResponseDTO> AddTransactionAsync(Guid cashRegisterId, TransactionCreateDTO transaction)
         {
-            throw new NotImplementedException();
+            var mappedTransaction = _mapper.Map<Transaction>(transaction);
+
+            mappedTransaction = await _cashRegisterService.AddTransactionAsync(cashRegisterId, mappedTransaction); 
+
+            return _mapper.Map<TransactionResponseDTO>(mappedTransaction);
         }
 
-        public async Task<MoneyVO> GetCurrentBalanceAsync(Guid cashRegisterId)
+        public async Task<decimal> GetCurrentBalanceAsync(Guid cashRegisterId)
         {
-            throw new NotImplementedException();
+            var balance = await _cashRegisterService.GetCurrentBalanceAsync(cashRegisterId);
+
+            return balance.Amount;
         }
 
-        public async Task<IList<Transaction>> GetTransactionsAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<IList<TransactionResponseDTO>> GetTransactionsAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null)
         {
-            throw new NotImplementedException();
+            var transactions = await _cashRegisterService.GetTransactionsAsync(cashRegisterId, startDate, endDate);
+
+            return _mapper.Map<TransactionResponseDTO[]>(transactions);
         }
     }
 }

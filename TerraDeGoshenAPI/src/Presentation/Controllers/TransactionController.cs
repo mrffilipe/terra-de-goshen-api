@@ -6,12 +6,19 @@ namespace TerraDeGoshenAPI.src.Presentation
 {
     public class TransactionController : BaseController
     {
+        private readonly ITransactionAdapter _transactionAdapter;
+
+        public TransactionController(ITransactionAdapter transactionAdapter)
+        {
+            _transactionAdapter = transactionAdapter;
+        }
+
         [HttpPost]
-        public async Task<ActionResult<TransactionResponseDTO>> AddTransaction()
+        public async Task<ActionResult<TransactionResponseDTO>> AddTransaction([FromBody] TransactionCreateDTO transaction)
         {
             try
             {
-                throw new NotImplementedException();
+                return Ok(await _transactionAdapter.AddTransactionAsync(transaction));
             }
             catch (Exception ex)
             {
@@ -26,7 +33,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         {
             try
             {
-                throw new NotImplementedException();
+                return Ok(await _transactionAdapter.GetTransactionByIdAsync(id));
             }
             catch (Exception ex)
             {
@@ -41,7 +48,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         {
             try
             {
-                throw new NotImplementedException();
+                return Ok(await _transactionAdapter.GetTransactionsByCustomerAsync(customerId));
             }
             catch (Exception ex)
             {
@@ -56,7 +63,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         {
             try
             {
-                throw new NotImplementedException();
+                return Ok(await _transactionAdapter.GetTransactionsByProductAsync(productId));
             }
             catch (Exception ex)
             {

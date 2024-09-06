@@ -11,13 +11,17 @@
 
         protected Installment() { }
 
-        public Installment(MoneyVO amount, DateTime dueDate, MoneyVO amountPaid, bool isPaid, Guid debitId)
+        public Installment(MoneyVO amount, MoneyVO amountPaid, bool isPaid, Guid debitId)
         {
             Amount = amount ?? throw new ArgumentNullException(nameof(amount));
-            DueDate = dueDate;
             AmountPaid = amountPaid ?? throw new ArgumentNullException(nameof(amountPaid));
             IsPaid = isPaid;
             DebitId = debitId;
+        }
+
+        public void SetDueDate(DateTime dueDate)
+        {
+            DueDate = dueDate;
         }
 
         public void MarkAsPaid()
