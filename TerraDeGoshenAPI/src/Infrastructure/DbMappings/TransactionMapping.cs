@@ -40,7 +40,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
             builder.HasOne(x => x.Product)
                 .WithMany(x => x.Transactions)
-                .IsRequired();
+                .IsRequired(false);
 
             builder.HasOne(x => x.Customer)
                 .WithMany(x => x.Transactions)

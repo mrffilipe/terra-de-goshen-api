@@ -1,67 +1,149 @@
-﻿using TerraDeGoshenAPI.src.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using TerraDeGoshenAPI.src.Domain;
 
 namespace TerraDeGoshenAPI.src.Infrastructure
 {
     public class DebtRepository : IDebtRepository
     {
-        public async Task<Debt> AddAsync(Debt debt)
+        private readonly ApplicationDbContext _context;
+
+        public DebtRepository(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Debt> GetByIdAsync(Guid id)
+        public async Task<Debt> AddDebtAsync(Debt debt)
         {
-            throw new NotImplementedException();
+            if (debt == null)
+            {
+                throw new ArgumentNullException(nameof(debt));
+            }
+
+            await _context.Debts.AddAsync(debt);
+            await _context.SaveChangesAsync();
+
+            return debt;
         }
 
-        public async Task<IList<Debt>> GetByCustomerIdAsync(Guid customerId)
+        public async Task<Debt> GetDebtByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentException("ID inválido.", nameof(id));
+            }
+
+            var debt = await _context.Debts
+                                     .Include(d => d.Installments)
+                                     .FirstOrDefaultAsync(d => d.Id == id);
+
+            if (debt == null)
+            {
+                throw new KeyNotFoundException($"Dívida com ID {id} não encontrada.");
+            }
+
+            return debt;
         }
 
-        public async Task AddInstallmentAsync(Guid debtId, Installment installment)
+        public async Task<IList<Debt>> GetDebtsByCustomerAsync(Guid customerId)
         {
-            throw new NotImplementedException();
+            if (customerId == Guid.Empty)
+            {
+                throw new ArgumentException("ID do cliente inválido.", nameof(customerId));
+            }
+
+            return await _context.Debts
+                                 .Where(d => d.CustomerId == customerId)
+                                 .Include(d => d.Installments)
+                                 .ToListAsync();
         }
 
-        public async Task<bool> IsFullyPaidAsync(Guid debtId)
+        public async Task<IList<Debt>> GetAllDebtsAsync(DateTime? startDate = null, DateTime? endDate = null, bool? isPaid = null)
         {
-            throw new NotImplementedException();
+            var query = _context.Debts.Include(d => d.Installments).AsQueryable();
+
+            if (startDate.HasValue)
+            {
+                query = query.Where(d => d.DueDate >= startDate.Value);
+            }
+
+            if (endDate.HasValue)
+            {
+                query = query.Where(d => d.DueDate <= endDate.Value);
+            }
+
+            if (isPaid.HasValue)
+            {
+                query = query.Where(d => d.Installments.All(i => i.IsPaid == isPaid.Value));
+            }
+
+            return await query.ToListAsync();
         }
 
-        public Task<Debt> AddDebtAsync(Debt debt)
+        public async Task<Installment> RegisterInstallmentPaymentAsync(Guid installmentId, MoneyVO paymentAmount, DateTime paymentDate)
         {
-            throw new NotImplementedException();
+            if (installmentId == Guid.Empty)
+            {
+                throw new ArgumentException("ID da parcela inválido.", nameof(installmentId));
+            }
+
+            var installment = await _context.Installments.FirstOrDefaultAsync(i => i.Id == installmentId);
+            if (installment == null)
+            {
+                throw new KeyNotFoundException($"Parcela com ID {installmentId} não encontrada.");
+            }
+
+            installment.AddPayment(paymentAmount);
+
+            _context.Entry(installment).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return installment;
         }
 
-        public Task<Debt> GetDebtByIdAsync(Guid id)
+        public async Task<Installment> AddInstallmentToDebtAsync(Guid debtId, Installment installment)
         {
-            throw new NotImplementedException();
+            if (debtId == Guid.Empty)
+            {
+                throw new ArgumentException("ID da dívida inválido.", nameof(debtId));
+            }
+
+            if (installment == null)
+            {
+                throw new ArgumentNullException(nameof(installment));
+            }
+
+            var debt = await _context.Debts.FirstOrDefaultAsync(d => d.Id == debtId);
+            if (debt == null)
+            {
+                throw new KeyNotFoundException($"Dívida com ID {debtId} não encontrada.");
+            }
+
+            debt.AddInstallment(installment);
+
+            _context.Entry(debt).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return installment;
         }
 
-        public Task<IList<Debt>> GetDebtsByCustomerAsync(Guid customerId)
+        public async Task<bool> IsDebtFullyPaidAsync(Guid debtId)
         {
-            throw new NotImplementedException();
-        }
+            if (debtId == Guid.Empty)
+            {
+                throw new ArgumentException("ID da dívida inválido.", nameof(debtId));
+            }
 
-        public Task<IList<Debt>> GetAllDebtsAsync(DateTime? startDate = null, DateTime? endDate = null, bool? isPaid = null)
-        {
-            throw new NotImplementedException();
-        }
+            var debt = await _context.Debts
+                                     .Include(d => d.Installments)
+                                     .FirstOrDefaultAsync(d => d.Id == debtId);
 
-        public Task<Installment> RegisterInstallmentPaymentAsync(Guid installmentId, MoneyVO paymentAmount, DateTime paymentDate)
-        {
-            throw new NotImplementedException();
-        }
+            if (debt == null)
+            {
+                throw new KeyNotFoundException($"Dívida com ID {debtId} não encontrada.");
+            }
 
-        public Task<Installment> AddInstallmentToDebtAsync(Guid debtId, Installment installment)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> IsDebtFullyPaidAsync(Guid debtId)
-        {
-            throw new NotImplementedException();
+            return debt.IsFullyPaid();
         }
     }
 }

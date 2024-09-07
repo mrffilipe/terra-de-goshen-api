@@ -11,64 +11,97 @@ namespace TerraDeGoshenAPI.src.Application
             _debtRepository = debtRepository;
         }
 
-        public async Task<Debt> AddAsync(Debt debt)
+        public async Task<Debt> AddDebtAsync(Debt debt)
         {
-            throw new NotImplementedException();
+            if (debt == null)
+            {
+                throw new ArgumentNullException(nameof(debt));
+            }
+
+            var addedDebt = await _debtRepository.AddDebtAsync(debt);
+
+            return addedDebt;
         }
 
-        public async Task<Debt> GetByIdAsync(Guid id)
+        public async Task<Debt> GetDebtByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentException("ID inválido.", nameof(id));
+            }
+
+            var debt = await _debtRepository.GetDebtByIdAsync(id);
+            if (debt == null)
+            {
+                throw new KeyNotFoundException($"Dívida com ID {id} não encontrada.");
+            }
+
+            return debt;
         }
 
-        public async Task<IList<Debt>> GetByCustomerIdAsync(Guid customerId)
+        public async Task<IList<Debt>> GetDebtsByCustomerAsync(Guid customerId)
         {
-            throw new NotImplementedException();
+            if (customerId == Guid.Empty)
+            {
+                throw new ArgumentException("ID do cliente inválido.", nameof(customerId));
+            }
+
+            var debts = await _debtRepository.GetDebtsByCustomerAsync(customerId);
+
+            return debts;
         }
 
-        public async Task AddInstallmentAsync(Guid debtId, Installment installment)
+        public async Task<IList<Debt>> GetAllDebtsAsync(DateTime? startDate = null, DateTime? endDate = null, bool? isPaid = null)
         {
-            throw new NotImplementedException();
+            var debts = await _debtRepository.GetAllDebtsAsync(startDate, endDate, isPaid);
+
+            return debts;
         }
 
-        public async Task<bool> IsFullyPaidAsync(Guid debtId)
+        public async Task<Installment> RegisterInstallmentPaymentAsync(Guid installmentId, MoneyVO paymentAmount)
         {
-            throw new NotImplementedException();
+            if (installmentId == Guid.Empty)
+            {
+                throw new ArgumentException("ID da parcela inválido.", nameof(installmentId));
+            }
+
+            if (paymentAmount == null)
+            {
+                throw new ArgumentNullException(nameof(paymentAmount));
+            }
+
+            var installment = await _debtRepository.RegisterInstallmentPaymentAsync(installmentId, paymentAmount, DateTime.UtcNow);
+
+            return installment;
         }
 
-        public Task<Debt> AddDebtAsync(Debt debt)
+        public async Task<Installment> AddInstallmentToDebtAsync(Guid debtId, Installment installment)
         {
-            throw new NotImplementedException();
+            if (debtId == Guid.Empty)
+            {
+                throw new ArgumentException("ID da dívida inválido.", nameof(debtId));
+            }
+
+            if (installment == null)
+            {
+                throw new ArgumentNullException(nameof(installment));
+            }
+
+            var addedInstallment = await _debtRepository.AddInstallmentToDebtAsync(debtId, installment);
+
+            return addedInstallment;
         }
 
-        public Task<Debt> GetDebtByIdAsync(Guid id)
+        public async Task<bool> IsDebtFullyPaidAsync(Guid debtId)
         {
-            throw new NotImplementedException();
-        }
+            if (debtId == Guid.Empty)
+            {
+                throw new ArgumentException("ID da dívida inválido.", nameof(debtId));
+            }
 
-        public Task<IList<Debt>> GetDebtsByCustomerAsync(Guid customerId)
-        {
-            throw new NotImplementedException();
-        }
+            var isFullyPaid = await _debtRepository.IsDebtFullyPaidAsync(debtId);
 
-        public Task<IList<Debt>> GetAllDebtsAsync(DateTime? startDate = null, DateTime? endDate = null, bool? isPaid = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Installment> RegisterInstallmentPaymentAsync(Guid installmentId, MoneyVO paymentAmount)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Installment> AddInstallmentToDebtAsync(Guid debtId, Installment installment)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> IsDebtFullyPaidAsync(Guid debtId)
-        {
-            throw new NotImplementedException();
+            return isFullyPaid;
         }
     }
 }

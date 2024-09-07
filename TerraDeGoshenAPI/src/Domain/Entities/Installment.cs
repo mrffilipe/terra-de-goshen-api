@@ -24,8 +24,24 @@
             DueDate = dueDate;
         }
 
-        public void MarkAsPaid()
+        public void AddPayment(MoneyVO paymentAmount)
         {
+            if (paymentAmount == null)
+            {
+                throw new ArgumentNullException(nameof(paymentAmount));
+            }
+
+            AmountPaid = AmountPaid.Add(paymentAmount);
+
+            if (AmountPaid.Amount >= Amount.Amount)
+            {
+                MarkAsPaid();
+            }
+        }
+
+        private void MarkAsPaid()
+        {
+            IsPaid = true;
         }
     }
 }

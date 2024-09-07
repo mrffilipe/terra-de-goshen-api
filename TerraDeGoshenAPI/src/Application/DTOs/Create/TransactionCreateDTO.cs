@@ -7,7 +7,7 @@ namespace TerraDeGoshenAPI.src.Application
         TransactionType TransactionType,
         PaymentMethod PaymentMethod,
         Guid CashRegisterId,
-        Guid ProductId,
+        Guid? ProductId,
         Guid? CustomerId
     )
     {
@@ -15,7 +15,7 @@ namespace TerraDeGoshenAPI.src.Application
         public TransactionType TransactionType { get; init; } = TransactionType;
         public PaymentMethod PaymentMethod { get; init; } = PaymentMethod;
         public Guid CashRegisterId { get; init; } = CashRegisterId;
-        public Guid ProductId { get; init; } = ProductId;
+        public Guid? ProductId { get; init; } = ProductId;
         public Guid? CustomerId { get; init; } = CustomerId;
     }
 }

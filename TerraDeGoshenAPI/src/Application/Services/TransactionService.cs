@@ -11,29 +11,68 @@ namespace TerraDeGoshenAPI.src.Application
             _transactionRepository = transactionRepository;
         }
 
-        public Task<Transaction> AddTransactionAsync(Transaction transaction)
+        public async Task<Transaction> AddTransactionAsync(Transaction transaction)
         {
-            throw new NotImplementedException();
+            if (transaction == null)
+            {
+                throw new ArgumentNullException(nameof(transaction));
+            }
+
+            var addedTransaction = await _transactionRepository.AddTransactionAsync(transaction);
+
+            return addedTransaction;
         }
 
-        public Task<Transaction> GetTransactionByIdAsync(Guid id)
+        public async Task<Transaction> GetTransactionByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentException("ID inválido.", nameof(id));
+            }
+
+            var transaction = await _transactionRepository.GetTransactionByIdAsync(id);
+            if (transaction == null)
+            {
+                throw new KeyNotFoundException($"Transação com ID {id} não encontrada.");
+            }
+
+            return transaction;
         }
 
-        public Task<IList<Transaction>> GetTransactionsByCashRegisterAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<IList<Transaction>> GetTransactionsByCustomerAsync(Guid customerId)
         {
-            throw new NotImplementedException();
+            if (customerId == Guid.Empty)
+            {
+                throw new ArgumentException("ID do cliente inválido.", nameof(customerId));
+            }
+
+            var transactions = await _transactionRepository.GetTransactionsByCustomerAsync(customerId);
+
+            return transactions;
         }
 
-        public Task<IList<Transaction>> GetTransactionsByCustomerAsync(Guid customerId)
+        public async Task<IList<Transaction>> GetTransactionsByProductAsync(Guid productId)
         {
-            throw new NotImplementedException();
+            if (productId == Guid.Empty)
+            {
+                throw new ArgumentException("ID do produto inválido.", nameof(productId));
+            }
+
+            var transactions = await _transactionRepository.GetTransactionsByProductAsync(productId);
+
+            return transactions;
         }
 
-        public Task<IList<Transaction>> GetTransactionsByProductAsync(Guid productId)
+        public async Task<IList<Transaction>> GetTransactionsByCashRegisterAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null)
         {
-            throw new NotImplementedException();
+            if (cashRegisterId == Guid.Empty)
+            {
+                throw new ArgumentException("ID do caixa inválido.", nameof(cashRegisterId));
+            }
+
+            var transactions = await _transactionRepository.GetTransactionsByCashRegisterAsync(cashRegisterId, startDate, endDate);
+
+            return transactions;
         }
     }
 }
