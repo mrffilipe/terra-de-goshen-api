@@ -5,10 +5,12 @@ namespace TerraDeGoshenAPI.src.Application
     public class TransactionService : ITransactionService
     {
         private readonly ITransactionRepository _transactionRepository;
+        private readonly ICashRegisterService _cashRegisterService;
 
-        public TransactionService(ITransactionRepository transactionRepository)
+        public TransactionService(ITransactionRepository transactionRepository, ICashRegisterService cashRegisterService)
         {
             _transactionRepository = transactionRepository;
+            _cashRegisterService = cashRegisterService;
         }
 
         public async Task<Transaction> AddTransactionAsync(Transaction transaction)
@@ -18,7 +20,7 @@ namespace TerraDeGoshenAPI.src.Application
                 throw new ArgumentNullException(nameof(transaction));
             }
 
-            var addedTransaction = await _transactionRepository.AddTransactionAsync(transaction);
+            var addedTransaction = await _cashRegisterService.AddTransactionAsync(transaction.CashRegisterId, transaction);
 
             return addedTransaction;
         }

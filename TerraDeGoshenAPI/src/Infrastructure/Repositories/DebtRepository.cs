@@ -44,6 +44,13 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             return debt;
         }
 
+        public async Task<Installment> GetInstallmentByIdAsync(Guid installmentId)
+        {
+            return await _context.Installments
+                                 .Include(i => i.Debt)
+                                 .FirstOrDefaultAsync(i => i.Id == installmentId);
+        }
+
         public async Task<IList<Debt>> GetDebtsByCustomerAsync(Guid customerId)
         {
             if (customerId == Guid.Empty)
@@ -145,5 +152,37 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
             return debt.IsFullyPaid();
         }
+
+        public async Task<Installment> UpdateInstallmentAsync(Installment installment)
+        {
+            if (installment == null)
+            {
+                throw new ArgumentNullException(nameof(installment));
+            }
+
+            var existingInstallment = await _context.Installments
+                                                    .FirstOrDefaultAsync(i => i.Id == installment.Id);
+
+            if (existingInstallment == null)
+            {
+                throw new KeyNotFoundException($"Parcela com ID {installment.Id} não encontrada.");
+            }
+
+            existingInstallment.SetAmountPaid(installment.AmountPaid);
+
+            if (installment.IsPaid)
+            {
+                existingInstallment.MarkAsPaid();
+            }
+
+            existingInstallment.SetDueDate(installment.DueDate);
+
+            _context.Entry(existingInstallment).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return existingInstallment;
+        }
+
     }
 }

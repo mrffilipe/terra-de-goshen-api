@@ -14,11 +14,12 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpPost]
-        public async Task<ActionResult<DebtResponseDTO>> AddDebt([FromBody] DebtCreateDTO debt)
+        [Route("cash-register/{cashRegisterId}")]
+        public async Task<ActionResult<DebtResponseDTO>> AddDebt(Guid cashRegisterId, [FromBody] DebtCreateDTO debt)
         {
             try
             {
-                return Ok(await _debtAdapter.AddDebtAsync(debt));
+                return Ok(await _debtAdapter.AddDebtAsync(cashRegisterId, debt));
             }
             catch (Exception ex)
             {
@@ -57,12 +58,12 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpPost]
-        [Route("{debtId}/installments")]
-        public async Task<ActionResult<DebtResponseDTO>> AddInstallmentToDebt(Guid debtId, [FromBody] InstallmentCreateDTO installment)
+        [Route("installments/{installmentId}/cash-register/{cashRegisterId}/payment")]
+        public async Task<ActionResult<DebtResponseDTO>> RegisterInstallmentPayment(Guid installmentId, Guid cashRegisterId, [FromBody] MoneyVO paymentAmount)
         {
             try
             {
-                return Ok(await _debtAdapter.AddInstallmentToDebtAsync(debtId, installment));
+                return Ok(await _debtAdapter.RegisterInstallmentPaymentAsync(installmentId, cashRegisterId, paymentAmount));
             }
             catch (Exception ex)
             {
@@ -72,12 +73,12 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpPost]
-        [Route("installments/{installmentId}/payment")]
-        public async Task<ActionResult<DebtResponseDTO>> RegisterInstallmentPayment(Guid installmentId, [FromBody] MoneyVO paymentAmount)
+        [Route("{debtId}/installments")]
+        public async Task<ActionResult<DebtResponseDTO>> AddInstallmentToDebt(Guid debtId, [FromBody] InstallmentCreateDTO installment)
         {
             try
             {
-                return Ok(await _debtAdapter.RegisterInstallmentPaymentAsync(installmentId, paymentAmount));
+                return Ok(await _debtAdapter.AddInstallmentToDebtAsync(debtId, installment));
             }
             catch (Exception ex)
             {

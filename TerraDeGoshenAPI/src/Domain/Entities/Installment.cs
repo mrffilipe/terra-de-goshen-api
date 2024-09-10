@@ -39,9 +39,14 @@
             }
         }
 
-        private void MarkAsPaid()
+        public void MarkAsPaid()
         {
             IsPaid = true;
+        }
+
+        public void SetAmountPaid(MoneyVO amountPaid)
+        {
+            AmountPaid = amountPaid;
         }
     }
 }

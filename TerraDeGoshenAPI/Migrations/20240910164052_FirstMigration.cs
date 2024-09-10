@@ -129,8 +129,10 @@ namespace TerraDeGoshenAPI.Migrations
                 {
                     id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     due_date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    installment_count = table.Column<int>(type: "int", nullable: false),
                     payment_method = table.Column<int>(type: "int", nullable: false),
                     customer_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    initial_payment = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     total_amount = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false)
@@ -252,8 +254,7 @@ namespace TerraDeGoshenAPI.Migrations
                         name: "FK_transactions_products_product_id",
                         column: x => x.product_id,
                         principalTable: "products",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 

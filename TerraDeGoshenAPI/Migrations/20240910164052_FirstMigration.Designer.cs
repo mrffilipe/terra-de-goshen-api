@@ -13,7 +13,7 @@ using TerraDeGoshenAPI.src.Infrastructure;
 namespace TerraDeGoshenAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240829212222_FirstMigration")]
+    [Migration("20240910164052_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -198,6 +198,10 @@ namespace TerraDeGoshenAPI.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("due_date");
 
+                    b.Property<int>("InstallmentCount")
+                        .HasColumnType("int")
+                        .HasColumnName("installment_count");
+
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int")
                         .HasColumnName("payment_method");
@@ -205,6 +209,15 @@ namespace TerraDeGoshenAPI.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
+
+                    b.ComplexProperty<Dictionary<string, object>>("InitialPayment", "TerraDeGoshenAPI.src.Domain.Debt.InitialPayment#MoneyVO", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<decimal>("Amount")
+                                .HasColumnType("decimal(65,30)")
+                                .HasColumnName("initial_payment");
+                        });
 
                     b.ComplexProperty<Dictionary<string, object>>("TotalAmount", "TerraDeGoshenAPI.src.Domain.Debt.TotalAmount#MoneyVO", b1 =>
                         {
@@ -435,7 +448,8 @@ namespace TerraDeGoshenAPI.Migrations
                         .HasColumnType("int")
                         .HasColumnName("payment_method");
 
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid?>("ProductId")
+                        .IsRequired()
                         .HasColumnType("char(36)")
                         .HasColumnName("product_id");
 
@@ -555,9 +569,7 @@ namespace TerraDeGoshenAPI.Migrations
 
                     b.HasOne("TerraDeGoshenAPI.src.Domain.Product", "Product")
                         .WithMany("Transactions")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("CashRegister");
 
