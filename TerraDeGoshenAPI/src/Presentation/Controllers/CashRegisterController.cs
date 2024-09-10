@@ -14,12 +14,12 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpPost]
-        [Route("{cashRegisterId}/transactions")]
-        public async Task<ActionResult<TransactionResponseDTO>> AddTransaction(Guid cashRegisterId, [FromBody] TransactionCreateDTO transaction)
+        [Route("transactions")]
+        public async Task<ActionResult<TransactionResponseDTO>> AddTransaction([FromBody] TransactionCreateDTO transaction)
         {
             try
             {
-                return Ok(await _cashRegisterAdapter.AddTransactionAsync(cashRegisterId, transaction));
+                return Ok(await _cashRegisterAdapter.AddTransactionAsync(transaction));
             }
             catch (Exception ex)
             {
@@ -45,11 +45,11 @@ namespace TerraDeGoshenAPI.src.Presentation
 
         [HttpGet]
         [Route("{cashRegisterId}/transactions")]
-        public async Task<ActionResult<TransactionResponseDTO>> GetTransactions(Guid cashRegisterId)
+        public async Task<ActionResult<IList<TransactionResponseDTO>>> GetTransactions(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null)
         {
             try
             {
-                return Ok(await _cashRegisterAdapter.GetTransactionsAsync(cashRegisterId));
+                return Ok(await _cashRegisterAdapter.GetTransactionsAsync(cashRegisterId, startDate, endDate));
             }
             catch (Exception ex)
             {

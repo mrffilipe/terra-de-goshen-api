@@ -28,7 +28,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
             builder.Property(x => x.ProductId)
                 .HasColumnName("product_id")
-                .IsRequired();
+                .IsRequired(false);
 
             builder.Property(x => x.CustomerId)
                 .HasColumnName("customer_id")

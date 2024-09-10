@@ -8,7 +8,7 @@ namespace TerraDeGoshenAPI.src.Application
         public SizeProfile()
         {
             CreateMap<SizeCreateDTO, SizeRef>()
-                .ForMember(dest => dest.Details.Value, opt => opt.MapFrom(src => src.Value));
+                .ForPath(dest => dest.Details.Value, opt => opt.MapFrom(src => src.Value));
 
             CreateMap<SimpleSizeCreateDTO, SizeRef>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));

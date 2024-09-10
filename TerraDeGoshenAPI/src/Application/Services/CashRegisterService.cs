@@ -11,14 +11,14 @@ namespace TerraDeGoshenAPI.src.Application
             _cashRegisterRepository = cashRegisterRepository;
         }
 
-        public async Task<Transaction> AddTransactionAsync(Guid cashRegisterId, Transaction transaction)
+        public async Task<Transaction> AddTransactionAsync(Transaction transaction)
         {
             if (transaction == null)
             {
                 throw new ArgumentNullException(nameof(transaction));
             }
 
-            var addedTransaction = await _cashRegisterRepository.AddTransactionAsync(cashRegisterId, transaction);
+            var addedTransaction = await _cashRegisterRepository.AddTransactionAsync(transaction);
 
             return addedTransaction;
         }

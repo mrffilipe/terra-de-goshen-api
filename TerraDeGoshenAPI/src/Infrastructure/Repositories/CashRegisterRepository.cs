@@ -12,7 +12,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Transaction> AddTransactionAsync(Guid cashRegisterId, Transaction transaction)
+        public async Task<Transaction> AddTransactionAsync(Transaction transaction)
         {
             if (transaction == null)
             {
@@ -21,11 +21,11 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
             var cashRegister = await _context.CashRegisters
                                              .Include(c => c.Transactions)
-                                             .FirstOrDefaultAsync(c => c.Id == cashRegisterId);
+                                             .FirstOrDefaultAsync(c => c.Id == transaction.CashRegisterId);
 
             if (cashRegister == null)
             {
-                throw new KeyNotFoundException($"Caixa com ID {cashRegisterId} não encontrado.");
+                throw new KeyNotFoundException($"Caixa com ID {transaction.CashRegisterId} não encontrado.");
             }
 
             cashRegister.AddTransaction(transaction);

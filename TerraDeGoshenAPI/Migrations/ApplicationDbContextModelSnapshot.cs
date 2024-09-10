@@ -446,7 +446,6 @@ namespace TerraDeGoshenAPI.Migrations
                         .HasColumnName("payment_method");
 
                     b.Property<Guid?>("ProductId")
-                        .IsRequired()
                         .HasColumnType("char(36)")
                         .HasColumnName("product_id");
 

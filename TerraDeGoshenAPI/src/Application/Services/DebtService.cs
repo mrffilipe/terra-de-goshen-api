@@ -80,7 +80,7 @@ namespace TerraDeGoshenAPI.src.Application
                         customerId: debt.CustomerId
                     );
 
-                    await _cashRegisterService.AddTransactionAsync(transaction.CashRegisterId, transaction);
+                    await _cashRegisterService.AddTransactionAsync(transaction);
                 }
             }
 
@@ -156,7 +156,7 @@ namespace TerraDeGoshenAPI.src.Application
                 customerId: installment.Debt.CustomerId
             );
 
-            await _cashRegisterService.AddTransactionAsync(transaction.CashRegisterId, transaction);
+            await _cashRegisterService.AddTransactionAsync(transaction);
 
             await _debtRepository.UpdateInstallmentAsync(installment);
 

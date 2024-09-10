@@ -14,11 +14,11 @@ namespace TerraDeGoshenAPI.src.Application
             _mapper = mapper;
         }
 
-        public async Task<TransactionResponseDTO> AddTransactionAsync(Guid cashRegisterId, TransactionCreateDTO transaction)
+        public async Task<TransactionResponseDTO> AddTransactionAsync(TransactionCreateDTO transaction)
         {
             var mappedTransaction = _mapper.Map<Transaction>(transaction);
 
-            mappedTransaction = await _cashRegisterService.AddTransactionAsync(cashRegisterId, mappedTransaction); 
+            mappedTransaction = await _cashRegisterService.AddTransactionAsync(mappedTransaction); 
 
             return _mapper.Map<TransactionResponseDTO>(mappedTransaction);
         }
@@ -34,7 +34,7 @@ namespace TerraDeGoshenAPI.src.Application
         {
             var transactions = await _cashRegisterService.GetTransactionsAsync(cashRegisterId, startDate, endDate);
 
-            return _mapper.Map<TransactionResponseDTO[]>(transactions);
+            return _mapper.Map<IList<TransactionResponseDTO>>(transactions);
         }
     }
 }

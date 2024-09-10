@@ -7,7 +7,6 @@ namespace TerraDeGoshenAPI.src.Application
         decimal Amount,
         TransactionType TransactionType,
         PaymentMethod PaymentMethod,
-        CashRegisterResponseDTO CashRegister,
         ProductResponseDTO? Product,
         CustomerResponseDTO? Customer,
         DateTime CreatedAt,
@@ -18,7 +17,6 @@ namespace TerraDeGoshenAPI.src.Application
         public decimal Amount { get; init; } = Amount;
         public TransactionType TransactionType { get; init; } = TransactionType;
         public PaymentMethod PaymentMethod { get; init; } = PaymentMethod;
-        public CashRegisterResponseDTO CashRegister { get; init; } = CashRegister;
         public ProductResponseDTO? Product { get; init; } = Product;
         public CustomerResponseDTO? Customer { get; init; } = Customer;
         public DateTime CreatedAt { get; init; } = CreatedAt;

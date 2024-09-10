@@ -11,10 +11,10 @@ namespace TerraDeGoshenAPI.src.Application
                 .ForMember(dest => dest.Images, opt => opt.Ignore())
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.Price.Amount, opt => opt.MapFrom(src => src.Price))
-                .ForMember(dest => dest.CostPrice.Amount, opt => opt.MapFrom(src => src.CostPrice))
+                .ForPath(dest => dest.Price.Amount, opt => opt.MapFrom(src => src.Price))
+                .ForPath(dest => dest.CostPrice.Amount, opt => opt.MapFrom(src => src.CostPrice))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.Stock.Amount, opt => opt.MapFrom(src => src.Stock))
+                .ForPath(dest => dest.Stock.Amount, opt => opt.MapFrom(src => src.Stock))
                 .ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors))
                 .ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes))
                 .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Category.Id));
@@ -38,7 +38,7 @@ namespace TerraDeGoshenAPI.src.Application
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images))
                 .ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors))
                 .ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes))
-                .ForMember(dest => dest.Category.Id, opt => opt.MapFrom(src => src.CategoryId))
+                .ForPath(dest => dest.Category.Id, opt => opt.MapFrom(src => src.CategoryId))
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
                 .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => src.UpdatedAt));
 
@@ -46,13 +46,13 @@ namespace TerraDeGoshenAPI.src.Application
                 .ForMember(dest => dest.Images, opt => opt.Ignore())
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.Price.Amount, opt => opt.MapFrom(src => src.Price))
-                .ForMember(dest => dest.CostPrice.Amount, opt => opt.MapFrom(src => src.CostPrice))
+                .ForPath(dest => dest.Price.Amount, opt => opt.MapFrom(src => src.Price))
+                .ForPath(dest => dest.CostPrice.Amount, opt => opt.MapFrom(src => src.CostPrice))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.Stock.Amount, opt => opt.MapFrom(src => src.Stock))
+                .ForPath(dest => dest.Stock.Amount, opt => opt.MapFrom(src => src.Stock))
                 .ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors))
                 .ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes))
-                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Category.Id));
+                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Category.Id));            
         }
     }
 }

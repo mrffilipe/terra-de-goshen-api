@@ -8,7 +8,7 @@ namespace TerraDeGoshenAPI.src.Application
         public InstallmentProfile()
         {
             CreateMap<InstallmentCreateDTO, Installment>()
-                .ForMember(dest => dest.Amount.Amount, opt => opt.MapFrom(src => src.Amount))
+                .ForPath(dest => dest.Amount.Amount, opt => opt.MapFrom(src => src.Amount))
                 .ForMember(dest => dest.DebitId, opt => opt.MapFrom(src => src.DebitId));
 
             CreateMap<Installment, InstallmentResponseDTO>()

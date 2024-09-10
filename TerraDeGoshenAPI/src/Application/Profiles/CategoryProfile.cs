@@ -8,7 +8,7 @@ namespace TerraDeGoshenAPI.src.Application
         public CategoryProfile()
         {
             CreateMap<CategoryCreateDTO, CategoryRef>()
-                .ForMember(dest => dest.Details.Name, opt => opt.MapFrom(src => src.Name));
+                .ForPath(dest => dest.Details.Name, opt => opt.MapFrom(src => src.Name));
 
             CreateMap<SimpleCategoryCreateDTO, CategoryRef>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));

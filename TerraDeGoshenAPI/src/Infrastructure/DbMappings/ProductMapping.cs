@@ -53,11 +53,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                 .WithMany(e => e.Products)
                 .HasForeignKey(e => e.CategoryId)
                 .IsRequired();
-
-            builder.HasMany(e => e.Transactions)
-                .WithOne(e => e.Product)
-                .HasForeignKey(e => e.ProductId)
-                .IsRequired();
         }
     }
 }

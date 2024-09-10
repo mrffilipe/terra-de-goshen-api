@@ -13,7 +13,7 @@ using TerraDeGoshenAPI.src.Infrastructure;
 namespace TerraDeGoshenAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240910164052_FirstMigration")]
+    [Migration("20240910185843_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -449,7 +449,6 @@ namespace TerraDeGoshenAPI.Migrations
                         .HasColumnName("payment_method");
 
                     b.Property<Guid?>("ProductId")
-                        .IsRequired()
                         .HasColumnType("char(36)")
                         .HasColumnName("product_id");
 

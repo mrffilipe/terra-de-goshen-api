@@ -8,7 +8,7 @@ namespace TerraDeGoshenAPI.src.Application
         public ColorProfile()
         {
             CreateMap<ColorCreateDTO, ColorRef>()
-                .ForMember(dest => dest.Details.Value, opt => opt.MapFrom(src => src.Value));
+                .ForPath(dest => dest.Details.Value, opt => opt.MapFrom(src => src.Value));
 
             CreateMap<SimpleColorCreateDTO, ColorRef>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));

@@ -230,7 +230,7 @@ namespace TerraDeGoshenAPI.Migrations
                     type = table.Column<int>(type: "int", nullable: false),
                     payment_method = table.Column<int>(type: "int", nullable: false),
                     cash_register_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    product_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    product_id = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     customer_id = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     amount = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),

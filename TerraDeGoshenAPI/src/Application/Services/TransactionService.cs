@@ -20,7 +20,7 @@ namespace TerraDeGoshenAPI.src.Application
                 throw new ArgumentNullException(nameof(transaction));
             }
 
-            var addedTransaction = await _cashRegisterService.AddTransactionAsync(transaction.CashRegisterId, transaction);
+            var addedTransaction = await _cashRegisterService.AddTransactionAsync(transaction);
 
             return addedTransaction;
         }
