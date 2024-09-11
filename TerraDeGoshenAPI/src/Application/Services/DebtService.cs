@@ -103,18 +103,6 @@ namespace TerraDeGoshenAPI.src.Application
             return debt;
         }
 
-        public async Task<IList<Debt>> GetDebtsByCustomerAsync(Guid customerId)
-        {
-            if (customerId == Guid.Empty)
-            {
-                throw new ArgumentException("ID do cliente inválido.", nameof(customerId));
-            }
-
-            var debts = await _debtRepository.GetDebtsByCustomerAsync(customerId);
-
-            return debts;
-        }
-
         public async Task<IList<Debt>> GetAllDebtsAsync(DateTime? startDate = null, DateTime? endDate = null, bool? isPaid = null)
         {
             var debts = await _debtRepository.GetAllDebtsAsync(startDate, endDate, isPaid);
@@ -152,44 +140,15 @@ namespace TerraDeGoshenAPI.src.Application
                 TransactionType.INCOME,
                 installment.Debt.PaymentMethod,
                 cashRegisterId,
-                productId: null,
-                customerId: installment.Debt.CustomerId
+                null,
+                installment.Debt.CustomerId
             );
 
             await _cashRegisterService.AddTransactionAsync(transaction);
 
-            await _debtRepository.UpdateInstallmentAsync(installment);
+            installment = await _debtRepository.UpdateInstallmentAsync(installment);
 
             return installment;
-        }
-
-        public async Task<Installment> AddInstallmentToDebtAsync(Guid debtId, Installment installment)
-        {
-            if (debtId == Guid.Empty)
-            {
-                throw new ArgumentException("ID da dívida inválido.", nameof(debtId));
-            }
-
-            if (installment == null)
-            {
-                throw new ArgumentNullException(nameof(installment));
-            }
-
-            var addedInstallment = await _debtRepository.AddInstallmentToDebtAsync(debtId, installment);
-
-            return addedInstallment;
-        }
-
-        public async Task<bool> IsDebtFullyPaidAsync(Guid debtId)
-        {
-            if (debtId == Guid.Empty)
-            {
-                throw new ArgumentException("ID da dívida inválido.", nameof(debtId));
-            }
-
-            var isFullyPaid = await _debtRepository.IsDebtFullyPaidAsync(debtId);
-
-            return isFullyPaid;
         }
     }
 }

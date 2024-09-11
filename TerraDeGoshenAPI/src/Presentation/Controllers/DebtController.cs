@@ -71,20 +71,5 @@ namespace TerraDeGoshenAPI.src.Presentation
                 throw new Exception(ex.Message);
             }
         }
-
-        [HttpPost]
-        [Route("{debtId}/installments")]
-        public async Task<ActionResult<DebtResponseDTO>> AddInstallmentToDebt(Guid debtId, [FromBody] InstallmentCreateDTO installment)
-        {
-            try
-            {
-                return Ok(await _debtAdapter.AddInstallmentToDebtAsync(debtId, installment));
-            }
-            catch (Exception ex)
-            {
-                // ...
-                throw new Exception(ex.Message);
-            }
-        }
     }
 }

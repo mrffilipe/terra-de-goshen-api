@@ -6,7 +6,7 @@
         DateTime DueDate,
         decimal AmountPaid,
         bool IsPaid,
-        DebtResponseDTO Debt,
+        //DebtResponseDTO Debt,
         DateTime CreatedAt,
         DateTime UpdatedAt
     ) : IEntityDTO
@@ -16,7 +16,7 @@
         public DateTime DueDate { get; init; } = DueDate;
         public decimal AmountPaid { get; init; } = AmountPaid;
         public bool IsPaid { get; init; } = IsPaid;
-        public DebtResponseDTO Debt { get; init; } = Debt;
+        //public DebtResponseDTO Debt { get; init; } = Debt;
         public DateTime CreatedAt { get; init; } = CreatedAt;
         public DateTime UpdatedAt { get; init; } = UpdatedAt;
     }

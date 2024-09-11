@@ -9,11 +9,11 @@ namespace TerraDeGoshenAPI.src.Application
         {
             CreateMap<DebtCreateDTO, Debt>()
                 .ForMember(dest => dest.Installments, opt => opt.Ignore())
-                .ForPath(dest => dest.TotalAmount.Amount, opt => opt.MapFrom(src => src.TotalAmount))
+                .ForPath(dest => dest.TotalAmount, opt => opt.MapFrom(src => new MoneyVO(src.TotalAmount)))
                 .ForMember(dest => dest.DueDate, opt => opt.MapFrom(src => src.DueDate))
                 .ForMember(dest => dest.InstallmentCount, opt => opt.MapFrom(src => src.InstallmentCount))
                 .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod))
-                .ForPath(dest => dest.InitialPayment.Amount, opt => opt.MapFrom(src => src.InitialPayment))
+                .ForPath(dest => dest.InitialPayment, opt => opt.MapFrom(src => new MoneyVO(src.InitialPayment ?? 0)))
                 .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId));
 
             CreateMap<Debt, DebtResponseDTO>()
@@ -21,6 +21,7 @@ namespace TerraDeGoshenAPI.src.Application
                 .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount.Amount))
                 .ForMember(dest => dest.DueDate, opt => opt.MapFrom(src => src.DueDate))
                 .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod))
+                .ForMember(dest => dest.InitialPayment, opt => opt.MapFrom(src => src.InitialPayment.Amount))
                 .ForMember(dest => dest.Installments, opt => opt.MapFrom(src => src.Installments))
                 .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.Customer))
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))

@@ -30,13 +30,6 @@ namespace TerraDeGoshenAPI.src.Application
             return _mapper.Map<DebtResponseDTO>(debt);
         }
 
-        public async Task<IList<DebtResponseDTO>> GetDebtsByCustomerAsync(Guid customerId)
-        {
-            var debts = await _debtService.GetDebtsByCustomerAsync(customerId);
-
-            return _mapper.Map<DebtResponseDTO[]>(debts);
-        }
-
         public async Task<IList<DebtResponseDTO>> GetAllDebtsAsync(DateTime? startDate = null, DateTime? endDate = null, bool? isPaid = null)
         {
             var debs = await _debtService.GetAllDebtsAsync(startDate, endDate, isPaid);
@@ -49,20 +42,6 @@ namespace TerraDeGoshenAPI.src.Application
             var installment = await _debtService.RegisterInstallmentPaymentAsync(installmentId, cashRegisterId, paymentAmount);
 
             return _mapper.Map<InstallmentResponseDTO>(installment);
-        }
-
-        public async Task<InstallmentResponseDTO> AddInstallmentToDebtAsync(Guid debtId, InstallmentCreateDTO installment)
-        {
-            var mappedInstallment = _mapper.Map<Installment>(installment);
-
-            mappedInstallment = await _debtService.AddInstallmentToDebtAsync(debtId, mappedInstallment);
-
-            return _mapper.Map<InstallmentResponseDTO>(mappedInstallment);
-        }
-
-        public Task<bool> IsDebtFullyPaidAsync(Guid debtId)
-        {
-            return _debtService.IsDebtFullyPaidAsync(debtId);
         }
     }
 }

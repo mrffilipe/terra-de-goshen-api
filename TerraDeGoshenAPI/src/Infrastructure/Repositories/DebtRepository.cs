@@ -34,6 +34,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
             var debt = await _context.Debts
                                      .Include(d => d.Installments)
+                                     .Include(x => x.Customer)
                                      .FirstOrDefaultAsync(d => d.Id == id);
 
             if (debt == null)
@@ -44,29 +45,12 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             return debt;
         }
 
-        public async Task<Installment> GetInstallmentByIdAsync(Guid installmentId)
-        {
-            return await _context.Installments
-                                 .Include(i => i.Debt)
-                                 .FirstOrDefaultAsync(i => i.Id == installmentId);
-        }
-
-        public async Task<IList<Debt>> GetDebtsByCustomerAsync(Guid customerId)
-        {
-            if (customerId == Guid.Empty)
-            {
-                throw new ArgumentException("ID do cliente inválido.", nameof(customerId));
-            }
-
-            return await _context.Debts
-                                 .Where(d => d.CustomerId == customerId)
-                                 .Include(d => d.Installments)
-                                 .ToListAsync();
-        }
-
         public async Task<IList<Debt>> GetAllDebtsAsync(DateTime? startDate = null, DateTime? endDate = null, bool? isPaid = null)
         {
-            var query = _context.Debts.Include(d => d.Installments).AsQueryable();
+            var query = _context.Debts
+                .Include(d => d.Installments)
+                .Include(x=>x.Customer)
+                .AsQueryable();
 
             if (startDate.HasValue)
             {
@@ -86,71 +70,11 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             return await query.ToListAsync();
         }
 
-        public async Task<Installment> RegisterInstallmentPaymentAsync(Guid installmentId, MoneyVO paymentAmount, DateTime paymentDate)
+        public async Task<Installment> GetInstallmentByIdAsync(Guid installmentId)
         {
-            if (installmentId == Guid.Empty)
-            {
-                throw new ArgumentException("ID da parcela inválido.", nameof(installmentId));
-            }
-
-            var installment = await _context.Installments.FirstOrDefaultAsync(i => i.Id == installmentId);
-            if (installment == null)
-            {
-                throw new KeyNotFoundException($"Parcela com ID {installmentId} não encontrada.");
-            }
-
-            installment.AddPayment(paymentAmount);
-
-            _context.Entry(installment).State = EntityState.Modified;
-
-            await _context.SaveChangesAsync();
-
-            return installment;
-        }
-
-        public async Task<Installment> AddInstallmentToDebtAsync(Guid debtId, Installment installment)
-        {
-            if (debtId == Guid.Empty)
-            {
-                throw new ArgumentException("ID da dívida inválido.", nameof(debtId));
-            }
-
-            if (installment == null)
-            {
-                throw new ArgumentNullException(nameof(installment));
-            }
-
-            var debt = await _context.Debts.FirstOrDefaultAsync(d => d.Id == debtId);
-            if (debt == null)
-            {
-                throw new KeyNotFoundException($"Dívida com ID {debtId} não encontrada.");
-            }
-
-            debt.AddInstallment(installment);
-
-            _context.Entry(debt).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-
-            return installment;
-        }
-
-        public async Task<bool> IsDebtFullyPaidAsync(Guid debtId)
-        {
-            if (debtId == Guid.Empty)
-            {
-                throw new ArgumentException("ID da dívida inválido.", nameof(debtId));
-            }
-
-            var debt = await _context.Debts
-                                     .Include(d => d.Installments)
-                                     .FirstOrDefaultAsync(d => d.Id == debtId);
-
-            if (debt == null)
-            {
-                throw new KeyNotFoundException($"Dívida com ID {debtId} não encontrada.");
-            }
-
-            return debt.IsFullyPaid();
+            return await _context.Installments
+                                 .Include(i => i.Debt)
+                                 .FirstOrDefaultAsync(i => i.Id == installmentId);
         }
 
         public async Task<Installment> UpdateInstallmentAsync(Installment installment)
@@ -167,15 +91,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             {
                 throw new KeyNotFoundException($"Parcela com ID {installment.Id} não encontrada.");
             }
-
-            existingInstallment.SetAmountPaid(installment.AmountPaid);
-
-            if (installment.IsPaid)
-            {
-                existingInstallment.MarkAsPaid();
-            }
-
-            existingInstallment.SetDueDate(installment.DueDate);
 
             _context.Entry(existingInstallment).State = EntityState.Modified;
 

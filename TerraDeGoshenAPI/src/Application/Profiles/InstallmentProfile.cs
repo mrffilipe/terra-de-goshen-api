@@ -8,7 +8,7 @@ namespace TerraDeGoshenAPI.src.Application
         public InstallmentProfile()
         {
             CreateMap<InstallmentCreateDTO, Installment>()
-                .ForPath(dest => dest.Amount.Amount, opt => opt.MapFrom(src => src.Amount))
+                .ForPath(dest => dest.Amount, opt => opt.MapFrom(src => new MoneyVO(src.Amount)))
                 .ForMember(dest => dest.DebitId, opt => opt.MapFrom(src => src.DebitId));
 
             CreateMap<Installment, InstallmentResponseDTO>()
@@ -17,7 +17,7 @@ namespace TerraDeGoshenAPI.src.Application
                 .ForMember(dest => dest.DueDate, opt => opt.MapFrom(src => src.DueDate))
                 .ForMember(dest => dest.AmountPaid, opt => opt.MapFrom(src => src.AmountPaid.Amount))
                 .ForMember(dest => dest.IsPaid, opt => opt.MapFrom(src => src.IsPaid))
-                .ForMember(dest => dest.Debt, opt => opt.MapFrom(src => src.Debt))
+                //.ForMember(dest => dest.Debt, opt => opt.MapFrom(src => src.Debt))
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
                 .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => src.UpdatedAt));
         }
