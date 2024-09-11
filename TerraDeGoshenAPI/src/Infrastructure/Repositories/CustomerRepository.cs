@@ -68,7 +68,8 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                 throw new KeyNotFoundException($"Cliente com ID {customer.Id} não encontrado.");
             }
 
-            existingCustomer = customer;
+            existingCustomer.SetFirstName(customer.FirstName);
+            existingCustomer.SetLastName(customer.LastName);
 
             _context.Entry(existingCustomer).State = EntityState.Modified;
 

@@ -18,7 +18,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         {
             try
             {
-                return Ok(await _customerAdapter.AddCustomerAsync(customer));   
+                return Ok(await _customerAdapter.AddCustomerAsync(customer));
             }
             catch (Exception ex)
             {
@@ -57,8 +57,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpPut]
-        [Route("{id}")]
-        public async Task<ActionResult<CustomerResponseDTO>> UpdateCustomer(Guid id, [FromBody] CustomerUpdateDTO customer)
+        public async Task<ActionResult<CustomerResponseDTO>> UpdateCustomer([FromBody] CustomerUpdateDTO customer)
         {
             try
             {

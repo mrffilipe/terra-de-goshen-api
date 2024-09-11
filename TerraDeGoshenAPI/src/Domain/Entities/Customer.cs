@@ -14,5 +14,15 @@
             FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
             LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
         }
+
+        public void SetFirstName(string firstName)
+        {
+            FirstName = firstName;
+        }
+
+        public void SetLastName(string lastName)
+        {
+            LastName = lastName;
+        }
     }
 }
