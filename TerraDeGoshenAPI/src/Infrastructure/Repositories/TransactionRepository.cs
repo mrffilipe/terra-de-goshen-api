@@ -12,19 +12,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Transaction> AddTransactionAsync(Transaction transaction)
-        {
-            if (transaction == null)
-            {
-                throw new ArgumentNullException(nameof(transaction));
-            }
-
-            await _context.Transactions.AddAsync(transaction);
-            await _context.SaveChangesAsync();
-
-            return transaction;
-        }
-
         public async Task<Transaction> GetTransactionByIdAsync(Guid id)
         {
             if (id == Guid.Empty)
@@ -71,32 +58,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                                  .Include(t => t.Customer)
                                  .Include(t => t.Product)
                                  .ToListAsync();
-        }
-
-        public async Task<IList<Transaction>> GetTransactionsByCashRegisterAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null)
-        {
-            if (cashRegisterId == Guid.Empty)
-            {
-                throw new ArgumentException("ID do caixa inválido.", nameof(cashRegisterId));
-            }
-
-            var query = _context.Transactions
-                                .Where(t => t.CashRegisterId == cashRegisterId)
-                                .Include(t => t.Customer)
-                                .Include(t => t.Product)
-                                .AsQueryable();
-
-            if (startDate.HasValue)
-            {
-                query = query.Where(t => t.CreatedAt >= startDate.Value);
-            }
-
-            if (endDate.HasValue)
-            {
-                query = query.Where(t => t.CreatedAt <= endDate.Value);
-            }
-
-            return await query.ToListAsync();
         }
     }
 }

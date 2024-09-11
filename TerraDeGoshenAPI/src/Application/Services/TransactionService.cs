@@ -13,18 +13,6 @@ namespace TerraDeGoshenAPI.src.Application
             _cashRegisterService = cashRegisterService;
         }
 
-        public async Task<Transaction> AddTransactionAsync(Transaction transaction)
-        {
-            if (transaction == null)
-            {
-                throw new ArgumentNullException(nameof(transaction));
-            }
-
-            var addedTransaction = await _cashRegisterService.AddTransactionAsync(transaction);
-
-            return addedTransaction;
-        }
-
         public async Task<Transaction> GetTransactionByIdAsync(Guid id)
         {
             if (id == Guid.Empty)
@@ -61,18 +49,6 @@ namespace TerraDeGoshenAPI.src.Application
             }
 
             var transactions = await _transactionRepository.GetTransactionsByProductAsync(productId);
-
-            return transactions;
-        }
-
-        public async Task<IList<Transaction>> GetTransactionsByCashRegisterAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null)
-        {
-            if (cashRegisterId == Guid.Empty)
-            {
-                throw new ArgumentException("ID do caixa inválido.", nameof(cashRegisterId));
-            }
-
-            var transactions = await _transactionRepository.GetTransactionsByCashRegisterAsync(cashRegisterId, startDate, endDate);
 
             return transactions;
         }

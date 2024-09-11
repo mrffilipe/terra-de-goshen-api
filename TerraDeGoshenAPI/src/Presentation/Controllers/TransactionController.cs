@@ -13,20 +13,6 @@ namespace TerraDeGoshenAPI.src.Presentation
             _transactionAdapter = transactionAdapter;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<TransactionResponseDTO>> AddTransaction([FromBody] TransactionCreateDTO transaction)
-        {
-            try
-            {
-                return Ok(await _transactionAdapter.AddTransactionAsync(transaction));
-            }
-            catch (Exception ex)
-            {
-                // ...
-                throw new Exception(ex.Message);
-            }
-        }
-
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<TransactionResponseDTO>> GetTransactionById(Guid id)
