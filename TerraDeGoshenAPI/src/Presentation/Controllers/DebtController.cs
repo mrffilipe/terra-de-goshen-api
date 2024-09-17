@@ -44,6 +44,21 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpGet]
+        [Route("customer/{customerId}")]
+        public async Task<ActionResult<IList<DebtResponseDTO>>> GetDebtsByCustomerId(Guid customerId)
+        {
+            try
+            {
+                return Ok(await _debtAdapter.GetDebtsByCustomerIdAsync(customerId));
+            }
+            catch (Exception ex)
+            {
+                // ...
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpGet]
         public async Task<ActionResult<IList<DebtResponseDTO>>> GetAllDebts()
         {
             try
@@ -59,7 +74,7 @@ namespace TerraDeGoshenAPI.src.Presentation
 
         [HttpPost]
         [Route("installments/{installmentId}/cash-register/{cashRegisterId}/payment")]
-        public async Task<ActionResult<DebtResponseDTO>> RegisterInstallmentPayment(Guid installmentId, Guid cashRegisterId, [FromBody] MoneyVO paymentAmount)
+        public async Task<ActionResult<DebtResponseDTO>> RegisterInstallmentPayment(Guid installmentId, Guid cashRegisterId, [FromBody] decimal paymentAmount)
         {
             try
             {

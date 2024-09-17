@@ -45,11 +45,24 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             return debt;
         }
 
+        public async Task<IList<Debt>> GetDebtsByCustomerIdAsync(Guid customerId)
+        {
+            if (customerId == Guid.Empty)
+            {
+                throw new ArgumentException("ID inválido.", nameof(customerId));
+            }
+
+            return await _context.Debts
+                                     .Include(d => d.Installments)
+                                     .Where(x => x.CustomerId == customerId)
+                                     .ToListAsync();
+        }
+
         public async Task<IList<Debt>> GetAllDebtsAsync(DateTime? startDate = null, DateTime? endDate = null, bool? isPaid = null)
         {
             var query = _context.Debts
                 .Include(d => d.Installments)
-                .Include(x=>x.Customer)
+                .Include(x => x.Customer)
                 .AsQueryable();
 
             if (startDate.HasValue)

@@ -103,6 +103,13 @@ namespace TerraDeGoshenAPI.src.Application
             return debt;
         }
 
+        public async Task<IList<Debt>> GetDebtsByCustomerIdAsync(Guid customerId)
+        {
+            var debts = await _debtRepository.GetDebtsByCustomerIdAsync(customerId);
+
+            return debts;
+        }
+
         public async Task<IList<Debt>> GetAllDebtsAsync(DateTime? startDate = null, DateTime? endDate = null, bool? isPaid = null)
         {
             var debts = await _debtRepository.GetAllDebtsAsync(startDate, endDate, isPaid);
