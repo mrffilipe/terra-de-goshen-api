@@ -14,12 +14,12 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpPost]
-        [Route("cash-register/{cashRegisterId}")]
-        public async Task<ActionResult<DebtResponseDTO>> AddDebt(Guid cashRegisterId, [FromBody] DebtCreateDTO debt)
+        [Route("add")]
+        public async Task<ActionResult<DebtResponseDTO>> AddDebt([FromBody] DebtCreateDTO debt)
         {
             try
             {
-                return Ok(await _debtAdapter.AddDebtAsync(cashRegisterId, debt));
+                return Ok(await _debtAdapter.AddDebtAsync(debt));
             }
             catch (Exception ex)
             {
@@ -73,12 +73,12 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpPost]
-        [Route("installments/{installmentId}/cash-register/{cashRegisterId}/payment")]
-        public async Task<ActionResult<DebtResponseDTO>> RegisterInstallmentPayment(Guid installmentId, Guid cashRegisterId, [FromBody] decimal paymentAmount)
+        [Route("installment/{installmentId}/payment")]
+        public async Task<ActionResult<DebtResponseDTO>> RegisterInstallmentPayment(Guid installmentId, [FromBody] decimal paymentAmount)
         {
             try
             {
-                return Ok(await _debtAdapter.RegisterInstallmentPaymentAsync(installmentId, cashRegisterId, paymentAmount));
+                return Ok(await _debtAdapter.RegisterInstallmentPaymentAsync(installmentId, paymentAmount));
             }
             catch (Exception ex)
             {

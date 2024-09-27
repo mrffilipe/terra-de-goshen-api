@@ -14,11 +14,11 @@ namespace TerraDeGoshenAPI.src.Application
             _mapper = mapper;
         }
 
-        public async Task<DebtResponseDTO> AddDebtAsync(Guid cashRegisterId, DebtCreateDTO debt)
+        public async Task<DebtResponseDTO> AddDebtAsync(DebtCreateDTO debt)
         {
-            var mappedDebt = _mapper.Map<Debt>(debt);   
+            var mappedDebt = _mapper.Map<Debt>(debt);
 
-            mappedDebt = await _debtService.AddDebtAsync(cashRegisterId, mappedDebt);
+            mappedDebt = await _debtService.AddDebtAsync(mappedDebt);
 
             return _mapper.Map<DebtResponseDTO>(mappedDebt);
         }
@@ -44,11 +44,11 @@ namespace TerraDeGoshenAPI.src.Application
             return _mapper.Map<DebtResponseDTO[]>(debs);
         }
 
-        public async Task<InstallmentResponseDTO> RegisterInstallmentPaymentAsync(Guid installmentId, Guid cashRegisterId, decimal paymentAmount)
+        public async Task<InstallmentResponseDTO> RegisterInstallmentPaymentAsync(Guid installmentId, decimal paymentAmount)
         {
             var mappedPaymentAmount = _mapper.Map<MoneyVO>(paymentAmount);
 
-            var installment = await _debtService.RegisterInstallmentPaymentAsync(installmentId, cashRegisterId, mappedPaymentAmount);
+            var installment = await _debtService.RegisterInstallmentPaymentAsync(installmentId, mappedPaymentAmount);
 
             return _mapper.Map<InstallmentResponseDTO>(installment);
         }

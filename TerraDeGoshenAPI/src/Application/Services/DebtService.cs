@@ -13,7 +13,7 @@ namespace TerraDeGoshenAPI.src.Application
             _cashRegisterService = cashRegisterService;
         }
 
-        public async Task<Debt> AddDebtAsync(Guid cashRegisterId, Debt debt)
+        public async Task<Debt> AddDebtAsync(Debt debt)
         {
             if (debt == null)
             {
@@ -65,6 +65,8 @@ namespace TerraDeGoshenAPI.src.Application
 
             var addedDebt = await _debtRepository.AddDebtAsync(calculatedDebt);
 
+            var cashRegister = await _cashRegisterService.GetCashRegisterAsync();
+
             if (debt.InitialPayment.Amount > 0)
             {
                 var initialInstallment = installments.FirstOrDefault(i => i.IsPaid);
@@ -75,7 +77,7 @@ namespace TerraDeGoshenAPI.src.Application
                         new MoneyVO(initialInstallment.AmountPaid.Amount),
                         TransactionType.INCOME,
                         debt.PaymentMethod,
-                        cashRegisterId,
+                        cashRegister.Id,
                         productId: null,
                         customerId: debt.CustomerId
                     );
@@ -117,7 +119,7 @@ namespace TerraDeGoshenAPI.src.Application
             return debts;
         }
 
-        public async Task<Installment> RegisterInstallmentPaymentAsync(Guid installmentId, Guid cashRegisterId, MoneyVO paymentAmount)
+        public async Task<Installment> RegisterInstallmentPaymentAsync(Guid installmentId, MoneyVO paymentAmount)
         {
             if (installmentId == Guid.Empty)
             {
@@ -142,11 +144,13 @@ namespace TerraDeGoshenAPI.src.Application
 
             installment.AddPayment(paymentAmount);
 
+            var cashRegister = await _cashRegisterService.GetCashRegisterAsync();
+
             var transaction = new Transaction(
                 paymentAmount,
                 TransactionType.INCOME,
                 installment.Debt.PaymentMethod,
-                cashRegisterId,
+                cashRegister.Id,
                 null,
                 installment.Debt.CustomerId
             );
