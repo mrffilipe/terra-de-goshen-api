@@ -14,6 +14,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpPost]
+        [Route("add")]
         public async Task<ActionResult<CustomerResponseDTO>> AddCustomer([FromBody] CustomerCreateDTO customer)
         {
             try
@@ -57,7 +58,8 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpPut]
-        public async Task<ActionResult<CustomerResponseDTO>> UpdateCustomer([FromBody] CustomerUpdateDTO customer)
+        [Route("{id}")]
+        public async Task<ActionResult<CustomerResponseDTO>> UpdateCustomer(Guid id, [FromBody] CustomerUpdateDTO customer)
         {
             try
             {
