@@ -11,7 +11,6 @@ namespace TerraDeGoshenAPI.src.Application
                 .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => new MoneyVO(src.Amount)))
                 .ForMember(dest => dest.TransactionType, opt => opt.MapFrom(src => src.TransactionType))
                 .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod))
-                .ForMember(dest => dest.CashRegisterId, opt => opt.MapFrom(src => src.CashRegisterId))
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
                 .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId));
 

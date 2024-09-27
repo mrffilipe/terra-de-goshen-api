@@ -1,53 +1,33 @@
 ﻿namespace TerraDeGoshenAPI.src.Application
 {
-    public record ProductResponseDTO
+    public record ProductResponseDTO(
+        Guid Id,
+        string Name,
+        string Description,
+        decimal Price,
+        decimal CostPrice,
+        string BackgroundText,
+        int Stock,
+        //IList<ImageResponseDTO> Images,
+        //IList<ColorResponseDTO> Colors,
+        //IList<SizeResponseDTO> Sizes,
+        CategoryResponseDTO Category,
+        DateTime CreatedAt,
+        DateTime UpdatedAt
+        ) : IEntityDTO
     {
-        public Guid Id { get; } = Guid.Empty;
-        public string Name { get; } = string.Empty;
-        public string Description { get; } = string.Empty;
-        public decimal Price { get; } = 0;
-        public decimal CostPrice { get; } = 0;
-        public string BackgroundText { get; } = string.Empty;
-        public int Stock { get; } = 0;
-        public IList<ImageResponseDTO> Images { get; } = [];
-        public IList<ColorResponseDTO> Colors { get; } = [];
-        public IList<SizeResponseDTO> Sizes { get; } = [];
-        public CategoryResponseDTO Category { get; } = new CategoryResponseDTO();
-        public DateTime CreatedAt { get; }
-        public DateTime UpdatedAt { get; }
-
-        public ProductResponseDTO()
-        { }
-
-        public ProductResponseDTO(
-            Guid id,
-            string name,
-            string description,
-            decimal price,
-            decimal costPrice,
-            string backgroundText,
-            int stock,
-            IList<ImageResponseDTO> images,
-            IList<ColorResponseDTO> colors,
-            IList<SizeResponseDTO> sizes,
-            CategoryResponseDTO category,
-            DateTime createdAt,
-            DateTime updatedAt
-            )
-        {
-            Id = id;
-            Name = name;
-            Description = description;
-            Price = price;
-            CostPrice = costPrice;
-            BackgroundText = backgroundText;
-            Stock = stock;
-            Images = images;
-            Colors = colors;
-            Sizes = sizes;
-            Category = category;
-            CreatedAt = createdAt;
-            UpdatedAt = updatedAt;
-        }
+        public Guid Id { get; init; } = Id;
+        public string Name { get; init; } = Name;
+        public string Description { get; init; } = Description;
+        public decimal Price { get; init; } = Price;
+        public decimal CostPrice { get; init; } = CostPrice;
+        public string BackgroundText { get; init; } = BackgroundText;
+        public int Stock { get; init; } = Stock;
+        //public IList<ImageResponseDTO> Images { get; init; } = Images;
+        //public IList<ColorResponseDTO> Colors { get; init; } = Colors;
+        //public IList<SizeResponseDTO> Sizes { get; init; } = Sizes;
+        public CategoryResponseDTO Category { get; init; } = Category;
+        public DateTime CreatedAt { get; init; } = CreatedAt;
+        public DateTime UpdatedAt { get; init; } = UpdatedAt;
     }
 }

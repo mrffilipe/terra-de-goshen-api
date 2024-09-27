@@ -2,10 +2,10 @@
 {
     public record CategoryResponseDTO
     {
-        public Guid Id { get; } = Guid.Empty;
-        public string Name { get; } = string.Empty;
-        public DateTime CreatedAt { get; }
-        public DateTime UpdatedAt { get; }
+        public Guid Id { get; init; } = Guid.Empty;
+        public string Name { get; init; } = string.Empty;
+        public DateTime CreatedAt { get; init; }
+        public DateTime UpdatedAt { get; init; }
 
         public CategoryResponseDTO()
         { }

@@ -39,6 +39,11 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             return transaction;
         }
 
+        public async Task<CashRegister> GetCashRegisterAsync()
+        {
+            return await _context.CashRegisters.FirstOrDefaultAsync();
+        }
+
         public async Task<MoneyVO> GetCurrentBalanceAsync(Guid cashRegisterId)
         {
             var cashRegister = await _context.CashRegisters

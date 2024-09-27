@@ -29,12 +29,12 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpGet]
-        [Route("{cashRegisterId}/balance")]
-        public async Task<ActionResult<decimal>> GetCurrentBalance(Guid cashRegisterId)
+        [Route("balance")]
+        public async Task<ActionResult<decimal>> GetCurrentBalance()
         {
             try
             {
-                return Ok(await _cashRegisterAdapter.GetCurrentBalanceAsync(cashRegisterId));
+                return Ok(await _cashRegisterAdapter.GetCurrentBalanceAsync());
             }
             catch (Exception ex)
             {
@@ -44,12 +44,12 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpGet]
-        [Route("{cashRegisterId}/transactions")]
-        public async Task<ActionResult<IList<TransactionResponseDTO>>> GetTransactions(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null)
+        [Route("transactions")]
+        public async Task<ActionResult<IList<TransactionResponseDTO>>> GetTransactions(DateTime? startDate = null, DateTime? endDate = null)
         {
             try
             {
-                return Ok(await _cashRegisterAdapter.GetTransactionsAsync(cashRegisterId, startDate, endDate));
+                return Ok(await _cashRegisterAdapter.GetTransactionsAsync(startDate, endDate));
             }
             catch (Exception ex)
             {

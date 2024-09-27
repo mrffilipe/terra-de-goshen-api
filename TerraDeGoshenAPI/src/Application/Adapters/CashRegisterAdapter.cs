@@ -18,21 +18,21 @@ namespace TerraDeGoshenAPI.src.Application
         {
             var mappedTransaction = _mapper.Map<Transaction>(transaction);
 
-            mappedTransaction = await _cashRegisterService.AddTransactionAsync(mappedTransaction); 
+            mappedTransaction = await _cashRegisterService.AddTransactionAsync(mappedTransaction);
 
             return _mapper.Map<TransactionResponseDTO>(mappedTransaction);
         }
 
-        public async Task<decimal> GetCurrentBalanceAsync(Guid cashRegisterId)
+        public async Task<decimal> GetCurrentBalanceAsync()
         {
-            var balance = await _cashRegisterService.GetCurrentBalanceAsync(cashRegisterId);
+            var balance = await _cashRegisterService.GetCurrentBalanceAsync();
 
             return balance.Amount;
         }
 
-        public async Task<IList<TransactionResponseDTO>> GetTransactionsAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<IList<TransactionResponseDTO>> GetTransactionsAsync(DateTime? startDate = null, DateTime? endDate = null)
         {
-            var transactions = await _cashRegisterService.GetTransactionsAsync(cashRegisterId, startDate, endDate);
+            var transactions = await _cashRegisterService.GetTransactionsAsync(startDate, endDate);
 
             return _mapper.Map<IList<TransactionResponseDTO>>(transactions);
         }

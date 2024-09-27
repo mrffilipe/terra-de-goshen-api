@@ -46,7 +46,7 @@ namespace TerraDeGoshenAPI.src.Presentation
 
         [HttpGet]
         [Route("get-all-products")]
-        public async Task<ActionResult<MinimumProductResponseDTO>> GetAllProducts()
+        public async Task<ActionResult<IList<ProductResponseDTO>>> GetAllProducts()
         {
             try
             {

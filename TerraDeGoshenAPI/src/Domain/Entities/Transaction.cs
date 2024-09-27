@@ -24,6 +24,9 @@
             CustomerId = customerId;
         }
 
-        public string GetDetails() => "";
+        public void SetCashRegisterId(Guid cashRegisterId)
+        {
+            CashRegisterId = cashRegisterId;
+        }
     }
 }

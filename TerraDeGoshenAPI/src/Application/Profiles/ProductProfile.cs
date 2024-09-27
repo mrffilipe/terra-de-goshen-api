@@ -33,12 +33,11 @@ namespace TerraDeGoshenAPI.src.Application
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price.Amount))
                 .ForMember(dest => dest.CostPrice, opt => opt.MapFrom(src => src.CostPrice.Amount))
-                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Stock, opt => opt.MapFrom(src => src.Stock.Amount))
-                .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images))
-                .ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors))
-                .ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes))
-                .ForPath(dest => dest.Category.Id, opt => opt.MapFrom(src => src.CategoryId))
+                //.ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images))
+                //.ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors))
+                //.ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes))
+                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
                 .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => src.UpdatedAt));
 
@@ -52,7 +51,7 @@ namespace TerraDeGoshenAPI.src.Application
                 .ForPath(dest => dest.Stock.Amount, opt => opt.MapFrom(src => src.Stock))
                 .ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.Colors))
                 .ForMember(dest => dest.Sizes, opt => opt.MapFrom(src => src.Sizes))
-                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Category.Id));            
+                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Category.Id));
         }
     }
 }

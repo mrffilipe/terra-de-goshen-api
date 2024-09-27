@@ -6,7 +6,7 @@ namespace TerraDeGoshenAPI.src.Application
     {
         Task<ProductResponseDTO> AddProductAsync(ProductCreateDTO product);
         Task<ProductResponseDTO> GetProductByIdAsync(Guid id);
-        Task<IList<MinimumProductResponseDTO>> GetAllProductsAsync();
+        Task<IList<ProductResponseDTO>> GetAllProductsAsync();
         Task<IList<MinimumProductResponseDTO>> GetProductsByParametersAsync(SearchParameters parameters);
         Task<ProductResponseDTO> UpdateProductAsync(ProductUpdateDTO product);
         Task<IList<CategoryResponseDTO>> GetAllCategoriesAsync();
