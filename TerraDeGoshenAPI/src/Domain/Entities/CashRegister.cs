@@ -9,7 +9,7 @@
 
         public CashRegister(MoneyVO currentBalance)
         {
-            CurrentBalance = currentBalance ?? throw new ArgumentNullException(nameof(currentBalance));
+            CurrentBalance = currentBalance ?? throw new ArgumentNullException(nameof(currentBalance), "O saldo inicial não pode ser nulo.");
         }
 
         public CashRegister(Guid id, MoneyVO currentBalance) : this(currentBalance)
@@ -20,12 +20,9 @@
         public void AddTransaction(Transaction transaction)
         {
             if (transaction == null)
-            {
-                throw new ArgumentNullException(nameof(transaction));
-            }
+                throw new ArgumentNullException(nameof(transaction), "A transação não pode ser nula.");
 
             Transactions.Add(transaction);
-
             UpdateCurrentBalance(transaction);
         }
 
@@ -34,21 +31,18 @@
         private void UpdateCurrentBalance(Transaction transaction)
         {
             if (transaction == null)
-                throw new ArgumentNullException(nameof(transaction));
+                throw new ArgumentNullException(nameof(transaction), "A transação não pode ser nula.");
 
-            if (transaction.TransactionType == TransactionType.INCOME)
+            switch (transaction.TransactionType)
             {
-                // Adiciona a quantia ao saldo atual
-                CurrentBalance = CurrentBalance.Add(transaction.Amount);
-            }
-            else if (transaction.TransactionType == TransactionType.EXPENSE)
-            {
-                // Subtrai a quantia do saldo atual, com validação de saldo suficiente
-                CurrentBalance = CurrentBalance.Subtract(transaction.Amount);
-            }
-            else
-            {
-                throw new InvalidOperationException("Tipo de transação desconhecido.");
+                case TransactionType.INCOME:
+                    CurrentBalance = CurrentBalance.Add(transaction.Amount);
+                    break;
+                case TransactionType.EXPENSE:
+                    CurrentBalance = CurrentBalance.Subtract(transaction.Amount);
+                    break;
+                default:
+                    throw new InvalidOperationException("Tipo de transação desconhecido.");
             }
         }
     }

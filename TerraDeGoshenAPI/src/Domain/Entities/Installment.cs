@@ -13,8 +13,8 @@
 
         public Installment(MoneyVO amount, MoneyVO amountPaid, bool isPaid, Guid debitId)
         {
-            Amount = amount ?? throw new ArgumentNullException(nameof(amount));
-            AmountPaid = amountPaid ?? throw new ArgumentNullException(nameof(amountPaid));
+            Amount = amount ?? throw new ArgumentNullException(nameof(amount), "O valor não pode ser nulo.");
+            AmountPaid = amountPaid ?? throw new ArgumentNullException(nameof(amountPaid), "O valor pago não pode ser nulo.");
             IsPaid = isPaid;
             DebitId = debitId;
         }
@@ -27,26 +27,17 @@
         public void AddPayment(MoneyVO paymentAmount)
         {
             if (paymentAmount == null)
-            {
-                throw new ArgumentNullException(nameof(paymentAmount));
-            }
+                throw new ArgumentNullException(nameof(paymentAmount), "O valor do pagamento não pode ser nulo.");
 
             AmountPaid = AmountPaid.Add(paymentAmount);
 
             if (AmountPaid.Amount >= Amount.Amount)
-            {
                 MarkAsPaid();
-            }
         }
 
         public void MarkAsPaid()
         {
             IsPaid = true;
-        }
-
-        public void SetAmountPaid(MoneyVO amountPaid)
-        {
-            AmountPaid = amountPaid;
         }
     }
 }

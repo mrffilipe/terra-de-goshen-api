@@ -9,7 +9,7 @@
 
         public CategoryRef(CategoryVO details)
         {
-            Details = details ?? throw new ArgumentNullException(nameof(details));
+            Details = details ?? throw new ArgumentNullException(nameof(details), "Os detalhes da categoria não podem ser nulos.");
         }
     }
 }

@@ -20,7 +20,7 @@ namespace TerraDeGoshenAPI.src.Application
 
             var cashRegister = await _cashRegisterRepository.GetCashRegisterAsync();
 
-            transaction.SetCashRegisterId(cashRegister.Id);
+            //transaction.SetCashRegisterId(cashRegister.Id);
 
             var addedTransaction = await _cashRegisterRepository.AddTransactionAsync(transaction);
 

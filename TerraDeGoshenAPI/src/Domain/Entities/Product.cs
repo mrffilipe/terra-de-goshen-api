@@ -27,18 +27,17 @@
             IList<ImageRef> images,
             IList<ColorRef> colors,
             IList<SizeRef> sizes,
-            Guid categoryId
-            )
+            Guid categoryId)
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Description = description ?? throw new ArgumentNullException(nameof(description));
-            Price = price ?? throw new ArgumentNullException(nameof(price));
-            CostPrice = costPrice ?? throw new ArgumentNullException(nameof(costPrice));
-            BackgroundText = backgroundText ?? throw new ArgumentNullException(nameof(backgroundText));
-            Stock = stock ?? throw new ArgumentNullException(nameof(stock));
-            Images = images ?? throw new ArgumentNullException(nameof(images));
-            Colors = colors ?? throw new ArgumentNullException(nameof(colors));
-            Sizes = sizes ?? throw new ArgumentNullException(nameof(sizes));
+            Name = name ?? throw new ArgumentNullException(nameof(name), "O nome não pode ser nulo.");
+            Description = description ?? throw new ArgumentNullException(nameof(description), "A descrição não pode ser nula.");
+            Price = price ?? throw new ArgumentNullException(nameof(price), "O preço não pode ser nulo.");
+            CostPrice = costPrice ?? throw new ArgumentNullException(nameof(costPrice), "O custo não pode ser nulo.");
+            BackgroundText = backgroundText ?? throw new ArgumentNullException(nameof(backgroundText), "O texto de fundo não pode ser nulo.");
+            Stock = stock ?? throw new ArgumentNullException(nameof(stock), "O estoque não pode ser nulo.");
+            Images = images ?? throw new ArgumentNullException(nameof(images), "A lista de imagens não pode ser nula.");
+            Colors = colors ?? throw new ArgumentNullException(nameof(colors), "A lista de cores não pode ser nula.");
+            Sizes = sizes ?? throw new ArgumentNullException(nameof(sizes), "A lista de tamanhos não pode ser nula.");
             CategoryId = categoryId;
         }
     }

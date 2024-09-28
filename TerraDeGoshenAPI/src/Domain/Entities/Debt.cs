@@ -20,27 +20,15 @@
             PaymentMethod paymentMethod,
             MoneyVO initialPayment,
             List<Installment> installments,
-            Guid customerId
-            )
+            Guid customerId)
         {
-            TotalAmount = totalAmount ?? throw new ArgumentNullException(nameof(totalAmount));
+            TotalAmount = totalAmount ?? throw new ArgumentNullException(nameof(totalAmount), "O valor total não pode ser nulo.");
             DueDate = dueDate;
-            InstallmentCount = installmentCount;
+            InstallmentCount = installmentCount <= 0 ? throw new ArgumentOutOfRangeException(nameof(installmentCount), "A quantidade de parcelas deve ser maior que zero.") : installmentCount;
             PaymentMethod = paymentMethod;
-            InitialPayment = initialPayment;
-            Installments = installments ?? throw new ArgumentNullException(nameof(totalAmount));
+            InitialPayment = initialPayment ?? throw new ArgumentNullException(nameof(initialPayment), "O pagamento inicial não pode ser nulo.");
+            Installments = installments ?? throw new ArgumentNullException(nameof(installments), "A lista de parcelas não pode ser nula.");
             CustomerId = customerId;
-        }
-
-        public string GetDetails() => "";
-
-        public void AddInstallment(Installment installment)
-        {
-        }
-
-        public bool IsFullyPaid()
-        {
-            return false;
         }
     }
 }

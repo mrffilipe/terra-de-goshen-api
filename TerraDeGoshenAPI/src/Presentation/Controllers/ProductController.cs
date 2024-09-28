@@ -44,11 +44,12 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<ProductResponseDTO>>> GetAllProducts()
+        [Route("search-by-parameters")]
+        public async Task<ActionResult<MinimumProductResponseDTO>> GetProductsByParameters(SearchParameters parameters)
         {
             try
             {
-                return Ok(await _productAdapter.GetAllProductsAsync());
+                return Ok(await _productAdapter.GetProductsByParametersAsync(parameters));
             }
             catch (Exception ex)
             {
@@ -58,12 +59,11 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpGet]
-        [Route("search-by-parameters")]
-        public async Task<ActionResult<MinimumProductResponseDTO>> GetProductsByParameters(SearchParameters parameters)
+        public async Task<ActionResult<IList<ProductResponseDTO>>> GetAllProducts()
         {
             try
             {
-                return Ok(await _productAdapter.GetProductsByParametersAsync(parameters));
+                return Ok(await _productAdapter.GetAllProductsAsync());
             }
             catch (Exception ex)
             {

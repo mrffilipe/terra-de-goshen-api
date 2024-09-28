@@ -10,8 +10,8 @@
 
         public ColorRef(ColorVO details, Guid? imageId)
         {
-            Details = details ?? throw new ArgumentNullException(nameof(details));
-            ImageId = imageId ?? throw new ArgumentNullException(nameof(imageId));
+            Details = details ?? throw new ArgumentNullException(nameof(details), "Os detalhes da cor não podem ser nulos.");
+            ImageId = imageId ?? throw new ArgumentNullException(nameof(imageId), "O ID da imagem não pode ser nulo.");
         }
     }
 }

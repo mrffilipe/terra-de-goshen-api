@@ -11,18 +11,18 @@
 
         public Customer(string firstName, string lastName)
         {
-            FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
-            LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
+            FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName), "O nome não pode ser nulo.");
+            LastName = lastName ?? throw new ArgumentNullException(nameof(lastName), "O sobrenome não pode ser nulo.");
         }
 
         public void SetFirstName(string firstName)
         {
-            FirstName = firstName;
+            FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName), "O nome não pode ser nulo.");
         }
 
         public void SetLastName(string lastName)
         {
-            LastName = lastName;
+            LastName = lastName ?? throw new ArgumentNullException(nameof(lastName), "O sobrenome não pode ser nulo.");
         }
     }
 }

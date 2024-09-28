@@ -9,7 +9,7 @@
 
         public SizeRef(SizeVO details)
         {
-            Details = details ?? throw new ArgumentNullException(nameof(details));
+            Details = details ?? throw new ArgumentNullException(nameof(details), "Os detalhes do tamanho não podem ser nulos.");
         }
     }
 }

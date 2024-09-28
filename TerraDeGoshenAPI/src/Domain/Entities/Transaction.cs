@@ -16,17 +16,12 @@
 
         public Transaction(MoneyVO amount, TransactionType transactionType, PaymentMethod paymentMethod, Guid cashRegisterId, Guid? productId, Guid? customerId)
         {
-            Amount = amount ?? throw new ArgumentNullException(nameof(amount));
+            Amount = amount ?? throw new ArgumentNullException(nameof(amount), "O valor da transação não pode ser nulo.");
             TransactionType = transactionType;
             PaymentMethod = paymentMethod;
             CashRegisterId = cashRegisterId;
             ProductId = productId;
             CustomerId = customerId;
-        }
-
-        public void SetCashRegisterId(Guid cashRegisterId)
-        {
-            CashRegisterId = cashRegisterId;
         }
     }
 }
