@@ -9,14 +9,14 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
         public CustomerRepository(ApplicationDbContext context)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _context = context ?? throw new ArgumentNullException(nameof(context), "O contexto de banco de dados não pode ser nulo.");
         }
 
         public async Task<Customer> AddCustomerAsync(Customer customer)
         {
             if (customer == null)
             {
-                throw new ArgumentNullException(nameof(customer));
+                throw new ArgumentNullException(nameof(customer), "O cliente não pode ser nulo.");
             }
 
             await _context.Customers.AddAsync(customer);
@@ -29,20 +29,13 @@ namespace TerraDeGoshenAPI.src.Infrastructure
         {
             if (id == Guid.Empty)
             {
-                throw new ArgumentException("ID inválido.", nameof(id));
+                throw new ArgumentException("ID do cliente inválido.", nameof(id));
             }
 
-            var customer = await _context.Customers
-                                         .Include(c => c.Debts)
-                                         .Include(c => c.Transactions)
-                                         .FirstOrDefaultAsync(c => c.Id == id);
-
-            if (customer == null)
-            {
-                throw new KeyNotFoundException($"Cliente com ID {id} não encontrado.");
-            }
-
-            return customer;
+            return await _context.Customers
+                                 .Include(c => c.Debts)
+                                 .Include(c => c.Transactions)
+                                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<IList<Customer>> GetAllCustomersAsync()
@@ -57,7 +50,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
         {
             if (customer == null)
             {
-                throw new ArgumentNullException(nameof(customer));
+                throw new ArgumentNullException(nameof(customer), "O cliente não pode ser nulo.");
             }
 
             var existingCustomer = await _context.Customers
@@ -65,7 +58,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
             if (existingCustomer == null)
             {
-                throw new KeyNotFoundException($"Cliente com ID {customer.Id} não encontrado.");
+                return null;
             }
 
             existingCustomer.SetFirstName(customer.FirstName);

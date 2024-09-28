@@ -44,12 +44,12 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpGet]
-        [Route("search-by-parameters")]
-        public async Task<ActionResult<MinimumProductResponseDTO>> GetProductsByParameters(SearchParameters parameters)
+        [Route("search/{productName}")]
+        public async Task<ActionResult<ProductResponseDTO>> GetProductsByName(string productName)
         {
             try
             {
-                return Ok(await _productAdapter.GetProductsByParametersAsync(parameters));
+                return Ok(await _productAdapter.GetProductsByNameAsync(productName));
             }
             catch (Exception ex)
             {

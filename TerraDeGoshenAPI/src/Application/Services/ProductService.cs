@@ -8,27 +8,43 @@ namespace TerraDeGoshenAPI.src.Application
 
         public ProductService(IProductRepository productRepository)
         {
-            _productRepository = productRepository;
+            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository), "O repositório de produto não pode ser nulo.");
         }
 
         public async Task<Product> AddProductAsync(Product product)
         {
+            if (product == null)
+            {
+                throw new ArgumentNullException(nameof(product), "O produto não pode ser nulo.");
+            }
+
             return await _productRepository.AddProductAsync(product);
         }
 
         public async Task<Product> GetProductByIdAsync(Guid id)
         {
-            var product = await _productRepository.GetProductByIdAsync(id);
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentException("O ID do produto é inválido.", nameof(id));
+            }
 
-            if (product != null)
+            var product = await _productRepository.GetProductByIdAsync(id);
+            if (product == null)
             {
-                return product;
+                throw new KeyNotFoundException($"Produto com ID {id} não encontrado.");
             }
-            else
+
+            return product;
+        }
+
+        public async Task<IList<Product>> GetProductsByNameAsync(string productName)
+        {
+            if (string.IsNullOrWhiteSpace(productName))
             {
-                // ...
-                throw new NotImplementedException();
+                throw new ArgumentException("O nome do produto não pode ser nulo ou vazio.", nameof(productName));
             }
+
+            return await _productRepository.GetProductsByNameAsync(productName);
         }
 
         public async Task<IList<Product>> GetAllProductsAsync()
@@ -36,13 +52,13 @@ namespace TerraDeGoshenAPI.src.Application
             return await _productRepository.GetAllProductsAsync();
         }
 
-        public async Task<IList<Product>> GetProductsByParametersAsync(SearchParameters parameters)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Product> UpdateProductAsync(Product product)
         {
+            if (product == null)
+            {
+                throw new ArgumentNullException(nameof(product), "O produto não pode ser nulo.");
+            }
+
             return await _productRepository.UpdateProductAsync(product);
         }
 

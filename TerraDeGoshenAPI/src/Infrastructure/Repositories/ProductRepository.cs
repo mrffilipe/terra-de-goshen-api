@@ -9,135 +9,109 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
         public ProductRepository(ApplicationDbContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context), "O contexto de banco de dados não pode ser nulo.");
         }
 
         public async Task<Product> AddProductAsync(Product product)
         {
-            try
+            if (product == null)
             {
-                IList<Guid> colorIds = product.Colors.Select(x => x.Id).ToList();
-
-                IList<ColorRef> existingColors = await _context.Colors
-                    .Where(x => colorIds.Contains(x.Id))
-                    .ToListAsync();
-
-                IList<Guid> sizeIds = product.Sizes.Select(x => x.Id).ToList();
-
-                IList<SizeRef> existingSizez = await _context.Sizes
-                    .Where(x => sizeIds.Contains(x.Id))
-                    .ToListAsync();
-
-                //product.UpdateColors(existingColors);
-                //product.UpdateSizes(existingSizez);
-
-                await _context.Products.AddAsync(product);
-
-                await _context.SaveChangesAsync();
-
-                return product;
+                throw new ArgumentNullException(nameof(product), "O produto não pode ser nulo.");
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
+            IList<Guid> colorIds = product.Colors.Select(x => x.Id).ToList();
+            IList<ColorRef> existingColors = await _context.Colors
+                .Where(x => colorIds.Contains(x.Id))
+                .ToListAsync();
+
+            IList<Guid> sizeIds = product.Sizes.Select(x => x.Id).ToList();
+            IList<SizeRef> existingSizes = await _context.Sizes
+                .Where(x => sizeIds.Contains(x.Id))
+                .ToListAsync();
+
+            product.SetColors(existingColors);
+            product.SetSizes(existingSizes);
+
+            await _context.Products.AddAsync(product);
+            await _context.SaveChangesAsync();
+
+            return product;
         }
 
         public async Task<Product> GetProductByIdAsync(Guid id)
         {
-            try
+            if (id == Guid.Empty)
             {
-                var result = await _context.Products
-                    .Include(x => x.Images)
-                    .Include(x => x.Colors)
-                    .Include(x => x.Sizes)
-                    .Include(x => x.Category)
-                    .SingleAsync(x => x.Id.Equals(id));
+                throw new ArgumentException("O ID do produto é inválido.", nameof(id));
+            }
 
-                return result;
-            }
-            catch (Exception)
+            var result = await _context.Products
+               .Include(x => x.Images)
+               .Include(x => x.Colors)
+               .Include(x => x.Sizes)
+               .Include(x => x.Category)
+               .SingleOrDefaultAsync(x => x.Id.Equals(id));
+
+            if (result == null)
             {
-                throw;
+                throw new KeyNotFoundException($"Produto com ID {id} não encontrado.");
             }
+
+            return result;
+        }
+
+        public async Task<IList<Product>> GetProductsByNameAsync(string productName)
+        {
+            if (string.IsNullOrWhiteSpace(productName))
+            {
+                throw new ArgumentException("O nome do produto não pode ser nulo ou vazio.", nameof(productName));
+            }
+
+            return await _context.Products
+                .Where(p => p.Name.Contains(productName))
+                .Include(p => p.Images)
+                .Include(p => p.Colors)
+                .Include(p => p.Sizes)
+                .Include(p => p.Category)
+                .ToListAsync();
         }
 
         public async Task<IList<Product>> GetAllProductsAsync()
         {
-            try
-            {
-                var result = await _context.Products
-                    .Include(x => x.Images)
-                    .Include(x => x.Colors)
-                    .Include(x => x.Sizes)
-                    .Include(x => x.Category)
-                    .ToListAsync();
-
-                return result;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public async Task<IList<Product>> GetProductsByParametersAsync(SearchParameters parameters)
-        {
-            throw new NotImplementedException();
+            return await _context.Products
+                .Include(x => x.Images)
+                .Include(x => x.Colors)
+                .Include(x => x.Sizes)
+                .Include(x => x.Category)
+                .ToListAsync();
         }
 
         public async Task<Product> UpdateProductAsync(Product product)
         {
-            try
+            if (product == null)
             {
-                throw new Exception();
+                throw new ArgumentNullException(nameof(product), "O produto não pode ser nulo.");
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
+            _context.Products.Update(product);
+            await _context.SaveChangesAsync();
+
+            return product;
         }
 
         public async Task<IList<CategoryRef>> GetAllCategoriesAsync()
         {
-            try
-            {
-                var result = await _context.Categories.ToListAsync();
-
-                return result;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return await _context.Categories.ToListAsync();
         }
 
         public async Task<IList<ColorRef>> GetAllColorsAsync()
         {
-            try
-            {
-                var result = await _context.Colors.ToListAsync();
-
-                return result;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return await _context.Colors.ToListAsync();
         }
 
         public async Task<IList<SizeRef>> GetAllSizesAsync()
         {
-            try
-            {
-                var result = await _context.Sizes.ToListAsync();
-
-                return result;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return await _context.Sizes.ToListAsync();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
         public DebtRepository(ApplicationDbContext context)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _context = context ?? throw new ArgumentNullException(nameof(context), "O contexto de banco de dados não pode ser nulo.");
         }
 
         public async Task<Debt> AddDebtAsync(Debt debt)
@@ -29,27 +29,20 @@ namespace TerraDeGoshenAPI.src.Infrastructure
         {
             if (id == Guid.Empty)
             {
-                throw new ArgumentException("ID inválido.", nameof(id));
+                throw new ArgumentException("ID do débito inválido.", nameof(id));
             }
 
-            var debt = await _context.Debts
+            return await _context.Debts
                                      .Include(d => d.Installments)
                                      .Include(x => x.Customer)
                                      .FirstOrDefaultAsync(d => d.Id == id);
-
-            if (debt == null)
-            {
-                throw new KeyNotFoundException($"Dívida com ID {id} não encontrada.");
-            }
-
-            return debt;
         }
 
         public async Task<IList<Debt>> GetDebtsByCustomerIdAsync(Guid customerId)
         {
             if (customerId == Guid.Empty)
             {
-                throw new ArgumentException("ID inválido.", nameof(customerId));
+                throw new ArgumentException("ID do cliente inválido.", nameof(customerId));
             }
 
             return await _context.Debts
@@ -60,10 +53,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
         public async Task<IList<Debt>> GetAllDebtsAsync(DateTime? startDate = null, DateTime? endDate = null, bool? isPaid = null)
         {
-            var query = _context.Debts
-                .Include(d => d.Installments)
-                .Include(x => x.Customer)
-                .AsQueryable();
+            var query = _context.Debts.AsQueryable();
 
             if (startDate.HasValue)
             {
@@ -77,14 +67,23 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
             if (isPaid.HasValue)
             {
-                query = query.Where(d => d.Installments.All(i => i.IsPaid == isPaid.Value));
+                query = query.Where(d => d.Installments.Any(i => i.IsPaid == isPaid.Value));
             }
 
+            query = query.Include(d => d.Installments)
+                         .Include(d => d.Customer);
+
             return await query.ToListAsync();
+
         }
 
         public async Task<Installment> GetInstallmentByIdAsync(Guid installmentId)
         {
+            if (installmentId == Guid.Empty)
+            {
+                throw new ArgumentException("ID da parcela inválido.", nameof(installmentId));
+            }
+
             return await _context.Installments
                                  .Include(i => i.Debt)
                                  .FirstOrDefaultAsync(i => i.Id == installmentId);
@@ -94,22 +93,13 @@ namespace TerraDeGoshenAPI.src.Infrastructure
         {
             if (installment == null)
             {
-                throw new ArgumentNullException(nameof(installment));
+                throw new ArgumentNullException(nameof(installment), "A parcela não pode ser nulo.");
             }
 
-            var existingInstallment = await _context.Installments
-                                                    .FirstOrDefaultAsync(i => i.Id == installment.Id);
-
-            if (existingInstallment == null)
-            {
-                throw new KeyNotFoundException($"Parcela com ID {installment.Id} não encontrada.");
-            }
-
-            _context.Entry(existingInstallment).State = EntityState.Modified;
-
+            _context.Entry(installment).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return existingInstallment;
+            return installment;
         }
 
     }

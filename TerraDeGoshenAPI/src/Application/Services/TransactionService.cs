@@ -9,21 +9,21 @@ namespace TerraDeGoshenAPI.src.Application
 
         public TransactionService(ITransactionRepository transactionRepository, ICashRegisterService cashRegisterService)
         {
-            _transactionRepository = transactionRepository;
-            _cashRegisterService = cashRegisterService;
+            _transactionRepository = transactionRepository ?? throw new ArgumentNullException(nameof(transactionRepository), "O repositório de transações não pode ser nulo.");
+            _cashRegisterService = cashRegisterService ?? throw new ArgumentNullException(nameof(cashRegisterService), "O serviço de caixa não pode ser nulo.");
         }
 
         public async Task<Transaction> GetTransactionByIdAsync(Guid id)
         {
             if (id == Guid.Empty)
             {
-                throw new ArgumentException("ID inválido.", nameof(id));
+                throw new ArgumentException("O ID da transação é inválido.", nameof(id));
             }
 
             var transaction = await _transactionRepository.GetTransactionByIdAsync(id);
             if (transaction == null)
             {
-                throw new KeyNotFoundException($"Transação com ID {id} não encontrada.");
+                throw new KeyNotFoundException($"Transação com o ID {id} não foi encontrada.");
             }
 
             return transaction;
@@ -33,10 +33,14 @@ namespace TerraDeGoshenAPI.src.Application
         {
             if (customerId == Guid.Empty)
             {
-                throw new ArgumentException("ID do cliente inválido.", nameof(customerId));
+                throw new ArgumentException("O ID do cliente é inválido.", nameof(customerId));
             }
 
             var transactions = await _transactionRepository.GetTransactionsByCustomerAsync(customerId);
+            if (transactions == null || !transactions.Any())
+            {
+                throw new KeyNotFoundException($"Nenhuma transação encontrada para o cliente com ID {customerId}.");
+            }
 
             return transactions;
         }
@@ -45,10 +49,14 @@ namespace TerraDeGoshenAPI.src.Application
         {
             if (productId == Guid.Empty)
             {
-                throw new ArgumentException("ID do produto inválido.", nameof(productId));
+                throw new ArgumentException("O ID do produto é inválido.", nameof(productId));
             }
 
             var transactions = await _transactionRepository.GetTransactionsByProductAsync(productId);
+            if (transactions == null || !transactions.Any())
+            {
+                throw new KeyNotFoundException($"Nenhuma transação encontrada para o produto com ID {productId}.");
+            }
 
             return transactions;
         }

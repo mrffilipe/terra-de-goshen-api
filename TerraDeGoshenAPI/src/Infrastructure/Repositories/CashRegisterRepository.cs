@@ -9,30 +9,27 @@ namespace TerraDeGoshenAPI.src.Infrastructure
 
         public CashRegisterRepository(ApplicationDbContext context)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _context = context ?? throw new ArgumentNullException(nameof(context), "Contexto de banco de dados não pode ser nulo.");
         }
 
         public async Task<Transaction> AddTransactionAsync(Transaction transaction)
         {
             if (transaction == null)
             {
-                throw new ArgumentNullException(nameof(transaction));
+                throw new ArgumentNullException(nameof(transaction), "A transação não pode ser nula.");
             }
 
             var cashRegister = await _context.CashRegisters
-                                             .Include(c => c.Transactions)
                                              .FirstOrDefaultAsync(c => c.Id == transaction.CashRegisterId);
 
             if (cashRegister == null)
             {
-                throw new KeyNotFoundException($"Caixa com ID {transaction.CashRegisterId} não encontrado.");
+                return null;
             }
 
             cashRegister.AddTransaction(transaction);
 
             await _context.Transactions.AddAsync(transaction);
-
-            _context.Entry(cashRegister).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
 
@@ -49,19 +46,13 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             var cashRegister = await _context.CashRegisters
                                              .FirstOrDefaultAsync(c => c.Id == cashRegisterId);
 
-            if (cashRegister == null)
-            {
-                throw new KeyNotFoundException($"Caixa com ID {cashRegisterId} não encontrado.");
-            }
-
-            return cashRegister.GetCurrentBalance();
+            return cashRegister?.GetCurrentBalance();
         }
 
         public async Task<IList<Transaction>> GetTransactionsAsync(Guid cashRegisterId, DateTime? startDate = null, DateTime? endDate = null)
         {
             var query = _context.Transactions
-                                .Where(t => t.CashRegisterId == cashRegisterId)
-                                .AsQueryable();
+                                .Where(t => t.CashRegisterId == cashRegisterId);
 
             if (startDate.HasValue)
             {

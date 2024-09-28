@@ -9,48 +9,40 @@ namespace TerraDeGoshenAPI.src.Application
 
         public DebtService(IDebtRepository debtRepository, ICashRegisterService cashRegisterService)
         {
-            _debtRepository = debtRepository;
-            _cashRegisterService = cashRegisterService;
+            _debtRepository = debtRepository ?? throw new ArgumentNullException(nameof(debtRepository), "O repositório de débito não pode ser nulo.");
+            _cashRegisterService = cashRegisterService ?? throw new ArgumentNullException(nameof(cashRegisterService), "O serviço de registro de caixa não pode ser nulo.");
         }
 
         public async Task<Debt> AddDebtAsync(Debt debt)
         {
-            if (debt == null)
-            {
-                throw new ArgumentNullException(nameof(debt));
-            }
+            if (debt == null) throw new ArgumentNullException(nameof(debt));
+
+            if (debt.InstallmentCount <= 0)
+                throw new ArgumentException("O número de parcelas deve ser maior que zero.", nameof(debt.InstallmentCount));
+
+            if (debt.TotalAmount.Amount <= 0)
+                throw new ArgumentException("O valor total da dívida deve ser maior que zero.", nameof(debt.TotalAmount));
 
             var remainingAmount = debt.TotalAmount.Amount - debt.InitialPayment.Amount;
-            var installmentAmount = remainingAmount / debt.InstallmentCount;
+            if (remainingAmount < 0)
+                throw new InvalidOperationException("O pagamento inicial não pode ser maior que o valor total.");
 
+            var installmentAmount = remainingAmount / debt.InstallmentCount;
             var installments = new List<Installment>();
 
             for (int i = 0; i < debt.InstallmentCount; i++)
             {
                 var dueDate = debt.DueDate.AddMonths(i);
+                var amountPaid = i == 0 ? debt.InitialPayment : new MoneyVO(0);
+                var isPaid = i == 0 && debt.InitialPayment.Amount > 0;
 
-                if (i == 0 && debt.InitialPayment.Amount > 0)
-                {
-                    var firstInstallment = new Installment(
-                        new MoneyVO(installmentAmount),
-                        new MoneyVO(debt.InitialPayment.Amount),
-                        true,
-                        debt.CustomerId
-                    );
-
-                    installments.Add(firstInstallment);
-                }
-                else
-                {
-                    var installment = new Installment(
-                        new MoneyVO(installmentAmount),
-                        new MoneyVO(0),
-                        false,
-                        debt.CustomerId
-                    );
-
-                    installments.Add(installment);
-                }
+                var installment = new Installment(
+                    new MoneyVO(installmentAmount),
+                    amountPaid,
+                    isPaid,
+                    debt.CustomerId
+                );
+                installments.Add(installment);
             }
 
             var calculatedDebt = new Debt(
@@ -64,7 +56,6 @@ namespace TerraDeGoshenAPI.src.Application
             );
 
             var addedDebt = await _debtRepository.AddDebtAsync(calculatedDebt);
-
             var cashRegister = await _cashRegisterService.GetCashRegisterAsync();
 
             if (debt.InitialPayment.Amount > 0)
@@ -74,14 +65,13 @@ namespace TerraDeGoshenAPI.src.Application
                 if (initialInstallment != null)
                 {
                     var transaction = new Transaction(
-                        new MoneyVO(initialInstallment.AmountPaid.Amount),
+                        initialInstallment.AmountPaid,
                         TransactionType.INCOME,
                         debt.PaymentMethod,
                         cashRegister.Id,
                         productId: null,
                         customerId: debt.CustomerId
                     );
-
                     await _cashRegisterService.AddTransactionAsync(transaction);
                 }
             }
@@ -107,16 +97,17 @@ namespace TerraDeGoshenAPI.src.Application
 
         public async Task<IList<Debt>> GetDebtsByCustomerIdAsync(Guid customerId)
         {
-            var debts = await _debtRepository.GetDebtsByCustomerIdAsync(customerId);
+            if (customerId == Guid.Empty)
+            {
+                throw new ArgumentException("ID inválido.", nameof(customerId));
+            }
 
-            return debts;
+            return await _debtRepository.GetDebtsByCustomerIdAsync(customerId);
         }
 
         public async Task<IList<Debt>> GetAllDebtsAsync(DateTime? startDate = null, DateTime? endDate = null, bool? isPaid = null)
         {
-            var debts = await _debtRepository.GetAllDebtsAsync(startDate, endDate, isPaid);
-
-            return debts;
+            return await _debtRepository.GetAllDebtsAsync(startDate, endDate, isPaid);
         }
 
         public async Task<Installment> RegisterInstallmentPaymentAsync(Guid installmentId, MoneyVO paymentAmount)
@@ -126,9 +117,9 @@ namespace TerraDeGoshenAPI.src.Application
                 throw new ArgumentException("ID da parcela inválido.", nameof(installmentId));
             }
 
-            if (paymentAmount == null)
+            if (paymentAmount == null || paymentAmount.Amount <= 0)
             {
-                throw new ArgumentNullException(nameof(paymentAmount));
+                throw new ArgumentException("O valor de pagamento deve ser maior que zero.", nameof(paymentAmount));
             }
 
             var installment = await _debtRepository.GetInstallmentByIdAsync(installmentId);
@@ -137,15 +128,9 @@ namespace TerraDeGoshenAPI.src.Application
                 throw new KeyNotFoundException($"Parcela com ID {installmentId} não encontrada.");
             }
 
-            if (paymentAmount.Amount <= 0)
-            {
-                throw new ArgumentException("O valor de pagamento deve ser maior que zero.", nameof(paymentAmount));
-            }
-
             installment.AddPayment(paymentAmount);
 
             var cashRegister = await _cashRegisterService.GetCashRegisterAsync();
-
             var transaction = new Transaction(
                 paymentAmount,
                 TransactionType.INCOME,
@@ -154,12 +139,9 @@ namespace TerraDeGoshenAPI.src.Application
                 null,
                 installment.Debt.CustomerId
             );
-
             await _cashRegisterService.AddTransactionAsync(transaction);
 
-            installment = await _debtRepository.UpdateInstallmentAsync(installment);
-
-            return installment;
+            return await _debtRepository.UpdateInstallmentAsync(installment);
         }
     }
 }

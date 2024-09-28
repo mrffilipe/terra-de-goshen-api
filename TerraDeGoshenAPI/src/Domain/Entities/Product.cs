@@ -40,5 +40,15 @@
             Sizes = sizes ?? throw new ArgumentNullException(nameof(sizes), "A lista de tamanhos não pode ser nula.");
             CategoryId = categoryId;
         }
+
+        public void SetColors(IList<ColorRef> colors)
+        {
+            Colors = colors;
+        }
+
+        public void SetSizes(IList<SizeRef> sizes)
+        {
+            Sizes = sizes;
+        }
     }
 }

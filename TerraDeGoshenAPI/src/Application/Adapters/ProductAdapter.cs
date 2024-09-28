@@ -46,6 +46,11 @@ namespace TerraDeGoshenAPI.src.Application
             return _mapper.Map<ProductResponseDTO>(product);
         }
 
+        public async Task<IList<ProductResponseDTO>> GetProductsByNameAsync(string productName)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IList<ProductResponseDTO>> GetAllProductsAsync()
         {
             var products = await _productService.GetAllProductsAsync();
@@ -56,11 +61,6 @@ namespace TerraDeGoshenAPI.src.Application
             }
 
             return _mapper.Map<ProductResponseDTO[]>(products);
-        }
-
-        public async Task<IList<MinimumProductResponseDTO>> GetProductsByParametersAsync(SearchParameters parameters)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<ProductResponseDTO> UpdateProductAsync(ProductUpdateDTO product)

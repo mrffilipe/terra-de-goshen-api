@@ -23,5 +23,10 @@
             ProductId = productId;
             CustomerId = customerId;
         }
+
+        public void SetCashRegisterId(Guid cashRegisterId)
+        {
+            CashRegisterId = cashRegisterId;
+        }
     }
 }
