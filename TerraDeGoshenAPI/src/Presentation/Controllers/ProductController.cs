@@ -14,7 +14,6 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpPost]
-        [Route("add-product")]
         [Consumes("multipart/form-data")]
         public async Task<ActionResult<ProductResponseDTO>> AddProduct([FromForm] ProductCreateDTO product)
         {
@@ -30,8 +29,8 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpGet]
-        [Route("get-product-by-id")]
-        public async Task<ActionResult<ProductResponseDTO>> GetProductById([FromQuery] Guid id)
+        [Route("{id}")]
+        public async Task<ActionResult<ProductResponseDTO>> GetProductById(Guid id)
         {
             try
             {
@@ -45,7 +44,6 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpGet]
-        [Route("get-all-products")]
         public async Task<ActionResult<IList<ProductResponseDTO>>> GetAllProducts()
         {
             try
@@ -60,7 +58,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpGet]
-        [Route("get-products-by-parameters")]
+        [Route("search-by-parameters")]
         public async Task<ActionResult<MinimumProductResponseDTO>> GetProductsByParameters(SearchParameters parameters)
         {
             try
@@ -75,7 +73,6 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpPut]
-        [Route("update-product")]
         [Consumes("multipart/form-data")]
         public async Task<ActionResult<ProductResponseDTO>> UpdateProduct([FromForm] ProductUpdateDTO product)
         {
@@ -91,7 +88,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpGet]
-        [Route("get-all-categories")]
+        [Route("category")]
         public async Task<ActionResult<IList<CategoryResponseDTO>>> GetAllCategories()
         {
             try
@@ -106,7 +103,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpGet]
-        [Route("get-all-colors")]
+        [Route("color")]
         public async Task<ActionResult<IList<ColorResponseDTO>>> GetAllColors()
         {
             try
@@ -121,7 +118,7 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpGet]
-        [Route("get-all-sizes")]
+        [Route("size")]
         public async Task<ActionResult<IList<SizeResponseDTO>>> GetAllSizes()
         {
             try

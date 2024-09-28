@@ -14,7 +14,6 @@ namespace TerraDeGoshenAPI.src.Presentation
         }
 
         [HttpPost]
-        [Route("add")]
         public async Task<ActionResult<CustomerResponseDTO>> AddCustomer([FromBody] CustomerCreateDTO customer)
         {
             try

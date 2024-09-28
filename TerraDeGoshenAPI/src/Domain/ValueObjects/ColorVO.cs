@@ -6,7 +6,7 @@
 
         public ColorVO(string value)
         {
-            Value = value ?? throw new ArgumentNullException(nameof(value));
+            Value = value ?? throw new ArgumentNullException(nameof(value), "O valor da cor não pode ser nulo.");
         }
     }
 }

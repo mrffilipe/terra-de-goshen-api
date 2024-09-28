@@ -6,7 +6,7 @@
 
         public CategoryVO(string name)
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Name = name ?? throw new ArgumentNullException(nameof(name), "O nome da categoria não pode ser nulo.");
         }
     }
 }

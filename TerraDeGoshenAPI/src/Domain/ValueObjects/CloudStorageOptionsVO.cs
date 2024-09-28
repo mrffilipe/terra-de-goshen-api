@@ -6,7 +6,7 @@
 
         public CloudStorageOptionsVO(string bucketName)
         {
-            BucketName = bucketName ?? throw new ArgumentNullException(nameof(bucketName));
+            BucketName = bucketName ?? throw new ArgumentNullException(nameof(bucketName), "O nome do bucket não pode ser nulo.");
         }
     }
 }

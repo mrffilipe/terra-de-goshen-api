@@ -7,8 +7,8 @@
 
         public ImageVO(string url, bool? isCover)
         {
-            Url = url ?? throw new ArgumentNullException(nameof(url));
-            IsCover = isCover ?? throw new ArgumentNullException(nameof(isCover));
+            Url = url ?? throw new ArgumentNullException(nameof(url), "A URL da imagem não pode ser nula.");
+            IsCover = isCover ?? throw new ArgumentNullException(nameof(isCover), "O valor de 'IsCover' não pode ser nulo.");
         }
     }
 }
