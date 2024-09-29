@@ -10,8 +10,7 @@ namespace TerraDeGoshenAPI.src.Application
         ProductResponseDTO? Product,
         CustomerResponseDTO? Customer,
         DateTime CreatedAt,
-        DateTime UpdatedAt
-    ) : IEntityDTO
+        DateTime UpdatedAt) : IBaseEntityDTO
     {
         public Guid Id { get; init; } = Id;
         public decimal Amount { get; init; } = Amount;

@@ -1,44 +1,26 @@
 ﻿namespace TerraDeGoshenAPI.src.Application
 {
-    public record ProductCreateDTO
+    public record ProductCreateDTO(
+        string Name,
+        string Description,
+        decimal Price,
+        decimal CostPrice,
+        string BackgroundText,
+        int Stock,
+        IList<ImageCreateDTO> Images,
+        IList<SimpleColorCreateDTO> Colors,
+        IList<SimpleSizeCreateDTO> Sizes,
+        SimpleCategoryCreateDTO Category)
     {
-        public string Name { get; init; } = string.Empty;
-        public string Description { get; init; } = string.Empty;
-        public decimal Price { get; init; } = 0;
-        public decimal CostPrice { get; init; } = 0;
-        public string BackgroundText { get; init; } = string.Empty;
-        public int Stock { get; init; } = 0;
-        public IList<ImageCreateDTO> Images { get; init; } = [];
-        public IList<SimpleColorCreateDTO> Colors { get; init; } = [];
-        public IList<SimpleSizeCreateDTO> Sizes { get; init; } = [];
-        public SimpleCategoryCreateDTO Category { get; init; } = null!;
-
-        public ProductCreateDTO()
-        { }
-
-        public ProductCreateDTO(
-            string name,
-            string description,
-            decimal price,
-            decimal costPrice,
-            string backgroundText,
-            int stock,
-            IList<ImageCreateDTO> images,
-            IList<SimpleColorCreateDTO> colors,
-            IList<SimpleSizeCreateDTO> sizes,
-            SimpleCategoryCreateDTO category
-            )
-        {
-            Name = name;
-            Description = description;
-            Price = price;
-            CostPrice = costPrice;
-            BackgroundText = backgroundText;
-            Stock = stock;
-            Images = images;
-            Colors = colors;
-            Sizes = sizes;
-            Category = category;
-        }
+        public string Name { get; init; } = Name ?? string.Empty;
+        public string Description { get; init; } = Description ?? string.Empty;
+        public decimal Price { get; init; } = Price;
+        public decimal CostPrice { get; init; } = CostPrice;
+        public string BackgroundText { get; init; } = BackgroundText ?? string.Empty;
+        public int Stock { get; init; } = Stock;
+        public IList<ImageCreateDTO> Images { get; init; } = Images;
+        public IList<SimpleColorCreateDTO> Colors { get; init; } = Colors;
+        public IList<SimpleSizeCreateDTO> Sizes { get; init; } = Sizes;
+        public SimpleCategoryCreateDTO Category { get; init; } = Category;
     }
 }

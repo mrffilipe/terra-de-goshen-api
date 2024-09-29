@@ -32,14 +32,13 @@ namespace TerraDeGoshenAPI.src.Application
 
             for (int i = 0; i < debt.InstallmentCount; i++)
             {
-                var dueDate = debt.DueDate.AddMonths(i);
-                var amountPaid = i == 0 ? debt.InitialPayment : new MoneyVO(0);
-                var isPaid = i == 0 && debt.InitialPayment.Amount > 0;
+                var dueDate = debt.DueDate.AddMonths(i + 1);
 
                 var installment = new Installment(
                     new MoneyVO(installmentAmount),
-                    amountPaid,
-                    isPaid,
+                    dueDate,
+                    new MoneyVO(0),
+                    false,
                     debt.CustomerId
                 );
                 installments.Add(installment);
@@ -60,20 +59,16 @@ namespace TerraDeGoshenAPI.src.Application
 
             if (debt.InitialPayment.Amount > 0)
             {
-                var initialInstallment = installments.FirstOrDefault(i => i.IsPaid);
+                var transaction = new Transaction(
+                    new MoneyVO(debt.InitialPayment.Amount),
+                    TransactionType.INCOME,
+                    debt.PaymentMethod,
+                    cashRegister.Id,
+                    null,
+                    debt.CustomerId
+                );
 
-                if (initialInstallment != null)
-                {
-                    var transaction = new Transaction(
-                        initialInstallment.AmountPaid,
-                        TransactionType.INCOME,
-                        debt.PaymentMethod,
-                        cashRegister.Id,
-                        productId: null,
-                        customerId: debt.CustomerId
-                    );
-                    await _cashRegisterService.AddTransactionAsync(transaction);
-                }
+                await _cashRegisterService.AddTransactionAsync(transaction);
             }
 
             return addedDebt;
@@ -139,6 +134,7 @@ namespace TerraDeGoshenAPI.src.Application
                 null,
                 installment.Debt.CustomerId
             );
+
             await _cashRegisterService.AddTransactionAsync(transaction);
 
             return await _debtRepository.UpdateInstallmentAsync(installment);

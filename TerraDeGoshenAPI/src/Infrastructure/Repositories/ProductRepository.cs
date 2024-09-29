@@ -29,8 +29,11 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                 .Where(x => sizeIds.Contains(x.Id))
                 .ToListAsync();
 
+            var category = await _context.Categories.FirstOrDefaultAsync(x => product.CategoryId == x.Id);
+
             product.SetColors(existingColors);
             product.SetSizes(existingSizes);
+            product.SetCategory(category);
 
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
@@ -50,7 +53,7 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                .Include(x => x.Colors)
                .Include(x => x.Sizes)
                .Include(x => x.Category)
-               .SingleOrDefaultAsync(x => x.Id.Equals(id));
+               .SingleOrDefaultAsync(x => x.Id == id);
 
             if (result == null)
             {

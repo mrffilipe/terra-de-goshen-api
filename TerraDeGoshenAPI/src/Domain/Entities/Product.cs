@@ -41,6 +41,11 @@
             CategoryId = categoryId;
         }
 
+        public void SetImages(IList<ImageRef> images)
+        {
+            Images = images;
+        }
+
         public void SetColors(IList<ColorRef> colors)
         {
             Colors = colors;
@@ -49,6 +54,11 @@
         public void SetSizes(IList<SizeRef> sizes)
         {
             Sizes = sizes;
+        }
+
+        public void SetCategory(CategoryRef category)
+        {
+            Category = category;
         }
     }
 }

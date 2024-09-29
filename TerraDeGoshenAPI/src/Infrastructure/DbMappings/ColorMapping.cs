@@ -13,10 +13,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
             builder.ComplexProperty(e => e.Details).Property(e => e.Value)
                 .HasColumnName("value")
                 .IsRequired();
-
-            builder.Property(x => x.ImageId)
-                .HasColumnName("image_id")
-                .IsRequired(false);
         }
     }
 }

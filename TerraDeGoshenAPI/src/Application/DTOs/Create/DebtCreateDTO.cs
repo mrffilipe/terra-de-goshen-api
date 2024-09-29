@@ -8,8 +8,7 @@ namespace TerraDeGoshenAPI.src.Application
         int InstallmentCount,
         PaymentMethod PaymentMethod,
         decimal? InitialPayment,
-        Guid CustomerId
-    )
+        Guid CustomerId)
     {
         public decimal TotalAmount { get; init; } = TotalAmount;
         public DateTime DueDate { get; init; } = DueDate;

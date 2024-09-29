@@ -1,21 +1,14 @@
 ﻿namespace TerraDeGoshenAPI.src.Application
 {
-    public record CategoryResponseDTO
+    public record CategoryResponseDTO(
+        Guid Id,
+        string Name,
+        DateTime CreatedAt,
+        DateTime UpdatedAt) : IBaseEntityDTO
     {
-        public Guid Id { get; init; } = Guid.Empty;
-        public string Name { get; init; } = string.Empty;
-        public DateTime CreatedAt { get; init; }
-        public DateTime UpdatedAt { get; init; }
-
-        public CategoryResponseDTO()
-        { }
-
-        public CategoryResponseDTO(Guid id, string name, DateTime createdAt, DateTime updatedAt)
-        {
-            Id = id;
-            Name = name;
-            CreatedAt = createdAt;
-            UpdatedAt = updatedAt;
-        }
+        public Guid Id { get; } = Id;
+        public string Name { get; init; } = Name ?? string.Empty;
+        public DateTime CreatedAt { get; } = CreatedAt;
+        public DateTime UpdatedAt { get; } = UpdatedAt;
     }
 }

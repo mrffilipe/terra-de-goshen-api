@@ -5,13 +5,12 @@
         string FirstName,
         string LastName,
         DateTime CreatedAt,
-        DateTime UpdatedAt
-    ) : IEntityDTO
+        DateTime UpdatedAt) : IBaseEntityDTO
     {
-        public Guid Id { get; init; } = Id;
-        public string FirstName { get; init; } = FirstName;
-        public string LastName { get; init; } = LastName;
+        public Guid Id { get; } = Id;
+        public string FirstName { get; } = FirstName ?? string.Empty;
+        public string LastName { get; } = LastName ?? string.Empty;
         public DateTime CreatedAt { get; init; } = CreatedAt;
-        public DateTime UpdatedAt { get; init; } = UpdatedAt;
+        public DateTime UpdatedAt { get; } = UpdatedAt;
     }
 }

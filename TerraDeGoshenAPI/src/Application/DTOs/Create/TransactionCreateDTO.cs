@@ -7,8 +7,7 @@ namespace TerraDeGoshenAPI.src.Application
         TransactionType TransactionType,
         PaymentMethod PaymentMethod,
         Guid? ProductId,
-        Guid? CustomerId
-    )
+        Guid? CustomerId)
     {
         public decimal Amount { get; init; } = Amount;
         public TransactionType TransactionType { get; init; } = TransactionType;

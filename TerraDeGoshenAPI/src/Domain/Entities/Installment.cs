@@ -11,9 +11,10 @@
 
         protected Installment() { }
 
-        public Installment(MoneyVO amount, MoneyVO amountPaid, bool isPaid, Guid debitId)
+        public Installment(MoneyVO amount, DateTime dueDate, MoneyVO amountPaid, bool isPaid, Guid debitId)
         {
             Amount = amount ?? throw new ArgumentNullException(nameof(amount), "O valor não pode ser nulo.");
+            DueDate = dueDate;
             AmountPaid = amountPaid ?? throw new ArgumentNullException(nameof(amountPaid), "O valor pago não pode ser nulo.");
             IsPaid = isPaid;
             DebitId = debitId;
@@ -35,7 +36,7 @@
                 MarkAsPaid();
         }
 
-        public void MarkAsPaid()
+        private void MarkAsPaid()
         {
             IsPaid = true;
         }

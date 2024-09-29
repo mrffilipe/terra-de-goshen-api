@@ -8,26 +8,25 @@
         decimal CostPrice,
         string BackgroundText,
         int Stock,
-        //IList<ImageResponseDTO> Images,
-        //IList<ColorResponseDTO> Colors,
-        //IList<SizeResponseDTO> Sizes,
+        IList<ImageResponseDTO> Images,
+        IList<ColorResponseDTO> Colors,
+        IList<SizeResponseDTO> Sizes,
         CategoryResponseDTO Category,
         DateTime CreatedAt,
-        DateTime UpdatedAt
-        ) : IEntityDTO
+        DateTime UpdatedAt) : IBaseEntityDTO
     {
-        public Guid Id { get; init; } = Id;
-        public string Name { get; init; } = Name;
-        public string Description { get; init; } = Description;
-        public decimal Price { get; init; } = Price;
-        public decimal CostPrice { get; init; } = CostPrice;
-        public string BackgroundText { get; init; } = BackgroundText;
-        public int Stock { get; init; } = Stock;
-        //public IList<ImageResponseDTO> Images { get; init; } = Images;
-        //public IList<ColorResponseDTO> Colors { get; init; } = Colors;
-        //public IList<SizeResponseDTO> Sizes { get; init; } = Sizes;
-        public CategoryResponseDTO Category { get; init; } = Category;
-        public DateTime CreatedAt { get; init; } = CreatedAt;
-        public DateTime UpdatedAt { get; init; } = UpdatedAt;
+        public Guid Id { get; } = Id;
+        public string Name { get; } = Name ?? string.Empty;
+        public string Description { get; } = Description ?? string.Empty;
+        public decimal Price { get; } = Price;
+        public decimal CostPrice { get; } = CostPrice;
+        public string BackgroundText { get; } = BackgroundText ?? string.Empty;
+        public int Stock { get; } = Stock;
+        public IList<ImageResponseDTO> Images { get; } = Images;
+        public IList<ColorResponseDTO> Colors { get; } = Colors;
+        public IList<SizeResponseDTO> Sizes { get; } = Sizes;
+        public CategoryResponseDTO Category { get; } = Category;
+        public DateTime CreatedAt { get; } = CreatedAt;
+        public DateTime UpdatedAt { get; } = UpdatedAt;
     }
 }

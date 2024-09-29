@@ -12,19 +12,17 @@ namespace TerraDeGoshenAPI.src.Application
         IList<InstallmentResponseDTO> Installments,
         CustomerResponseDTO Customer,
         DateTime CreatedAt,
-        DateTime UpdatedAt
-
-    ) : IEntityDTO
+        DateTime UpdatedAt) : IBaseEntityDTO
     {
-        public Guid Id { get; init; } = Id;
-        public decimal TotalAmount { get; init; } = TotalAmount;
-        public DateTime DueDate { get; init; } = DueDate;
-        public int InstallmentCount { get; init; } = InstallmentCount;
-        public PaymentMethod PaymentMethod { get; init; } = PaymentMethod;
-        public decimal? InitialPayment { get; init; } = InitialPayment;
-        public IList<InstallmentResponseDTO> Installments { get; init; } = Installments;
-        public CustomerResponseDTO Customer { get; init; } = Customer;
-        public DateTime CreatedAt { get; init; } = CreatedAt;
-        public DateTime UpdatedAt { get; init; } = UpdatedAt;
+        public Guid Id { get; } = Id;
+        public decimal TotalAmount { get; } = TotalAmount;
+        public DateTime DueDate { get; } = DueDate;
+        public int InstallmentCount { get; } = InstallmentCount;
+        public PaymentMethod PaymentMethod { get; } = PaymentMethod;
+        public decimal? InitialPayment { get; } = InitialPayment;
+        public IList<InstallmentResponseDTO> Installments { get; } = Installments;
+        public CustomerResponseDTO Customer { get; } = Customer;
+        public DateTime CreatedAt { get; } = CreatedAt;
+        public DateTime UpdatedAt { get; } = UpdatedAt;
     }
 }

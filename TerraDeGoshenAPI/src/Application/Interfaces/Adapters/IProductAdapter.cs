@@ -1,6 +1,4 @@
-﻿using TerraDeGoshenAPI.src.Domain;
-
-namespace TerraDeGoshenAPI.src.Application
+﻿namespace TerraDeGoshenAPI.src.Application
 {
     public interface IProductAdapter
     {

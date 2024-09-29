@@ -1,23 +1,16 @@
 ﻿namespace TerraDeGoshenAPI.src.Application
 {
-    public record ImageResponseDTO
+    public record ImageResponseDTO(
+        Guid Id,
+        string Url,
+        bool? IsCover,
+        DateTime CreatedAt,
+        DateTime UpdatedAt) : IBaseEntityDTO
     {
-        public Guid Id { get; } = Guid.Empty;
-        public string Url { get; } = string.Empty;
-        public bool? IsCover { get; } = false;
-        public DateTime CreatedAt { get; }
-        public DateTime UpdatedAt { get; }
-
-        public ImageResponseDTO()
-        { }
-
-        public ImageResponseDTO(Guid id, string url, bool? isCover, DateTime createdAt, DateTime updatedAt)
-        {
-            Id = id;
-            Url = url;
-            IsCover = isCover;
-            CreatedAt = createdAt;
-            UpdatedAt = updatedAt;
-        }
+        public Guid Id { get; } = Id;
+        public string Url { get; } = Url ?? string.Empty;
+        public bool? IsCover { get; } = IsCover;
+        public DateTime CreatedAt { get; } = CreatedAt;
+        public DateTime UpdatedAt { get; } = UpdatedAt;
     }
 }

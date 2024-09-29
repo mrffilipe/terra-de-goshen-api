@@ -20,14 +20,18 @@ namespace TerraDeGoshenAPI.src.Application
         {
             var mappedProduct = _mapper.Map<Product>(product);
 
+            var images = new List<ImageRef>();
+
             foreach (var img in product.Images)
             {
                 var imageResult = await _imageService.UploadImageAsync(img.File, img.IsCover);
 
                 var imageRef = new ImageRef(imageResult);
 
-                mappedProduct.Images.Add(imageRef);
+                images.Add(imageRef);
             }
+
+            mappedProduct.SetImages(images);
 
             mappedProduct = await _productService.AddProductAsync(mappedProduct);
 
@@ -48,7 +52,9 @@ namespace TerraDeGoshenAPI.src.Application
 
         public async Task<IList<ProductResponseDTO>> GetProductsByNameAsync(string productName)
         {
-            throw new NotImplementedException();
+            var result = await _productService.GetProductsByNameAsync(productName);
+
+            return _mapper.Map<IList<ProductResponseDTO>>(result);
         }
 
         public async Task<IList<ProductResponseDTO>> GetAllProductsAsync()
@@ -72,36 +78,21 @@ namespace TerraDeGoshenAPI.src.Application
         {
             var categories = await _productService.GetAllCategoriesAsync();
 
-            if (categories != null)
-            {
-                return _mapper.Map<IList<CategoryResponseDTO>>(categories);
-            }
-
-            throw new Exception();
+            return _mapper.Map<IList<CategoryResponseDTO>>(categories);
         }
 
         public async Task<IList<ColorResponseDTO>> GetAllColorsAsync()
         {
             var colors = await _productService.GetAllColorsAsync();
 
-            if (colors != null)
-            {
-                return _mapper.Map<IList<ColorResponseDTO>>(colors);
-            }
-
-            throw new Exception();
+            return _mapper.Map<IList<ColorResponseDTO>>(colors);
         }
 
         public async Task<IList<SizeResponseDTO>> GetAllSizesAsync()
         {
             var sizes = await _productService.GetAllSizesAsync();
 
-            if (sizes != null)
-            {
-                return _mapper.Map<IList<SizeResponseDTO>>(sizes);
-            }
-
-            throw new Exception();
+            return _mapper.Map<IList<SizeResponseDTO>>(sizes);
         }
     }
 }

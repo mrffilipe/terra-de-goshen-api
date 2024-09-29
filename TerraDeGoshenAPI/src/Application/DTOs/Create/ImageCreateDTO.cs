@@ -1,17 +1,8 @@
 ﻿namespace TerraDeGoshenAPI.src.Application
 {
-    public record ImageCreateDTO
+    public record ImageCreateDTO(IFormFile File, bool IsCover)
     {
-        public IFormFile File { get; init; } = null!;
-        public bool IsCover { get; init; } = false;
-
-        public ImageCreateDTO()
-        { }
-
-        public ImageCreateDTO(IFormFile file, bool isCover)
-        {
-            File = file;
-            IsCover = isCover;
-        }
+        public IFormFile File { get; init; } = File;
+        public bool IsCover { get; init; } = IsCover;
     }
 }
