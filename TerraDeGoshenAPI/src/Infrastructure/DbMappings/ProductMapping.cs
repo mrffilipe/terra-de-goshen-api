@@ -26,10 +26,6 @@ namespace TerraDeGoshenAPI.src.Infrastructure
                 .HasColumnName("cost_price")
                 .IsRequired();
 
-            builder.Property(x => x.BackgroundText)
-                .HasColumnName("background_text")
-                .IsRequired();
-
             builder.ComplexProperty(x => x.Stock).Property(e => e.Amount)
                 .HasColumnName("stock")
                 .IsRequired();

@@ -13,7 +13,7 @@ using TerraDeGoshenAPI.src.Infrastructure;
 namespace TerraDeGoshenAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240910185843_FirstMigration")]
+    [Migration("20241001050031_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -125,10 +125,6 @@ namespace TerraDeGoshenAPI.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
-
-                    b.Property<Guid?>("ImageId")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("image_id");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)")
@@ -333,11 +329,6 @@ namespace TerraDeGoshenAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)")
                         .HasColumnName("id");
-
-                    b.Property<string>("BackgroundText")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("background_text");
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("char(36)")

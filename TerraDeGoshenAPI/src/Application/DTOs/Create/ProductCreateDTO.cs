@@ -5,7 +5,6 @@
         string Description,
         decimal Price,
         decimal CostPrice,
-        string BackgroundText,
         int Stock,
         IList<ImageCreateDTO> Images,
         IList<SimpleColorCreateDTO> Colors,
@@ -16,7 +15,6 @@
         public string Description { get; init; } = Description ?? string.Empty;
         public decimal Price { get; init; } = Price;
         public decimal CostPrice { get; init; } = CostPrice;
-        public string BackgroundText { get; init; } = BackgroundText ?? string.Empty;
         public int Stock { get; init; } = Stock;
         public IList<ImageCreateDTO> Images { get; init; } = Images;
         public IList<SimpleColorCreateDTO> Colors { get; init; } = Colors;

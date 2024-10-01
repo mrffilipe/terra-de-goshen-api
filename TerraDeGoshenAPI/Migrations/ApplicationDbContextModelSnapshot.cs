@@ -123,10 +123,6 @@ namespace TerraDeGoshenAPI.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
-                    b.Property<Guid?>("ImageId")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("image_id");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
@@ -330,11 +326,6 @@ namespace TerraDeGoshenAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)")
                         .HasColumnName("id");
-
-                    b.Property<string>("BackgroundText")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("background_text");
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("char(36)")

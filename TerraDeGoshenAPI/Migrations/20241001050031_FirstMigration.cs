@@ -49,7 +49,6 @@ namespace TerraDeGoshenAPI.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    image_id = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     value = table.Column<string>(type: "longtext", nullable: false),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false)
@@ -101,8 +100,6 @@ namespace TerraDeGoshenAPI.Migrations
                     name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     description = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    background_text = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     category_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     cost_price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
